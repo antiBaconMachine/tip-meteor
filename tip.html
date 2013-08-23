@@ -3,8 +3,21 @@
 </head>
 
 <body>
-  {{> hello}}
+  {{> createButton}}
+  {{> listGames }}
 </body>
+
+<template name="createButton">
+    <a href="#" class="btn btn-large btn-primary">Create Game</a>
+</template>
+
+<template name="listGames">
+    <ul>
+        {{#each games}}
+            <li>{{title}}</li>
+        {{/each}}
+    </ul>
+</template>
 
 <template name="hello">
   <h1>Hello World!</h1>
