@@ -1,11 +1,33 @@
 <head>
-  <title>tip</title>
+    <title>tip</title>
 </head>
 
 <body>
-  {{> createButton}}
-  {{> listGames }}
+    
 </body>
+
+<template name="layout">
+    <div id="container">
+        <header>
+            <h1>
+                TIP
+            </h1>
+        </header>
+        <section id="main">
+            {{yield}}
+        </section>
+        <footer>
+        </footer>
+    </div>
+</template>
+
+<template name="index">
+    {{#if showCreateDialog}}
+        {{> createDialog}}
+    {{/if}}
+    {{> createButton}}
+    {{> listGames }}
+</template>
 
 <template name="createButton">
     <a href="#" class="btn btn-large btn-primary">Create Game</a>
@@ -14,13 +36,52 @@
 <template name="listGames">
     <ul>
         {{#each games}}
-            <li>{{title}}</li>
+            <li><a href="/game/{{_id}}">{{title}}</a></li>
         {{/each}}
     </ul>
 </template>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+<template name="showGame">
+    <h2>{{title}}</h2>
+    <ul id="players">
+        {{#each players}}
+        <li>
+            <span class="name">{{name}}</span>
+            <span class="race">{{race}}</span>
+        </li>
+        {{/each}}
+    </ul>
+    <form id="addplayer" name="addPlayer">
+        
+        <label>Name</label>
+        <input type="text" id="playerName">
+        
+        <label>Race</label>
+        <input type="text" id="playerRace">
+        
+        <input type="button" class="btn" id="btnAddPlayer" value="ok" />
+    </form>
+</template>
+
+<template name="createDialog">
+    <div class="mask"> </div>
+    <div class="modal">
+        <div class="modal-header">
+            <button type="button" class="close cancel">&times;</button>
+            <h3>Add Game</h3>
+        </div>
+
+        <div class="modal-body">
+            <label>Title</label>
+            <input type="text" class="title span5">
+
+            <label>Details</label>
+            <textarea class="description span5"></textarea>
+        </div>
+
+        <div class="modal-footer">
+            <a href="#" class="btn cancel">Cancel</a>
+            <a href="#" class="btn btn-primary save">Add Game</a>
+        </div>
+    </div>
 </template>

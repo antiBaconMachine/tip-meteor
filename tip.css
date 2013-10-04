@@ -1,1 +1,27 @@
 /* CSS declarations go here */
+body {
+    font-family: monospace;
+}
+
+div#container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+section#main {
+    
+}
+
+header, footer {
+    text-align: center;
+}
+
+header {
+    margin-bottom: 10px;
+    border-bottom: 2px dotted gray;
+}
+
+footer {
+    margin-top: 10px;
+    border-top: 2px dotted gray;
+}
