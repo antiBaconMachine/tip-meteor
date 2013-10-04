@@ -27,11 +27,12 @@ if (Meteor.isClient) {
         data: function() {
             var game = Session.get("currentGame")
             console.log("retrieving race selection for %o", game);
-            var selections = Meteor.call("raceSelection", game._id);
-            console.log("race selections %o", selections);
-            return _.extend({}, game, {
-                raceSelection : selections
+            Meteor.call("raceSelection", game._id, function(err, raceSelection) {
+                console.log(arguments);
+                console.log("raceSelection cb with %o", raceSelection);
+                Session.set("raceSelection", raceSelection);
             });
+            return game;
         },
         waitOn: function () {
             return Meteor.subscribe("gamesPub");
@@ -73,6 +74,9 @@ if (Meteor.isClient) {
             }
         }
     });
+    Template.showGame.raceSelection = function() {
+        return Session.get("raceSelection");
+    }
 
     Template.index.showCreateDialog = function() {
         return Session.get("showCreateDialog");
@@ -141,7 +145,7 @@ if (Meteor.isServer) {
                 game.players.push(player);
                 var id = Games.update(game._id, game);
             },
-            raceSelection : function(gameId, cb) {
+            raceSelection : function(gameId) {
                 var game = Games.findOne(gameId);
                 console.log("generating race selection for %j", game);
                 var picked = _.pluck(Games.findOne(gameId).players, "race");
@@ -151,7 +155,7 @@ if (Meteor.isServer) {
                         $nin : picked
                     }
                 }).fetch()).slice(0,3);
-                console.log("%s available races:\n%j", selection.length, selection);
+                console.log("%s available races: %j", selection.length, _.pluck(selection, "name"));
                 return selection;
             }
         });
