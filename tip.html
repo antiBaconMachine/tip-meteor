@@ -57,9 +57,9 @@
         <input type="text" id="playerName">
         
         <label>Race</label>
-        <input type="text" id="playerRace">
-        
-        <input type="button" class="btn" id="btnAddPlayer" value="ok" />
+        {{#each raceSelection}}
+        <a href="#" class="selectRace">{{name}}</a> 
+        {{/each}}
     </form>
 </template>
 
