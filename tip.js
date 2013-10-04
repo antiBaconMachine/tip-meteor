@@ -35,7 +35,7 @@ if (Meteor.isClient) {
             return game;
         },
         waitOn: function () {
-            return Meteor.subscribe("gamesPub");
+            return Meteor.subscribe("gamesPub", this.params._id);
         },
         show: function() {
             Session.set("currentGame", Games.findOne(this.params._id));
@@ -57,17 +57,15 @@ if (Meteor.isClient) {
     Template.showGame.events({
         'click a.selectRace': function(event, template) {
             event.preventDefault();
-            return false;
             var name = template.find("#playerName").value;
-            var race = template.find("#playerRace").value;
-
+            var race = $(event.target).data("raceid")
+            console.log("selecting race for player %s: %s",name,race);
             if (name && race) {
                 var player = {
                     name: name, 
                     race:race
                 };
                 var gameId = Session.get("currentGame")._id;
-                console.log("adding player %o to gameId %s", player, gameId);
                 Meteor.call("addPlayer", gameId, player);  
             } else {
                 console.error("supply name and race buttmunch");
@@ -124,24 +122,21 @@ if (Meteor.isServer) {
             } 
         });
         
-        Meteor.publish("gamesPub", function() { 
-            return Games.find() 
+        Meteor.publish("gamesPub", function(id) { 
+            return Games.find({_id : id}) 
         });
                 
         Meteor.methods({
-            createGame: function(game, cb) {
-                cb = cb || function(){};
+            createGame: function(game) {
                 game.players = [];
-                console.log("adding game %o with cb %f", game, cb);
-                var id = Games.insert(game);
-                if (id) {
-                    cb(false, game);
-                }
+                console.log("adding game %o", game);
+                if (!Games.insert(game)) throw "could not insert";
+                
             },
-            addPlayer: function(gameId, player, cb) {
+            addPlayer: function(gameId, player) {
                 var game = Games.findOne(gameId);
-                cb = cb || function() {};
                 console.info("Updating game %o with player %o", game, player);
+                player.race = Races.findOne(player.race);
                 game.players.push(player);
                 var id = Games.update(game._id, game);
             },

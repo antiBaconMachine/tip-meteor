@@ -47,7 +47,7 @@
         {{#each players}}
         <li>
             <span class="name">{{name}}</span>
-            <span class="race">{{race}}</span>
+            <span class="race">{{race.name}}</span>
         </li>
         {{/each}}
     </ul>
@@ -58,7 +58,7 @@
         
         <label>Race</label>
         {{#each raceSelection}}
-        <a href="#" class="selectRace">{{name}}</a> 
+        <a href="#" class="selectRace" data-raceId="{{_id}}" >{{name}}</a> 
         {{/each}}
     </form>
 </template>
