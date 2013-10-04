@@ -27,9 +27,8 @@ if (Meteor.isClient) {
         data: function() {
             var game = Session.get("currentGame")
             console.log("retrieving race selection for %o", game);
-            Meteor.call("raceSelection", game._id, function(err, data) {
-                Session.set("raceSelections", data);
-            });
+            var selections = Meteor.call("raceSelection", game._id);
+            console.log("race selections %o", selections);
             return _.extend({}, game, {
                 raceSelection : selections
             });
@@ -74,9 +73,6 @@ if (Meteor.isClient) {
             }
         }
     });
-    Template.showGame.raceSelections = function() {
-        return Session.get("raceSelections");
-    }
 
     Template.index.showCreateDialog = function() {
         return Session.get("showCreateDialog");
@@ -147,7 +143,6 @@ if (Meteor.isServer) {
             },
             raceSelection : function(gameId, cb) {
                 var game = Games.findOne(gameId);
-                cb = cb || function(){};
                 console.log("generating race selection for %j", game);
                 var picked = _.pluck(Games.findOne(gameId).players, "race");
                 console.log("pikced players %j", picked);
@@ -157,7 +152,7 @@ if (Meteor.isServer) {
                     }
                 }).fetch()).slice(0,3);
                 console.log("%s available races:\n%j", selection.length, selection);
-                cb(false, selection);
+                return selection;
             }
         });
     });
