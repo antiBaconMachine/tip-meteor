@@ -2,13 +2,24 @@ Races = new Meteor.Collection("races");
 Games = new Meteor.Collection("games");
 
 if (Meteor.isClient) {
-        
+    
+    Handlebars.registerHelper('eachMapEntries', function(context, options) {        
+        var ret = "";
+        $.each(context, function(key, value) {
+            var entry = {
+                "key": key, 
+                "value": value
+            };
+            ret = ret + options.fn(entry);
+        });
+        return ret;
+    });
+
+    
     //DOM setup function
     $(function() {
-        $("#container").on("click", "a", function(e) {
-
-            });
-    });
+     
+        });
     Router.configure({
         layout: 'layout'
     });
@@ -123,7 +134,9 @@ if (Meteor.isServer) {
         });
         
         Meteor.publish("gamesPub", function(id) { 
-            return Games.find({_id : id}) 
+            return Games.find({
+                _id : id
+            }) 
         });
                 
         Meteor.methods({

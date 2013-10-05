@@ -45,10 +45,6 @@
             {
 
                 "description": "You may spend a command counter from your strategy allocation, to immediately re-roll any of your die rolls."
-            },
-            {
-
-                "description": ""
             }
         ]
     },
@@ -91,10 +87,6 @@
             {
 
                 "description": "During the stratergy phase you may take one Trade Good token from up to two different players. Each such target player must have at least 3 trade goods on his race sheet."
-            },
-            {
-
-                "description": ""
             }
         ]
     },
@@ -133,14 +125,6 @@
             {
 
                 "description": "As an Action, you may spend one Command Counter from your Strategy Allocation to place 2 free Ground Forces on any 1 planet that you control."
-            },
-            {
-
-                "description": ""
-            },
-            {
-
-                "description": ""
             }
         ]
     },
@@ -179,14 +163,6 @@
             {
 
                 "description": "Your Fleets may always contain one more Ship than your number of Command Counters in your Fleet Supply (automatically shown in race card)."
-            },
-            {
-
-                "description": ""
-            },
-            {
-
-                "description": ""
             }
         ]
     },
@@ -267,18 +243,6 @@
             {
 
                 "description": "You receive +1 to all your Combat Rolls."
-            },
-            {
-
-                "description": ""
-            },
-            {
-
-                "description": ""
-            },
-            {
-
-                "description": ""
             }
         ]
     },
@@ -331,10 +295,6 @@
             {
 
                 "description": "Your Dreadnaught units receive +1 during Space Battles, and your Ground Force units receive +1 when attacking during Invasion Combat."
-            },
-            {
-
-                "description": ""
             }
         ]
     },
@@ -377,10 +337,6 @@
             {
 
                 "description": "The initiative number on your chosen Stratagy Card is always \"0\" (replacing the normal initiative number of the Stratagy Card)."
-            },
-            {
-
-                "description": ""
             }
         ]
     },
@@ -423,10 +379,6 @@
             {
 
                 "description": "Immediately after a PC has been drawn and read aloud, you may spend one Strategy CC to cancel the card, and force another PC to be drawn."
-            },
-            {
-
-                "description": ""
             }
         ]
     },
@@ -469,10 +421,6 @@
             {
 
                 "description": "You draw 1 additional AC during Status Phase. You are never limied to a hand size of ACs, regardless of the game rules and any active PCs."
-            },
-            {
-
-                "description": ""
             }
         ]
     }

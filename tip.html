@@ -3,27 +3,27 @@
 </head>
 
 <body>
-    
+
 </body>
 
 <template name="layout">
-    <div id="container">
-        <header>
-            <h1>
+    <div id="container" >
+        <header class="row-fluid">
+            <h1 class="span12">
                 TIP
             </h1>
         </header>
-        <section id="main">
+        <section id="main" class="row-fluid">
             {{yield}}
         </section>
-        <footer>
+        <footer class="row-fluid">
         </footer>
     </div>
 </template>
 
 <template name="index">
     {{#if showCreateDialog}}
-        {{> createDialog}}
+    {{> createDialog}}
     {{/if}}
     {{> createButton}}
     {{> listGames }}
@@ -36,14 +36,14 @@
 <template name="listGames">
     <ul>
         {{#each games}}
-            <li><a href="/game/{{_id}}">{{title}}</a></li>
+        <li><a href="/game/{{_id}}">{{title}}</a></li>
         {{/each}}
     </ul>
 </template>
 
 <template name="showGame">
     <h2>{{title}}</h2>
-    <ul id="players">
+    <ul id="players" class="">
         {{#each players}}
         <li>
             <span class="name">{{name}}</span>
@@ -51,16 +51,59 @@
         </li>
         {{/each}}
     </ul>
-    <form id="addplayer" name="addPlayer">
-        
-        <label>Name</label>
-        <input type="text" id="playerName">
-        
+    <form id="addplayer" name="addPlayer" >
+        <div class="">
+            <label>Name</label>
+            <input type="text" id="playerName">
+        </div>
+
         <label>Race</label>
-        {{#each raceSelection}}
-        <a href="#" class="selectRace" data-raceId="{{_id}}" >{{name}}</a> 
-        {{/each}}
+        <div>
+
+            {{#each raceSelection}}
+            {{>raceCard}}
+            {{/each}}
+
+        </div>
+
     </form>
+</template>
+
+<template name="raceCard">
+    <div id="raceCard" class="span4">
+        <h3><a href="#" class="selectRace" data-raceId="{{_id}}" >{{name}}</a></h3>
+        <div class="span5">
+            <h4>Units</h4>
+            <table class="startingUnits">
+               
+                {{#eachMapEntries startingUnits}}
+                <tr>
+                    <td>{{this.key}}</td>
+                    <td>{{this.value}}</td>
+                </tr>
+                {{/eachMapEntries}}
+            </table>
+        </div>
+
+        <div class="span6">
+            <h4>Technologies</h4>
+            <ul class="technologies">
+                {{#each startingTechnologies}}
+                    <li>{{name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <div class="span12">
+            <h4>Abilities</h4>
+            <ul class="abilities">
+                {{#each specialAbilities}}
+                <li>{{description}}</li>
+                {{/each}}
+            </ul>
+        </div>
+
+    </div>
 </template>
 
 <template name="createDialog">
