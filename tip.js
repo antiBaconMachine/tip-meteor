@@ -15,11 +15,6 @@ if (Meteor.isClient) {
         return ret;
     });
 
-    
-    //DOM setup function
-    $(function() {
-     
-        });
     Router.configure({
         layout: 'layout'
     });
@@ -36,22 +31,23 @@ if (Meteor.isClient) {
 
     GameController = RouteController.extend({
         data: function() {
-            var game = Session.get("currentGame")
-            console.log("retrieving race selection for %o", game);
-            Meteor.call("raceSelection", game._id, function(err, raceSelection) {
-                console.log(arguments);
-                console.log("raceSelection cb with %o", raceSelection);
-                Session.set("raceSelection", raceSelection);
-            });
-            return game;
+            return Session.get("currentGame");
         },
         waitOn: function () {
             return Meteor.subscribe("gamesPub", this.params._id);
         },
         show: function() {
-            Session.set("currentGame", Games.findOne(this.params._id));
-            console.log("Set currentGame to %o", Session.get("currentGame"));
-            this.render();
+            var game = Games.findOne(this.params._id);
+            if (game) {
+                var user = Meteor.user();
+                var currentPlayer = game.players[user._id];
+                if (currentPlayer && !currentPlayer.race && currentPlayer.raceSelection) {
+                    Session.set("raceSelection", currentPlayer.raceSelection);
+                }
+                Session.set("currentGame", game);
+                Session.set("currentPlayer", currentPlayer);
+                this.render();
+            }
         }
     });
 
@@ -60,24 +56,36 @@ if (Meteor.isClient) {
     };
 
     Template.index.events({
-        'click #btnCreateGame': openCreateDialog
+        'click #btnCreateGame': function() {
+            console.info("creating game");
+            openCreateDialog();
+        }
     });
 
     Template.showGame.events({
+        'click #btnJoinGame' : function() {
+            var gameId = Session.get("currentGame")._id;
+            var playerId = Meteor.user()._id;
+            console.info("joining game id %s with player %s", gameId, playerId);
+            
+            Meteor.call("addPlayer", gameId, playerId, function(err, player) {
+                console.info("add player cb %o", player, err);
+                Session.set("raceSelection", player.raceSelection);
+            });
+        },
         'click a.selectRace': function(event, template) {
             event.preventDefault();
-            var name = Meteor.user().username;
-            var race = $(event.target).data("raceid")
-            console.log("selecting race for player %s: %s",name,race);
-            if (name && race) {
-                var player = {
-                    name: name, 
-                    race:race
-                };
-                var gameId = Session.get("currentGame")._id;
-                Meteor.call("addPlayer", gameId, player);  
+            var userId = Meteor.user()._id;
+            var raceId = $(event.target).data("raceid")
+            var gameId = Session.get("currentGame")._id;
+            console.log("selecting race for player %s: %s",name,raceId);
+            if (userId && raceId) {
+                Meteor.call("selectRace", gameId, userId, raceId, function(err, player) {
+                    Session.set("currentPlayer", player);
+                    Session.set("raceSelection");
+                });  
             } else {
-                console.error("supply name and race buttmunch");
+                console.error("supply user, race and game IDs buttmunch");
             }
         }
     });
@@ -118,6 +126,7 @@ if (Meteor.isClient) {
     });
 
     var openCreateDialog = function() {
+        console.info("hi");
         Session.set("createError", null);
         Session.set("showCreateDialog", true);
     };
@@ -143,31 +152,53 @@ if (Meteor.isServer) {
                 
         Meteor.methods({
             createGame: function(game) {
-                game.players = [];
+                game.players = {};
                 console.log("adding game %o", game);
                 if (!Games.insert(game)) throw "could not insert";
                 
             },
-            addPlayer: function(gameId, player) {
+            addPlayer: function(gameId, playerId) {
                 var game = Games.findOne(gameId);
-                console.info("Updating game %o with player %o", game, player);
-                player.race = Races.findOne(player.race);
-                game.players.push(player);
+                console.info("Updating game %o with player %o", game, playerId);
+                if (_.has(game.players, playerId)) {
+                    throw "Player already in game";
+                }
+                var player = {
+                    race : null,
+                    raceSelection : generateRaceSelection(gameId),
+                    _id : playerId
+                };
+                game.players[playerId] = player;
                 var id = Games.update(game._id, game);
+                return player;
             },
-            raceSelection : function(gameId) {
+            selectRace : function(gameId, playerId, raceId) {
                 var game = Games.findOne(gameId);
-                console.log("generating race selection for %j", game);
-                var picked = _.pluck(Games.findOne(gameId).players, "race");
-                console.log("pikced players %j", picked);
-                var selection = _.shuffle(Races.find({
-                    _id : {
-                        $nin : picked
-                    }
-                }).fetch()).slice(0,3);
-                console.log("%s available races: %j", selection.length, _.pluck(selection, "name"));
-                return selection;
+                var player = game.players[playerId];
+                var raceIds = _.pluck(player.raceSelection, "_id");
+                if (!_.contains(raceIds, raceId)) {
+                    console.error("Selected race $s is not is valid set of selections %j", raceId, raceIds);
+                    throw "Illegal race selection";
+                }
+                player.race = raceId;
+                game.players[playerId] = player;
+                Games.update(game._id, game);
+                return player;
             }
         });
     });
+    
+    var generateRaceSelection = function(gameId) {
+        var game = Games.findOne(gameId);
+        console.log("generating race selection for %j", game);
+        var picked = _.pluck(Games.findOne(gameId).players, "race");
+        console.log("pikced players %j", picked);
+        var selection = _.shuffle(Races.find({
+            _id : {
+                $nin : picked
+            }
+        }).fetch()).slice(0,3);
+        console.log("%s available races: %j", selection.length, _.pluck(selection, "name"));
+        return selection;
+    }
 }

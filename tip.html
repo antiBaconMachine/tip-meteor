@@ -25,13 +25,13 @@
 
 <template name="index">
     {{#if currentUser}}
-        {{#if showCreateDialog}}
-            {{> createDialog}}
-        {{/if}}
-        <a href="#" id="btnCreateGame" class="btn btn-large btn-primary">Create Game</a>
-        {{> listGames }}
+    {{#if showCreateDialog}}
+    {{> createDialog}}
+    {{/if}}
+    <a href="#" id="btnCreateGame" class="btn btn-primary">Create Game</a>
+    {{> listGames }}
     {{else}}
-        Please sign in to view or create games
+    Please sign in to view or create games
     {{/if}}
 </template>
 
@@ -48,8 +48,8 @@
     <ul id="players" class="">
         {{#each players}}
         <li>
-            <span class="name">{{name}}</span>
-            <span class="race">{{race.name}}</span>
+            <span class="name">{{_id}}</span>
+            <span class="race">{{race}}</span>
         </li>
         {{/each}}
     </ul>
@@ -58,12 +58,17 @@
             <label>{{screenName}}</label>
         </div>
 
-        <label>Race</label>
-        <div>
-            {{#each raceSelection}}
+        {{#if raceSelection}}
+            <label>Race</label>
+            <div>
+                {{#each raceSelection}}
                 {{>raceCard}}
-            {{/each}}
-        </div>
+                {{/each}}
+            </div>
+        {{else}}
+             <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
+        {{/if}}
+
 
     </form>
 </template>
