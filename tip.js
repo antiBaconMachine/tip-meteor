@@ -59,16 +59,14 @@ if (Meteor.isClient) {
         return Games.find();
     };
 
-    Template.createButton.events({
-        'click .btn': function() {
-            openCreateDialog();
-        }
+    Template.index.events({
+        'click #btnCreateGame': openCreateDialog
     });
 
     Template.showGame.events({
         'click a.selectRace': function(event, template) {
             event.preventDefault();
-            var name = template.find("#playerName").value;
+            var name = Meteor.user().username;
             var race = $(event.target).data("raceid")
             console.log("selecting race for player %s: %s",name,race);
             if (name && race) {
@@ -85,6 +83,10 @@ if (Meteor.isClient) {
     });
     Template.showGame.raceSelection = function() {
         return Session.get("raceSelection");
+    }
+    Template.showGame.screenName = function() {
+        var user = Meteor.user();
+        return user.username || (user.emails.length ? user.emails[0].address : "");
     }
 
     Template.index.showCreateDialog = function() {

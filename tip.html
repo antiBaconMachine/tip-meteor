@@ -12,25 +12,27 @@
             <h1 class="span12">
                 TIP
             </h1>
+            {{loginButtons align="right"}}
         </header>
         <section id="main" class="row-fluid">
             {{yield}}
         </section>
         <footer class="row-fluid">
+
         </footer>
     </div>
 </template>
 
 <template name="index">
-    {{#if showCreateDialog}}
-    {{> createDialog}}
+    {{#if currentUser}}
+        {{#if showCreateDialog}}
+            {{> createDialog}}
+        {{/if}}
+        <a href="#" id="btnCreateGame" class="btn btn-large btn-primary">Create Game</a>
+        {{> listGames }}
+    {{else}}
+        Please sign in to view or create games
     {{/if}}
-    {{> createButton}}
-    {{> listGames }}
-</template>
-
-<template name="createButton">
-    <a href="#" class="btn btn-large btn-primary">Create Game</a>
 </template>
 
 <template name="listGames">
@@ -53,17 +55,14 @@
     </ul>
     <form id="addplayer" name="addPlayer" >
         <div class="">
-            <label>Name</label>
-            <input type="text" id="playerName">
+            <label>{{screenName}}</label>
         </div>
 
         <label>Race</label>
         <div>
-
             {{#each raceSelection}}
-            {{>raceCard}}
+                {{>raceCard}}
             {{/each}}
-
         </div>
 
     </form>
@@ -75,7 +74,7 @@
         <div class="span5">
             <h4>Units</h4>
             <table class="startingUnits">
-               
+
                 {{#eachMapEntries startingUnits}}
                 <tr>
                     <td>{{this.key}}</td>
@@ -89,7 +88,7 @@
             <h4>Technologies</h4>
             <ul class="technologies">
                 {{#each startingTechnologies}}
-                    <li>{{name}}</li>
+                <li>{{name}}</li>
                 {{/each}}
             </ul>
         </div>

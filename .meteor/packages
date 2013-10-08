@@ -10,3 +10,5 @@ preserve-inputs
 bootstrap
 
 iron-router
+accounts-password
+accounts-ui
