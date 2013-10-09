@@ -2,6 +2,8 @@ Races = new Meteor.Collection("races");
 Games = new Meteor.Collection("games");
 
 if (Meteor.isClient) {
+    Meteor.subscribe("allGames", this.userId);
+    Meteor.subscribe("races");
     
     Handlebars.registerHelper('eachMapEntries', function(context, options) {        
         var ret = "";
@@ -91,11 +93,25 @@ if (Meteor.isClient) {
     });
     Template.showGame.raceSelection = function() {
         return Session.get("raceSelection");
-    }
-    Template.showGame.screenName = function() {
+    };
+    Template.showGame.screenName = function(id) {
+        //TODO optionally use passed id
         var user = Meteor.user();
         return user.username || (user.emails.length ? user.emails[0].address : "");
-    }
+    };
+    Template.showGame.players = function() {
+        var players = [];
+        console.log(this.players);
+        _.each(this.players, function(player) {
+           if (player.race) {
+               players.push({
+                   name : player._id,
+                   race : Races.findOne(player.race).name
+               });
+           } 
+        });
+        return players;
+    };
 
     Template.index.showCreateDialog = function() {
         return Session.get("showCreateDialog");
@@ -149,7 +165,14 @@ if (Meteor.isServer) {
                 _id : id
             }) 
         });
+        
+        Meteor.publish("allGames", function(userId) {
+           return Games.find(); 
+        });
                 
+        Meteor.publish("races", function() {
+           return Races.find(); 
+        });
         Meteor.methods({
             createGame: function(game) {
                 game.players = {};
