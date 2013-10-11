@@ -1,0 +1,29 @@
+<template name="showGame">
+    <h2>{{title}}</h2>
+    <ul id="players" class="">
+        {{#each players}}
+        <li>
+            <span class="name">{{name}}</span>
+            <span class="race">{{race}}</span>
+        </li>
+        {{/each}}
+    </ul>
+    <form id="addplayer" name="addPlayer" >
+        <div class="">
+            <label>{{screenName}}</label>
+        </div>
+
+        {{#if raceSelection}}
+            <label>Race</label>
+            <div>
+                {{#each raceSelection}}
+                {{>raceCard}}
+                {{/each}}
+            </div>
+        {{else}}
+             <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
+        {{/if}}
+
+
+    </form>
+</template>

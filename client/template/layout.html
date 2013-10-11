@@ -1,0 +1,16 @@
+<template name="layout">
+    <div id="container" >
+        <header class="row-fluid">
+            <h1 class="span12">
+                <a href="/" id="appTitle">TIP</a>
+            </h1>
+            {{loginButtons align="right"}}
+        </header>
+        <section id="main" class="row-fluid">
+            {{yield}}
+        </section>
+        <footer class="row-fluid">
+
+        </footer>
+    </div>
+</template>
