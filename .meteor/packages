@@ -11,3 +11,4 @@ bootstrap
 iron-router
 accounts-password
 accounts-ui
+accounts-facebook
