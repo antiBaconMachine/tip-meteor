@@ -17,5 +17,8 @@ gameController = RouteController.extend({
             Session.set("currentPlayer", currentPlayer);
             this.render();
         }
+    },
+    create: function() {
+        this.render();
     }
 });

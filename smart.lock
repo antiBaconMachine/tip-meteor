@@ -2,13 +2,30 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "iron-router": {}
+      "iron-router": {},
+      "collection2": {},
+      "autoform": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.5.4",
         "commit": "3e0e22ff85630b7503d0daa1538c6d90abb84020"
+      },
+      "collection2": {
+        "git": "https://github.com/aldeed/meteor-collection2.git",
+        "tag": "v0.2.11",
+        "commit": "34ea61718c8826dfa9236222cec6c097bd41ae6b"
+      },
+      "autoform": {
+        "git": "https://github.com/aldeed/meteor-autoform.git",
+        "tag": "v0.3.6",
+        "commit": "2d6978587136d9943a3fd2f7b83f27fa8fec5916"
+      },
+      "simple-schema": {
+        "git": "https://github.com/aldeed/meteor-simple-schema.git",
+        "tag": "v0.2.10",
+        "commit": "64d41a9ec7f220ecc63d22a5f1056c5926651b82"
       }
     }
   }

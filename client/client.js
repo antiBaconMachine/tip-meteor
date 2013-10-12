@@ -21,8 +21,13 @@ Router.map(function() {
         path: '/'
     });
     this.route('showGame', {
-        path: '/game/:_id',
+        path: '/game/show/:_id',
         controller: 'gameController',
         action: 'show'
+    });
+    this.route('createGame', {
+        path : '/game/create',
+        controller : 'gameController',
+        action : 'create'
     });
 });

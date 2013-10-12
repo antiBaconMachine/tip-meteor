@@ -1,9 +1,6 @@
 <template name="index">
     {{#if currentUser}}
-    {{#if showCreateDialog}}
-    {{> createDialog}}
-    {{/if}}
-    <a href="#" id="btnCreateGame" class="btn btn-primary">Create Game</a>
+    <a href="/game/create" id="btnCreateGame" class="btn btn-primary">Create Game</a>
     {{> listGames }}
     {{else}}
     Please sign in to view or create games
