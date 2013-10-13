@@ -1,7 +1,7 @@
 <template name="listGames">
     <ul>
         {{#each games}}
-        <li><a href="/game/{{_id}}">{{title}}</a></li>
+        <li><a href="/game/show/{{_id}}">{{name}}</a></li>
         {{/each}}
     </ul>
 </template>

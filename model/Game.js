@@ -21,36 +21,44 @@ SELECTION_METHODS = {
 };
 
 Games = new Meteor.Collection2("games", {
-    schema : {
-        name : {
-            type : String
+    schema: {
+        name: {
+            type: String
         },
-        date : {
-            type : Date
+        date: {
+            type: Date
         },
-        location : {
-            type : String
+        location: {
+            type: String
         },
-        description : {
-            type : String,
-            optional : true
+        description: {
+            type: String,
+            optional: true
         },
-        selectionMethod : {
-            type : String
+        selectionMethod: {
+            type: String
         },
-        countRaces : {
-            type : Number,
-            optional : true,
-            min : 2,
-            max : 5
+        countRaces: {
+            type: Number,
+            optional: true,
+            min: 2,
+            max: 5
         },
-        maxPlayers : {
-            type : Number,
-            min : 3,
-            max : 8
+        maxPlayers: {
+            type: Number,
+            min: 3,
+            max: 8
         },
-        racePool : {
-            type : [String]
+        racePool: {
+            type: [String]
+        },
+        players: {
+            type: Object
         }
     }
 });
+Games.beforeInsert = function(game) {
+    game.players = {};
+    console.info("Before insert game is %o", game);
+    return game;
+};
