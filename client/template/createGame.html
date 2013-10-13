@@ -1,39 +1,24 @@
 <template name="createGame">
-    <label>Title</label>
-    <input type="text" class="title span5"/>
-
-    <label>Date</label>
-    <input type="text" class="date"/>
-
-    <label>Location</label>
-    <input type="text" class="location"/>
-
-    <label>Details</label>
-    <textarea class="description span5"></textarea>
-
-    <div id="newGameOptions">
-        <label>Selection method</label>
-        {{#each selectionMethod}}
-        <input name="selectionMethod" type="radio" value="{{method}}" {{checked}}">{{label}}</input>
-        {{/each}}
-
+    {{#autoForm schema="Games" id="insertGameForm"}}
+    <fieldset id="details">
+        <legend>Game details</legend>
+        {{afQuickField 'name' id='name'}}
+        {{afQuickField 'date' id='date'}}
+        {{afQuickField 'location' id='location'}}
+        {{afQuickField 'description' rows='5' id='description'}}
+    </fieldset>
+    <fieldset id="options">
+        <legend>
+            Game options
+        </legend>
+        {{afQuickField 'selectionMethod' options=selectionMethod noselect="true" title=description class='selectionMethod'}}
         {{#if isCountRaces}}
-        <select name="noRaces" id="noRaces">
-            {{#each countRaces}}
-            <option value="{{this}}">{{this}}</option>
-            {{/each}}
-        </select>
+            {{afQuickField 'countRaces' options=countRaces id='countRaces'}}
         {{/if}}
-
-        <label>Max number of players</label>
-        <select name="maxPlayers" id="maxPlayers">
-            {{#each maxPlayers}}
-            <option value="{{this}}">{{this}}</option>
-            {{/each}}
-        </select>
-
-    </div>
-
+        {{afQuickField 'maxPlayers' options=maxPlayers id='maxPlayers'}}
+        {{afQuickField 'racePool' options=racePool noselect="true" checked='checked' class='racePool'}}
+    </fieldset>
     <a href="/" class="btn cancel">Cancel</a>
-    <a href="#" class="btn btn-primary save">Add Game</a>
+    <button type="submit" class="btn btn-primary insert">Add game</button>
+    {{/autoForm}}
 </template>
