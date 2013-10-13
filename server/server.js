@@ -23,26 +23,27 @@ Meteor.startup(function() {
         return Races.find();
     });
     Meteor.methods({
-        createGame: function(game) {
-            game.players = {};
-            console.log("adding game %o", game);
-            if (!Games.insert(game))
-                throw "could not insert";
-
-        },
         addPlayer: function(gameId, playerId) {
+            console.info("Add player");
             var game = Games.findOne(gameId);
-            console.info("Updating game %o with player %o", game, playerId);
-            if (_.has(game.players, playerId)) {
+            console.info("Updating game %j with player %s", game, playerId);
+            if (_.has(_.pluck(game.players, "_id"), playerId)) {
                 throw "Player already in game";
             }
             var player = {
                 race: null,
-                raceSelection: generateRaceSelection(gameId),
+                raceSelection: generateRaceSelection(game),
                 _id: playerId
             };
-            game.players[playerId] = player;
-            var id = Games.update(game._id, game);
+            console.info("%j",game);
+            game.players.push(player);
+            var context = Games.simpleSchema().newContext();
+            context.validate(game);
+            console.info(context.invalidKeys());
+            console.info(game.raceSelection);
+            console.info(typeof game.raceSelection);
+            console.info(game.raceSelection.length);
+            Games.insert(game);
             return player;
         },
         selectRace: function(gameId, playerId, raceId) {
@@ -61,14 +62,15 @@ Meteor.startup(function() {
     });
 });
 
-var generateRaceSelection = function(gameId) {
-    var game = Games.findOne(gameId);
+var generateRaceSelection = function(game) {
     console.log("generating race selection for %j", game);
-    var picked = _.pluck(Games.findOne(gameId).players, "race");
-    console.log("pikced players %j", picked);
+    var notList = _.flatten(_.collect(game.players, function(player) {
+        return player.race || player.raceSelection;
+    }));
+    console.log("disalowed races %j", notList);
     var selection = _.shuffle(Races.find({
         _id: {
-            $nin: picked
+            $nin: notList
         }
     }).fetch()).slice(0, 3);
     console.log("%s available races: %j", selection.length, _.pluck(selection, "name"));

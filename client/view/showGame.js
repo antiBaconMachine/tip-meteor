@@ -31,7 +31,15 @@ Template.showGame.raceSelection = function() {
 Template.showGame.screenName = function(id) {
     //TODO optionally use passed id
     var user = Meteor.user();
-    return user.username || (user.emails.length ? user.emails[0].address : "");
+    if (user.profile && user.profile.name) {
+        return user.profile.name;
+    } else if (user.username) {
+        return user.username;
+    } else if (user.emails && user.emails.length) {
+        return user.emails[0].address;
+    } else {
+        return user._id;
+    }
 };
 Template.showGame.players = function() {
     var players = [];

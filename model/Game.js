@@ -53,12 +53,28 @@ Games = new Meteor.Collection2("games", {
             type: [String]
         },
         players: {
-            type: Object
+            type: [Object],
+            minCount : 0
+        },
+        "players.$.race": {
+            type : String,
+            optional : true
+        },
+        "players.$.raceSelection": {
+            type : [String]
+        },
+        "players.$._id": {
+            type : String
+        },
+        _id: {
+            type: String,
+            optional: true
         }
     }
 });
 Games.beforeInsert = function(game) {
-    game.players = {};
-    console.info("Before insert game is %o", game);
+    game.players = [];
+    //TODO this is bullshit, why do we have to do it?
+    game.maxPlayers = 1*game.maxPlayers;
     return game;
 };
