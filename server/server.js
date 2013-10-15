@@ -32,18 +32,16 @@ Meteor.startup(function() {
             }
             var player = {
                 race: null,
-                raceSelection: generateRaceSelection(game),
+                raceSelection: _.pluck(generateRaceSelection(game), "_id"),
                 _id: playerId
             };
-            console.info("%j",game);
+            console.info("pushing player %j",player);
             game.players.push(player);
             var context = Games.simpleSchema().newContext();
             context.validate(game);
-            console.info(context.invalidKeys());
-            console.info(game.raceSelection);
-            console.info(typeof game.raceSelection);
-            console.info(game.raceSelection.length);
-            Games.insert(game);
+            console.info("Invalid keys : %j", context.invalidKeys());
+            //fails validation if using collection2
+            Games._collection.update({_id : game._id}, {$push : {players : player}});
             return player;
         },
         selectRace: function(gameId, playerId, raceId) {
