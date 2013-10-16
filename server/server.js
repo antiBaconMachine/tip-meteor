@@ -36,12 +36,15 @@ Meteor.startup(function() {
                 _id: playerId
             };
             console.info("pushing player %j",player);
+            var mod = {$push : {players : player}};
             game.players.push(player);
             var context = Games.simpleSchema().newContext();
-            context.validate(game);
+            context.validate(mod, {modifier : true});
             console.info("Invalid keys : %j", context.invalidKeys());
+            
+            console.info(Games.validate(mod, {modifier : true}));
             //fails validation if using collection2
-            Games._collection.update({_id : game._id}, {$push : {players : player}});
+            Games._collection.update({_id : game._id}, mod);
             return player;
         },
         selectRace: function(gameId, playerId, raceId) {
