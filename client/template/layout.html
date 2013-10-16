@@ -1,16 +1,22 @@
 <template name="layout">
-    <div id="container" class="fullWidth">
-        <header class="row-fluid">
-            <h1 class="span12 header__title t-serif">
-                <a href="/" id="appTitle">Twilight Imperium Race Picker</a>
-            </h1>
-            {{loginButtons align="right"}}
-        </header>
-        <section id="main" class="row-fluid">
-            {{yield}}
-        </section>
-        <footer class="row-fluid">
+        <div id="wrapper" class="wrapper">
+            <header class="row-fluid">
+                <div class="content">
 
+                    <h1 class="span12 header__title">
+                        <a href="/" id="appTitle" class="header__title__a">Twilight Imperium Race Picker</a>
+                    </h1>
+                    <div class="bottom-right">    
+                        {{loginButtons align="right"}}
+                    </div>
+                </div>
+            </header>
+            <section id="main">
+                {{yield}}
+            </section>
+            <div class="push"></div>
+        </div>
+        <footer class="row-fluid">
+            
         </footer>
-    </div>
 </template>

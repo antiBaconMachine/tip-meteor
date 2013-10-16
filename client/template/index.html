@@ -1,9 +1,10 @@
 <template name="index">
+    <div class="content">
     {{#if currentUser}}
     <a href="/game/create" id="btnCreateGame" class="btn btn-primary">Create Game</a>
     {{> listGames }}
     {{else}}
     Please sign in to view or create games
     {{/if}}
-    
+    </div>
 </template>
