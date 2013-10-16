@@ -1,6 +1,7 @@
 /* CSS declarations go here */
 body {
-    font-family: monospace;
+    margin: 0;
+    padding: 0;
 }
 
 ul {
@@ -9,29 +10,37 @@ ul {
     padding:0;
 }
 
-div#container {
-   margin: 0 auto;
-   width: 80%;
-   
+.fullWidth {
+    width : 100%;
+    margin: 0 auto;
 }
 
-section#main {
+#main {
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 header, footer {
-    text-align: center;
+    
+}
+
+.t-serif {
+    font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
 }
 
 header {
-    margin-bottom: 10px;
-    border-bottom: 2px dotted gray;
+    margin: 0;
+    height: 300px;
+    background-image: url(/images/header.png);
+}
+.header__title {
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
 }
 
 footer {
-    margin-top: 10px;
-    border-top: 2px dotted gray;
+    
 }
 
 #raceCard {
