@@ -49,22 +49,3 @@ Template.createGame.helpers({
         });
     },
 });
-
-var dataFromTemplate = function(template) {
-    return {
-        name: template.find("#name").value,
-        description: template.find("#description").value,
-        date: template.find("#date").value,
-        location: template.find("#location").value,
-        selectionMethod: template.find(".selectionMethod:checked").value,
-        countRaces: template.find("#countRaces").value,
-        maxPlayers: template.find("#maxPlayers").value,
-        racePool: template.find(".racePool:checked").value
-    };
-};
-
-var saveGame = function(template) {
-    var data = dataFromTemplate(template);
-    //TODO validate
-    Meteor.call('createGame', data);
-};

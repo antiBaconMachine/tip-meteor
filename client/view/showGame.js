@@ -25,32 +25,48 @@ Template.showGame.events({
         }
     }
 });
-Template.showGame.raceSelection = function() {
-    return Session.get("raceSelection");
-};
-Template.showGame.screenName = function(id) {
-    //TODO optionally use passed id
-    var user = Meteor.user();
-    if (user.profile && user.profile.name) {
-        return user.profile.name;
-    } else if (user.username) {
-        return user.username;
-    } else if (user.emails && user.emails.length) {
-        return user.emails[0].address;
-    } else {
-        return user._id;
-    }
-};
-Template.showGame.players = function() {
-    var players = [];
-    console.log(this.players);
-    _.each(this.players, function(player) {
-        if (player.race) {
-            players.push({
-                name: player._id,
-                race: Races.findOne(player.race).name
-            });
+Template.showGame.helpers({
+    raceSelection: function() {
+        return Session.get("raceSelection");
+    },
+    screenName: function(id) {
+        //TODO optionally use passed id
+        var user = Meteor.user();
+        if (user.profile && user.profile.name) {
+            return user.profile.name;
+        } else if (user.username) {
+            return user.username;
+        } else if (user.emails && user.emails.length) {
+            return user.emails[0].address;
+        } else {
+            return user._id;
         }
+    },
+    players: function() {
+        var players = [];
+        console.log(this.players);
+        _.each(this.players, function(player) {
+            if (player.race) {
+                players.push({
+                    name: player._id,
+                    race: Races.findOne(player.race).name
+                });
+            }
+        });
+        return players;
+    },
+    isLivePlayer: function() {
+        return getLivePlayer(this.players);
+    },
+    myRace: function() {
+        var player = getLivePlayer(this.players);
+        if (player) {
+            return Races.findOne(player.race);
+        }
+    }
+});
+var getLivePlayer = function(players) {
+    return _.find(players, function(player) {
+        return player._id === Meteor.user()._id && player.race;
     });
-    return players;
 };

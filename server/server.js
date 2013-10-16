@@ -30,34 +30,45 @@ Meteor.startup(function() {
             if (_.has(_.pluck(game.players, "_id"), playerId)) {
                 throw "Player already in game";
             }
+            var raceSelection = generateRaceSelection(game);
             var player = {
                 race: null,
-                raceSelection: _.pluck(generateRaceSelection(game), "_id"),
+                raceSelection: _.pluck(raceSelection, "_id"),
                 _id: playerId
             };
-            console.info("pushing player %j",player);
-            var mod = {$push : {players : player}};
+            console.info("pushing player %j", player);
+            var mod = {$push: {players: player}};
             game.players.push(player);
-            var context = Games.simpleSchema().newContext();
-            context.validate(mod, {modifier : true});
-            console.info("Invalid keys : %j", context.invalidKeys());
+
+//          Debug validation errors
+//          var context = Games.simpleSchema().newContext();
+//          context.validate(mod, {modifier : true});
+//          console.info("Invalid keys : %j", context.invalidKeys());
+//          console.info(Games.validate(mod, {modifier : true}));
+
+            //fails validation if using collection2 for unknown reasons, using wrapped collection for now
+            Games._collection.update({_id: game._id}, mod);
             
-            console.info(Games.validate(mod, {modifier : true}));
-            //fails validation if using collection2
-            Games._collection.update({_id : game._id}, mod);
+            //return a player object with resolved raceSelections instead of the db object which just has race ids
+            player.raceSelection = raceSelection;
             return player;
         },
         selectRace: function(gameId, playerId, raceId) {
             var game = Games.findOne(gameId);
-            var player = game.players[playerId];
-            var raceIds = _.pluck(player.raceSelection, "_id");
-            if (!_.contains(raceIds, raceId)) {
-                console.error("Selected race $s is not is valid set of selections %j", raceId, raceIds);
+            //TODO something more efficient for player retrieval. We used to store 
+            //players under id key bt this caused issues with simple schema. 
+            //We need to rework the schema if we continue using simple schema 
+            //as there doesn't seem to be a clean way to specify arbitrary 
+            //key value collections 
+            var player = _.find(game.players, function(player) {
+                return player._id === playerId;
+            });
+            if (!_.contains(player.raceSelection, raceId)) {
+                console.error("Selected race $s is not in valid set of selections %j", raceId, player.raceSelection);
                 throw "Illegal race selection";
             }
             player.race = raceId;
-            game.players[playerId] = player;
-            Games.update(game._id, game);
+            Games.update({_id : gameId, "players._id" : playerId}, {$set : {"players.$.race" : raceId}})
             return player;
         }
     });
@@ -69,11 +80,16 @@ var generateRaceSelection = function(game) {
         return player.race || player.raceSelection;
     }));
     console.log("disalowed races %j", notList);
-    var selection = _.shuffle(Races.find({
+    var selection = Races.find({
         _id: {
             $nin: notList
         }
-    }).fetch()).slice(0, 3);
+    }).fetch();
+    console.info(game.selectionMethod);
+    if (game.selectionMethod === SELECTION_METHODS.PICK_FROM_SELECTION.key || game.selectionMethod === SELECTION_METHODS.RANDOM.key) {
+        //TODO: when underscore smart package is updated to use 1.5.2 we can use _.sample()
+        selection = _.shuffle(selection).slice(0, (game.countRaces || 1));
+    }
     console.log("%s available races: %j", selection.length, _.pluck(selection, "name"));
     return selection;
-}
+};

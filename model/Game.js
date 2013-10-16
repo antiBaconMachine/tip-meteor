@@ -78,3 +78,11 @@ Games.beforeInsert = function(game) {
     game.maxPlayers = 1*game.maxPlayers;
     return game;
 };
+Games.callbacks({
+    insert : function(error, gameId) {
+        console.log(gameId);
+        if (!error) {
+            Router.go(Router.path("showGame", {_id : gameId}));
+        }
+    }
+});

@@ -21,7 +21,11 @@
                 {{/each}}
             </div>
         {{else}}
+            {{#if isLivePlayer}}
+             {{>raceCard myRace}}
+            {{else}}
              <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
+            {{/if}}
         {{/if}}
 
 
