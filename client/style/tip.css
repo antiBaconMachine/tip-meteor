@@ -45,6 +45,10 @@ header {
     color: inherit;
 }
 
+.breathe {
+    padding: 2em 0;
+}
+
 footer {
     background-position: bottom left;
     height: 155px;

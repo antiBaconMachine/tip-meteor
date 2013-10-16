@@ -1,0 +1,6 @@
+/* ====== media ====== */
+.media {margin:10px;}
+.media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+.media__img {float:left; margin-right: 10px;}
+.media__img__img{display:block;}
+.media__imgExt{float:right; margin-left: 10px;}
