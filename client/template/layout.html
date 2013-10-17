@@ -1,9 +1,9 @@
 <template name="layout">
-        <div id="wrapper" class="wrapper">
-            <header class="row-fluid">
+        <div id="container" class="wrapper">
+            <header class="row">
                 <div class="content">
 
-                    <h1 class="span12 header__title">
+                    <h1 class="col-md12 header__title">
                         <a href="/" id="appTitle" class="header__title__a">Twilight Imperium Race Picker</a>
                     </h1>
                     <div class="bottom-right">    
@@ -11,12 +11,12 @@
                     </div>
                 </div>
             </header>
-            <section id="main" class="breathe">
+            <section id="main" class="breathe container">
                 {{yield}}
             </section>
             <div class="push"></div>
         </div>
-        <footer class="row-fluid">
+        <footer class="">
             
         </footer>
 </template>

@@ -32,7 +32,7 @@ header, footer {
 
 header {
     margin: 0;
-    height: 350px;
+    height: 320px;
     padding-top: 100px;
 }
 .header__title {
@@ -79,3 +79,15 @@ table.startingUnits td {
     margin-bottom: 10px;
 }
 
+.boxout {
+    background-color:  purple;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.u-margin {
+    margin-bottom: 10px;
+}
+.u-margin--sm {
+    margin-bottom: 3px;
+}

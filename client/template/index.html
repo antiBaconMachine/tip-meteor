@@ -1,10 +1,27 @@
 <template name="index">
-    <div class="content">
-    {{#if currentUser}}
-    <a href="/game/create" id="btnCreateGame" class="btn btn-primary">Create Game</a>
-    {{> listGames }}
-    {{else}}
-    Please sign in to view or create games
-    {{/if}}
+    <div class="row">
+        
+        <div class="col-md-4">
+            <div class="boxout">
+                <h3>Upcoming games</h3>
+                {{> listGames allUpcomingGames}}
+            </div>
+        </div>
+        {{#if currentUser}}
+        <div class="col-md-4">
+            <div class="boxout">
+                <h3>My games</h3>
+                {{> listGames myGames}}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <a href="/game/create" id="btnCreateGame" class="btn btn-primary">Create Game</a>
+        </div>
+        {{else}}
+        <div class="col-md-8">
+            Please sign in to view or create games
+        </div>
+        {{/if}}
     </div>
+    
 </template>
