@@ -8,10 +8,10 @@ insecure
 preserve-inputs
 
 iron-router
-accounts-password
-accounts-ui
 accounts-facebook
 
 collection2
 simple-schema
 autoform
+accounts-twitter
+accounts-ui

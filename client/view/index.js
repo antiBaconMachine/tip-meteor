@@ -1,6 +1,13 @@
+Meteor.startup(function() {
+    Meteor.autorun(function() {
+        Session.set("index.allUpcomingGames", Games.find({date: {$gte: new Date()}}, {sort: {date: 1}}));
+    });
+});
+
 Template.index.allUpcomingGames = function() {
-    return Games.find({date : {$gte : new Date()}}, {sort : {date : 1}});
+    //return Session.get("index.allUpcomingGames");
+    return Games.find({date: {$gte: new Date()}}, {sort: {date: 1}});
 };
 Template.index.myGames = function() {
-    return Games.find({date : {$gte : new Date()}, "players._id" : Meteor.user()._id}, {sort : {date : 1}});
+    return Games.find({date: {$gte: new Date()}, "players._id": Meteor.user()._id}, {sort: {date: 1}});
 }

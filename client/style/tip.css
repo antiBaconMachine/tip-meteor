@@ -91,3 +91,6 @@ table.startingUnits td {
 .u-margin--sm {
     margin-bottom: 3px;
 }
+.login-button {
+    width: 160px;
+}
