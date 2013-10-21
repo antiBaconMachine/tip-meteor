@@ -30,8 +30,8 @@ Template.showGame.helpers({
         return Session.get("raceSelection");
     },
     screenName: function(id) {
-        //TODO optionally use passed id
-        var user = Meteor.user();
+        //TODO fix this
+        var user = id ? Meteor.user(id) : Meteor.user();
         if (user.profile && user.profile.name) {
             return user.profile.name;
         } else if (user.username) {

@@ -1,8 +1,8 @@
 <template name="raceCard">
-    <div id="raceCard" class="span4">
-        <h3><a href="#" class="selectRace" data-raceId="{{_id}}" >{{name}}</a></h3>
+    <div id="" class="u-float-left raceCard">
+        <h3 class="raceCard__title"><a href="#" class="selectRace" data-raceId="{{_id}}" >{{name}}</a></h3>
         <div class="span5">
-            <h4>Units</h4>
+            <h4 class="raceCard__subtitle">Units</h4>
             <table class="startingUnits">
 
                 {{#eachMapEntries startingUnits}}
@@ -15,7 +15,7 @@
         </div>
 
         <div class="span6">
-            <h4>Technologies</h4>
+            <h4 class="raceCard__subtitle">Technologies</h4>
             <ul class="technologies">
                 {{#each startingTechnologies}}
                 <li>{{name}}</li>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="span12">
-            <h4>Abilities</h4>
+            <h4 class="raceCard__subtitle">Abilities</h4>
             <ul class="abilities">
                 {{#each specialAbilities}}
                 <li>{{description}}</li>

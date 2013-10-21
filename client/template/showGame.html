@@ -1,31 +1,44 @@
 <template name="showGame">
     <h2>{{name}}</h2>
-    <ul id="players" class="">
-        {{#each players}}
-        <li>
-            <span class="name">{{name}}</span>
-            <span class="race">{{race}}</span>
-        </li>
-        {{/each}}
-    </ul>
+    <h3 class="row-fluid">
+        {{formatDate date}}@{{location}}
+    </h3>
+    <div class="row-fluid">
+        {{description}}
+    </div>
+    <div class="row-fluid">
+        <h4>Players</h4>
+        <ul id="players" class="">
+            {{#each players}}
+            <li class="c-float-list__item players__player boxout">
+                <span class="name">{{name}}</span>
+                <span class="race">{{race}}</span>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
     <form id="addplayer" name="addPlayer" >
+        <h4>Your entry</h4>
+        Race selection is {{selectionMethod}}
         <div class="">
             <label>{{screenName}}</label>
         </div>
 
         {{#if raceSelection}}
-            <label>Race</label>
-            <div>
-                {{#each raceSelection}}
-                {{>raceCard}}
-                {{/each}}
-            </div>
+        Pick from the following races to confirm your entry:
+        <label>Race</label>
+        <div>
+            {{#each raceSelection}}
+            {{>raceCard}}
+            {{/each}}
+        </div>
         {{else}}
-            {{#if isLivePlayer}}
-             {{>raceCard myRace}}
-            {{else}}
-             <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
-            {{/if}}
+        {{#if isLivePlayer}}
+        You have entered this game. Your race selection:
+        {{>raceCard myRace}}
+        {{else}}
+        <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
+        {{/if}}
         {{/if}}
 
 

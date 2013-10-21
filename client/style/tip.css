@@ -54,10 +54,6 @@ footer {
     height: 155px;
 }
 
-#raceCard {
-    border: 1px dashed gray;
-    padding: 3px;
-}
 table.startingUnits {
     border-collapse: collapse;
 }
@@ -66,18 +62,6 @@ table.startingUnits td {
     padding: 2px;
 }
 
-#raceCard { 
-    font-size: small;
-}
-#raceCard h3 {
-    font-size: large;
-}
-#raceCard h4 {
-    font-size: medium;
-}
-#raceCard  li {
-    margin-bottom: 10px;
-}
 
 .boxout {
     background-color:  purple;
@@ -94,3 +78,40 @@ table.startingUnits td {
 .login-button {
     width: 160px;
 }
+u-float-left {
+    float: left;
+}
+u-overflow-auto {
+    overflow: auto;
+}
+c-float-list__item {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+.players__player {
+    width: 200px;
+}
+.racePoolCheckbox .checkbox {
+    width: 200px;
+    float: left;
+    height: 30px;
+    margin: 0;
+    padding: 0 0 0 15px;
+}
+.racePoolCheckbox label {
+    display: block;
+}
+.raceCard {
+    width: 400px;
+    font-size: small;
+    border: 1px dashed gray;
+    padding: 3px;
+}
+.raceCard__title {
+    font-size: large;
+}
+.raceCard__subtitle {
+    font-size: medium;
+}
+
