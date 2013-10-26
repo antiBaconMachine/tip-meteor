@@ -55,14 +55,8 @@ Meteor.startup(function() {
         },
         selectRace: function(gameId, playerId, raceId) {
             var game = Games.findOne(gameId);
-            //TODO something more efficient for player retrieval. We used to store 
-            //players under id key bt this caused issues with simple schema. 
-            //We need to rework the schema if we continue using simple schema 
-            //as there doesn't seem to be a clean way to specify arbitrary 
-            //key value collections 
-            var player = _.find(game.players, function(player) {
-                return player._id === playerId;
-            });
+            
+            var player = findPlayer(game, playerId);
             if (!_.contains(player.raceSelection, raceId)) {
                 console.error("Selected race $s is not in valid set of selections %j", raceId, player.raceSelection);
                 throw "Illegal race selection";

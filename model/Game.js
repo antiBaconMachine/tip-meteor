@@ -54,17 +54,17 @@ Games = new Meteor.Collection2("games", {
         },
         players: {
             type: [Object],
-            minCount : 0
+            minCount: 0
         },
         "players.$.race": {
-            type : String,
-            optional : true
+            type: String,
+            optional: true
         },
         "players.$.raceSelection": {
-            type : [String]
+            type: [String]
         },
         "players.$._id": {
-            type : String
+            type: String
         },
         _id: {
             type: String,
@@ -75,14 +75,25 @@ Games = new Meteor.Collection2("games", {
 Games.beforeInsert = function(game) {
     game.players = [];
     //TODO this is bullshit, why do we have to do it?
-    game.maxPlayers = 1*game.maxPlayers;
+    game.maxPlayers = 1 * game.maxPlayers;
     return game;
 };
 Games.callbacks({
-    insert : function(error, gameId) {
+    insert: function(error, gameId) {
         console.log(gameId);
         if (!error) {
-            Router.go(Router.path("showGame", {_id : gameId}));
+            Router.go(Router.path("showGame", {_id: gameId}));
         }
     }
 });
+
+//TODO something more efficient for player retrieval. We used to store 
+//players under id key bt this caused issues with simple schema. 
+//We need to rework the schema if we continue using simple schema 
+//as there doesn't seem to be a clean way to specify arbitrary 
+//key value collections 
+findPlayer = function(game, playerId) {
+    return _.find(game.players, function(player) {
+        return player._id === playerId;
+    });
+}

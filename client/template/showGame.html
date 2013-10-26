@@ -3,44 +3,51 @@
     <h3 class="row-fluid">
         {{formatDate date}}@{{location}}
     </h3>
-    <div class="row-fluid">
+    <div class="row-fluid" id="selectionMethod">
+        {{selectionMethod}}
+    </div>
+    <div class="row-fluid" id="description">
         {{description}}
     </div>
     <div class="row-fluid">
         <h4>Players</h4>
         <ul id="players" class="">
+            {{#if players.length}}
             {{#each players}}
             <li class="c-float-list__item players__player boxout">
                 <span class="name">{{name}}</span>
                 <span class="race">{{race}}</span>
             </li>
             {{/each}}
+            {{else}}
+                No players 
+            {{/if}}
         </ul>
     </div>
     <form id="addplayer" name="addPlayer" >
-        <h4>Your entry</h4>
-        Race selection is {{selectionMethod}}
-        <div class="">
-            <label>{{screenName}}</label>
-        </div>
-
         {{#if raceSelection}}
-        Pick from the following races to confirm your entry:
-        <label>Race</label>
-        <div>
-            {{#each raceSelection}}
-            {{>raceCard}}
-            {{/each}}
-        </div>
+            Pick from the following races to confirm your entry:
+           
+            {{#everyNth items=raceSelection i=3  }}
+                {{#if isModZeroNotFirst}}
+                  </div>
+                {{/if}}
+                {{#if isModZero}}
+                  <div class="row-fluid">
+                {{/if}}
+                    {{>raceCard}}
+                {{#if isLast}}
+                  </div>
+                {{/if}}
+          {{/everyNth}}
+           
         {{else}}
-        {{#if isLivePlayer}}
-        You have entered this game. Your race selection:
-        {{>raceCard myRace}}
-        {{else}}
-        <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
+            {{#if isLivePlayer}}
+                You have entered this game. Your race selection:
+                {{>raceCard myRace}}
+            {{else}}
+                <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
+            {{/if}}
         {{/if}}
-        {{/if}}
-
-
     </form>
 </template>
