@@ -27,7 +27,9 @@ Template.showGame.events({
 });
 Template.showGame.helpers({
     raceSelection: function() {
-        return Session.get("raceSelection");
+        var rs = Session.get("raceSelection");
+        console.info("raceSelection: %o",rs);
+        return rs;
     },
     screenName: function(id) {
         //TODO optionally use passed id
