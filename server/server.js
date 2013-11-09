@@ -51,6 +51,7 @@ Meteor.startup(function() {
             
             //return a player object with resolved raceSelections instead of the db object which just has race ids
             player.raceSelection = raceSelection;
+            console.log("player: %j", player);
             return player;
         },
         selectRace: function(gameId, playerId, raceId) {

@@ -26,21 +26,12 @@
     </div>
     <form id="addplayer" name="addPlayer" >
         {{#if raceSelection}}
-            Pick from the following races to confirm your entry:
-           
-            {{#everyNth items=raceSelection i=3  }}
-                {{#if isModZeroNotFirst}}
-                  </div>
-                {{/if}}
-                {{#if isModZero}}
-                  <div class="row-fluid">
-                {{/if}}
-                    {{>raceCard}}
-                {{#if isLast}}
-                  </div>
-                {{/if}}
-          {{/everyNth}}
-           
+        <label>Race</label>
+            <div>
+                {{#each raceSelection}}
+                {{>raceCard}}
+                {{/each}}
+            </div>
         {{else}}
             {{#if isLivePlayer}}
                 You have entered this game. Your race selection:

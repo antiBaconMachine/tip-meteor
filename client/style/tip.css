@@ -103,10 +103,11 @@ c-float-list__item {
     display: block;
 }
 .raceCard {
-    width: 400px;
+    width: 380px;
     font-size: small;
     border: 1px dashed gray;
     padding: 3px;
+    height: 550px;
 }
 .raceCard__title {
     font-size: large;
