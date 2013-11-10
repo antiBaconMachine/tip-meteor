@@ -50,7 +50,7 @@ Template.showGame.helpers({
         _.each(this.players, function(player) {
             if (player.race) {
                 players.push({
-                    name: player._id,
+                    name: Meteor.users.findOne(player._id).profile.name,
                     race: Races.findOne(player.race).name
                 });
             }

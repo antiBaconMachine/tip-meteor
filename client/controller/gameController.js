@@ -9,10 +9,12 @@ gameController = RouteController.extend({
         var game = Games.findOne(this.params._id);
         if (game) {
             var user = Meteor.user();
-            var currentPlayer =  findPlayer(game, user._id);
+            var currentPlayer = findPlayer(game, user._id);
+            var raceSelection = null;
             if (currentPlayer && !currentPlayer.race && currentPlayer.raceSelection) {
-                Session.set("raceSelection", currentPlayer.raceSelection);
+                raceSelection = currentPlayer.raceSelection;
             }
+            Session.set("raceSelection", raceSelection);
             Session.set("currentGame", game);
             Session.set("currentPlayer", currentPlayer);
             this.render();
