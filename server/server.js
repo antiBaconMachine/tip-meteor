@@ -31,6 +31,7 @@ Meteor.startup(function() {
                 throw "Player already in game";
             }
             var raceSelection = generateRaceSelection(game);
+            console.log("race selection %j", raceSelection);
             var player = {
                 race: null,
                 raceSelection: _.pluck(raceSelection, "_id"),
@@ -50,7 +51,8 @@ Meteor.startup(function() {
             Games._collection.update({_id: game._id}, mod);
             
             //return a player object with resolved raceSelections instead of the db object which just has race ids
-            player.raceSelection = raceSelection;
+            //player.raceSelection = raceSelection;
+            
             console.log("player: %j", player);
             return player;
         },

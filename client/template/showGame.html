@@ -29,7 +29,9 @@
         <label>Race</label>
             <div>
                 {{#each raceSelection}}
-                {{>raceCard}}
+                    {{#with getRace this}}
+                        {{>raceCard}}
+                    {{/with}}
                 {{/each}}
             </div>
         {{else}}

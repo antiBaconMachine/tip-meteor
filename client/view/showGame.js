@@ -65,6 +65,9 @@ Template.showGame.helpers({
         if (player) {
             return Races.findOne(player.race);
         }
+    },
+    getRace: function(id) {
+        return Races.findOne(id);
     }
 });
 var getLivePlayer = function(players) {
