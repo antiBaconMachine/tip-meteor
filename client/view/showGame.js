@@ -31,6 +31,9 @@ Template.showGame.helpers({
         console.info("raceSelection: %o",rs);
         return rs;
     },
+    raceSelections: function() {
+       
+    },
     screenName: function(id) {
         //TODO fix this
         var user = id ? Meteor.user(id) : Meteor.user();

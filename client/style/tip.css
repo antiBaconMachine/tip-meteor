@@ -58,7 +58,6 @@ table.startingUnits {
     border-collapse: collapse;
 }
 table.startingUnits td {
-    border: 1px solid black;
     padding: 2px;
 }
 
