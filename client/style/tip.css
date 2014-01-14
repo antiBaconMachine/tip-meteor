@@ -103,16 +103,44 @@ c-float-list__item {
     display: block;
 }
 .raceCard {
-    width: 380px;
+    width: 375px;
     font-size: small;
-    border: 1px dashed gray;
-    padding: 3px;
-    height: 550px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 5px 20px 0;
+    display: inline-block;
+    vertical-align:top;
+    color: white;
 }
 .raceCard__title {
     font-size: large;
 }
 .raceCard__subtitle {
     font-size: medium;
+}
+.raceCard  li {
+    margin-bottom: 8px;
+}
+.raceCard  table {
+    background-color: whitesmoke;
+    color: black;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.raceCard  table td {
+    padding: 3px 8px;
+}
+
+.purple {
+    background-color: purple;
+}
+.brown {
+    background-color: brown;
+}
+.green {
+    background-color: darkolivegreen;
 }
 

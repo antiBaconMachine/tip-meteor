@@ -1,6 +1,9 @@
 <template name="raceCard">
-    <div id="" class="raceCard col-md-4">
+    <div id="" class="raceCard {{color}}}">
+        <div clas="row">
         <h3 class="raceCard__title"><a href="#" class="selectRace" data-raceId="{{_id}}" >{{name}}</a></h3>
+        <h6 class="raceCard__description">{{description}}</h6>
+        </div>
         <div class="row">
             <div class="col-md-5">
                 <h4 class="raceCard__subtitle">Starting Units</h4>
@@ -33,7 +36,43 @@
                     {{/each}}
                 </ul>
             </div>
+            <div class="col-md-12">
+                <h4 class='raceCard__subtitle'>Race Technologies</h4>
+                <ul class="raceTechs">
+                    {{#each racialTechnologies}}
+                    <li>{{description}}</li>
+                    {{/each}}
+                </ul>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-5">
+                <h4 class="raceCard__subtitle">Trade agreements</h4>
+                <table class="tradePacts">
+
+                    {{#each tradePacts}}
+                    <tr>
+                        <td>{{this}}</td>
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h4 class="raceCard__subtitle">Home world</h4>
+                <table class="homeWorld">
+                    <tr>
+                        <td>Resource</td>
+                        <td>{{this.homeResource}}</td>
+                    </tr>
+                    <tr>
+                        <td>Influence</td>
+                        <td>{{this.homeInfluence}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
 
     </div>
 </template>

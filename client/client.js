@@ -58,4 +58,7 @@ Router.map(function() {
         controller: 'gameController',
         action: 'create'
     });
+    this.route('races', {
+       path: '/races' 
+    });
 });
