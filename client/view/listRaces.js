@@ -1,9 +1,8 @@
 var colors = ['purple', 'brown', 'green'];
 
 Template.listRaces.helpers({
-   decorated: function() {
-       var race = this.value;
-       race.color = colors[this.key % 3];
-       return race;
-   } 
+    decorated: function() {
+        this.color = colors[this.index % 3];
+        return this;
+    }
 });
