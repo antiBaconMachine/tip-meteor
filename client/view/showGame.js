@@ -56,8 +56,10 @@ Template.showGame.helpers({
         console.log(this.players);
         _.each(this.players, function(player) {
             if (player.race) {
+                var user  = Meteor.users.findOne(player._id);
+                var name = user.profile ? user.profile.name : getNameFromUser(user);
                 players.push({
-                    name: Meteor.users.findOne(player._id).profile.name,
+                    name: name,
                     race: Races.findOne(player.race).name
                 });
             }
@@ -84,4 +86,17 @@ var getLivePlayer = function(players) {
     return _.find(players, function(player) {
         return player._id === Meteor.user()._id && player.race;
     });
+};
+
+var getNameFromUser = function(user) {
+  if (user.emails) {
+      var email = user.emails[0].address;
+      if (email) {
+          var matches = email.match(/(.*)@.*/);
+          if (matches.length > 1) {
+              return matches[1];
+          }
+      }
+  }
+  return "Billy No-name"
 };

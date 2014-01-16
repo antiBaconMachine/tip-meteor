@@ -2,14 +2,14 @@
     <div class="row">
 
         <div class="col-md-4">
-            <div class="boxout">
-                <h3>Upcoming games</h3>
+            <div class="boxout rounded10">
+                <h3>Upcoming public games</h3>
                 {{> listGames allUpcomingGames}}
             </div>
         </div>
         {{#if currentUser}}
             <div class="col-md-4">
-        <div class="boxout">
+        <div class="boxout rounded10">
             <h3>My games</h3>
             {{> listGames myGames}}
         </div>
