@@ -3,9 +3,6 @@
     <h3 class="row-fluid">
         {{formatDate date}}@{{location}}
     </h3>
-    <div class="row-fluid" id="selectionMethod">
-        {{selectionMethod}}
-    </div>
     <div class="row-fluid" id="description">
         {{description}}
     </div>
@@ -14,7 +11,7 @@
         <ul id="players" class="">
             {{#if players.length}}
             {{#each players}}
-            <li class="c-float-list__item players__player boxout">
+            <li class="c-float-list__item players__player boxout rounded10">
                 <span class="name">{{name}}</span>
                 <span class="race">{{race}}</span>
             </li>
@@ -24,20 +21,21 @@
             {{/if}}
         </ul>
     </div>
+     <div class="row-fluid" id="selectionMethod">
+        Race selection method: {{selectionMethod}}
+    </div>
     <form id="addplayer" name="addPlayer" >
         {{#if raceSelection}}
         <label>Race</label>
             <div>
-                {{#each raceSelection}}
-                    {{#with getRace this}}
-                        {{>raceCard}}
-                    {{/with}}
-                {{/each}}
+                {{>listRaces raceSelection}}
             </div>
         {{else}}
             {{#if isLivePlayer}}
                 You have entered this game. Your race selection:
-                {{>raceCard myRace}}
+                <div>
+                    {{>raceCard myRace}}
+                </div>
             {{else}}
                 <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
             {{/if}}

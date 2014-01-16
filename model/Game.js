@@ -2,7 +2,7 @@ SELECTION_METHODS = {
     PICK_FROM_SELECTION: {
         key: "PICK_FROM_SELECTION",
         label: "selection",
-        description: "Pick from a random selection of n races",
+        description: "Pick from a random selection of %i races",
         options: {
             noRaces: 1
         },
@@ -11,12 +11,12 @@ SELECTION_METHODS = {
     RANDOM: {
         key: "RANDOM",
         label: "random",
-        description: "Randomly assigmed"
+        description: "Random assigment"
     },
     FREE: {
         key: "FREE",
         label: 'free choice',
-        description: "Free choice of races"
+        description: "Free choice"
     }
 };
 

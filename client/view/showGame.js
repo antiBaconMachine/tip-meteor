@@ -71,6 +71,9 @@ Template.showGame.helpers({
     },
     getRace: function(id) {
         return Races.findOne(id);
+    },
+    selectionMethod: function() {
+        return SELECTION_METHODS[this.selectionMethod].description.replace(/%i/, this.countRaces);
     }
 });
 var getLivePlayer = function(players) {

@@ -1,8 +1,10 @@
 var colors = ['purple', 'brown', 'green'];
-
+var i = 0;
 Template.listRaces.helpers({
     decorated: function() {
-        this.color = colors[this.index % 3];
-        return this;
+        var race = this._id ? this : Races.findOne(this.toString());
+        console.info(race);
+        race.color = colors[(race.index || i++) % 3];
+        return race;
     }
 });

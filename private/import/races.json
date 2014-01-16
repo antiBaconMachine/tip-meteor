@@ -66,13 +66,10 @@
         "startingUnits": {
             "CRUISER": 3,
             "CARRIER": 1,
-            "DESTROYER": 0,
             "PDS": 1,
             "GROUND_FORCE": 4,
             "FIGHTER": 0,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -117,15 +114,10 @@
         "name": "The Federation of Sol",
         "description": "Humans. Numerous. Standard.",
         "startingUnits": {
-            "CRUISER": 0,
             "CARRIER": 2,
             "DESTROYER": 1,
-            "PDS": 0,
             "GROUND_FORCE": 5,
-            "FIGHTER": 0,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -166,14 +158,9 @@
         "name": "The Barony of Letnev",
         "description": "Big fleets, dreadnoughts. House Harkonen",
         "startingUnits": {
-            "CRUISER": 0,
             "CARRIER": 1,
             "DESTROYER": 1,
-            "PDS": 0,
-            "GROUND_FORCE": 0,
-            "FIGHTER": 0,
             "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
             "DREADNOUGHT": 1
         },
         "startingTechnologies": [
@@ -217,13 +204,9 @@
         "startingUnits": {
             "CRUISER": 1,
             "CARRIER": 2,
-            "DESTROYER": 0,
-            "PDS": 0,
             "GROUND_FORCE": 4,
             "FIGHTER": 2,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -274,13 +257,9 @@
         "startingUnits": {
             "CRUISER": 1,
             "CARRIER": 1,
-            "DESTROYER": 0,
             "PDS": 1,
             "GROUND_FORCE": 5,
-            "FIGHTER": 0,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -317,14 +296,11 @@
         "name": "The L1Z1X Mindnet",
         "description": "Evil cyborgs. Good with dreadnoughts, start with more tech.",
         "startingUnits": {
-            "CRUISER": 0,
             "CARRIER": 1,
-            "DESTROYER": 0,
             "PDS": 1,
             "GROUND_FORCE": 5,
             "FIGHTER": 3,
             "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
             "DREADNOUGHT": 1
         },
         "startingTechnologies": [
@@ -386,9 +362,7 @@
             "PDS": 1,
             "GROUND_FORCE": 4,
             "FIGHTER": 4,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -435,13 +409,10 @@
         "startingUnits": {
             "CRUISER": 2,
             "CARRIER": 1,
-            "DESTROYER": 0,
             "PDS": 1,
             "GROUND_FORCE": 2,
             "FIGHTER": 3,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -488,13 +459,10 @@
         "startingUnits": {
             "CRUISER": 1,
             "CARRIER": 2,
-            "DESTROYER": 0,
             "PDS": 1,
             "GROUND_FORCE": 5,
             "FIGHTER": 2,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -541,13 +509,10 @@
         "startingUnits": {
             "CRUISER": 1,
             "CARRIER": 1,
-            "DESTROYER": 0,
             "PDS": 1,
             "GROUND_FORCE": 3,
             "FIGHTER": 2,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -599,13 +564,10 @@
         "startingUnits": {
             "CRUISER": 1,
             "CARRIER": 2,
-            "DESTROYER": 0,
             "PDS": 1,
             "GROUND_FORCE": 4,
             "FIGHTER": 2,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -650,15 +612,11 @@
         "name": "The Yin Brotherhood",
         "description": "Suicide fanatics.",
         "startingUnits": {
-            "CRUISER": 0,
             "CARRIER": 2,
             "DESTROYER": 1,
-            "PDS": 0,
             "GROUND_FORCE": 4,
             "FIGHTER": 4,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -703,15 +661,10 @@
         "name": "The Embers of Muaat",
         "description": "Start with the mothaflippin war sun! (Death Star).",
         "startingUnits": {
-            "CRUISER": 0,
-            "CARRIER": 0,
-            "DESTROYER": 0,
-            "PDS": 0,
             "GROUND_FORCE": 4,
             "FIGHTER": 2,
             "SPACE_DOCK": 1,
-            "WAR_SUN": 1,
-            "DREADNOUGHT": 0
+            "WAR_SUN": 1
         },
         "startingTechnologies": [
             {
@@ -763,13 +716,10 @@
         "startingUnits": {
             "CRUISER": 1,
             "CARRIER": 1,
-            "DESTROYER": 0,
             "PDS": 1,
             "GROUND_FORCE": 4,
             "FIGHTER": 2,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -814,15 +764,11 @@
         "name": "The Ghosts of Creuss",
         "description": "Wormholes, Wormholes, Wormholes.",
         "startingUnits": {
-            "CRUISER": 0,
             "CARRIER": 1,
             "DESTROYER": 2,
-            "PDS": 0,
             "GROUND_FORCE": 4,
             "FIGHTER": 2,
-            "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0
+            "SPACE_DOCK": 1
         },
         "startingTechnologies": [
             {
@@ -869,13 +815,9 @@
         "startingUnits": {
             "CRUISER": 2,
             "CARRIER": 1,
-            "DESTROYER": 0,
-            "PDS": 0,
             "GROUND_FORCE": 2,
             "FIGHTER": 2,
             "SPACE_DOCK": 1,
-            "WAR_SUN": 0,
-            "DREADNOUGHT": 0,
             "MECH": 1
         },
         "startingTechnologies": [

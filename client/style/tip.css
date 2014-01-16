@@ -101,12 +101,14 @@ c-float-list__item {
 .racePoolCheckbox label {
     display: block;
 }
-.raceCard {
-    width: 375px;
-    font-size: small;
+.rounded10 {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+}
+.raceCard {
+    width: 375px;
+    font-size: small;
     padding: 15px;
     margin: 0 5px 20px 0;
     display: inline-block;
