@@ -1,7 +1,5 @@
 Meteor.startup(function() {
-    Meteor.autorun(function() {
-        Session.set("index.allUpcomingGames", Games.find({date: {$gte: new Date()}}, {sort: {date: 1}}));
-    });
+   
 });
 
 Template.index.allUpcomingGames = function() {

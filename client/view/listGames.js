@@ -4,12 +4,13 @@ Template.listGames.helpers({
     },
     prettyDate: function() {
         var date = this.date;
+        console.log(date);
         if (date) {
-           return pad(date.getDay() + "/" + pad(date.getMonth()+1) + "/" + date.getYear());
+           return pad(date.getDate()) + "/" + pad(date.getMonth()+1) + "/" + (date.getYear() + 1900);
         }
     }
 });
 
 var pad = function(n) {
-    return ("0"+n).slice(n.length - 2);
-}
+    return ("0"+n).slice(("" + n).length - 1);
+};
