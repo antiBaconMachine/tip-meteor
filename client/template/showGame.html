@@ -24,10 +24,10 @@
      <div class="row-fluid" id="selectionMethod">
         Race selection method: {{selectionMethod}}
     </div>
-    <form id="addplayer" name="addPlayer" >
+    <form id="addPlayer" name="addPlayer" >
         {{#if raceSelection}}
         <label>Race</label>
-            <div>
+            <div id="raceSelections">
                 {{>listRaces raceSelection}}
             </div>
         {{else}}

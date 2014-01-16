@@ -15,6 +15,9 @@ Template.showGame.events({
         var raceId = $(event.target).data("raceid")
         var gameId = Session.get("currentGame")._id;
         console.log("selecting race for player %s: %s", name, raceId);
+        if (confirm(_.template('Select <%=race%>?', {
+            race: Races.findOne(raceId).name
+        }))) {
         if (userId && raceId) {
             Meteor.call("selectRace", gameId, userId, raceId, function(err, player) {
                 Session.set("currentPlayer", player);
@@ -23,6 +26,7 @@ Template.showGame.events({
         } else {
             console.error("supply user, race and game IDs buttmunch");
         }
+    }
     }
 });
 Template.showGame.helpers({
