@@ -4,22 +4,46 @@
         <div class="col-md-4">
             <div class="boxout rounded10">
                 <h3>Upcoming public games</h3>
-                {{> listGames allUpcomingGames}}
+                 <ul class="">
+                    {{#if allUpcomingGames.count}}
+                        {{#each allUpcomingGames}}
+                            {{>game this}}
+                        {{/each}}
+                    {{else}}
+                        <li class="t-small">No games</li>
+                    {{/if}}
+                    
+                 </ul>
             </div>
         </div>
+        <div class="col-md-4">
         {{#if currentUser}}
-            <div class="col-md-4">
-        <div class="boxout rounded10">
-            <h3>My games</h3>
-            {{> listGames myGames}}
-        </div>
-    </div>
-    <div class="col-md-4">
-        <a href="/game/create" id="btnCreateGame" class="btn btn-primary">Create Game</a>
-    </div>
+            <div class="boxout rounded10">
+                <h3>My games</h3>
+                <ul class="">
+                    {{#if myGames.count}}
+                        {{#each myGames}}
+                            {{>game this}}
+                        {{/each}}
+                    {{else}}
+                        <li class="t-small">No games</li>
+                    {{/if}}
+                </ul>
+            </div>
         {{else}}
-            {{>userLoggedOut}}
+            Please sign in above to view or create games
         {{/if}}
+        </div>
+        
+        <div class="col-md-4">
+            <ul>
+                {{#if currentUser}}
+                    <li><a href="/game/create" id="btnCreateGame" class="btn btn-primary">Create Game</a></li>
+                {{/if}}
+                 <li><a href="/races" id="races">View all races</a></li>
+            </ul>
+        </div>
+        
     </div>
 
 </template>
