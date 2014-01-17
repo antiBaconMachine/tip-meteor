@@ -4,7 +4,6 @@ Template.listGames.helpers({
     },
     prettyDate: function() {
         var date = this.date;
-        console.log(date);
         if (date) {
            return pad(date.getDate()) + "/" + pad(date.getMonth()+1) + "/" + (date.getYear() + 1900);
         }

@@ -18,25 +18,25 @@ Template.showGame.events({
         if (confirm(_.template('Select <%=race%>?', {
             race: Races.findOne(raceId).name
         }))) {
-        if (userId && raceId) {
-            Meteor.call("selectRace", gameId, userId, raceId, function(err, player) {
-                Session.set("currentPlayer", player);
-                Session.set("raceSelection");
-            });
-        } else {
-            console.error("supply user, race and game IDs buttmunch");
+            if (userId && raceId) {
+                Meteor.call("selectRace", gameId, userId, raceId, function(err, player) {
+                    Session.set("currentPlayer", player);
+                    Session.set("raceSelection");
+                });
+            } else {
+                console.error("supply user, race and game IDs buttmunch");
+            }
         }
-    }
     }
 });
 Template.showGame.helpers({
     raceSelection: function() {
         var rs = Session.get("raceSelection");
-        console.info("raceSelection: %o",rs);
+        console.info("raceSelection: %o", rs);
         return rs;
     },
     raceSelections: function() {
-       
+
     },
     screenName: function(id) {
         //TODO fix this
@@ -56,12 +56,14 @@ Template.showGame.helpers({
         console.log(this.players);
         _.each(this.players, function(player) {
             if (player.race) {
-                var user  = Meteor.users.findOne(player._id);
-                var name = user.profile ? user.profile.name : getNameFromUser(user);
-                players.push({
-                    name: name,
-                    race: Races.findOne(player.race).name
-                });
+                var user = Meteor.users.findOne(player._id);
+                if (user) {
+                    var name = user.profile ? user.profile.name : getNameFromUser(user);
+                    players.push({
+                        name: name,
+                        race: Races.findOne(player.race).name
+                    });
+                }
             }
         });
         return players;
@@ -79,7 +81,9 @@ Template.showGame.helpers({
         return Races.findOne(id);
     },
     selectionMethod: function() {
-        return SELECTION_METHODS[this.selectionMethod].description.replace(/%i/, this.countRaces);
+        var method = SELECTION_METHODS[this.selectionMethod];
+
+        return method ? method.description.replace(/%i/, this.countRaces) : SELECTION_METHODS[this.selectionMethod];
     }
 });
 var getLivePlayer = function(players) {
@@ -89,14 +93,14 @@ var getLivePlayer = function(players) {
 };
 
 var getNameFromUser = function(user) {
-  if (user.emails) {
-      var email = user.emails[0].address;
-      if (email) {
-          var matches = email.match(/(.*)@.*/);
-          if (matches.length > 1) {
-              return matches[1];
-          }
-      }
-  }
-  return "Billy No-name"
+    if (user.emails) {
+        var email = user.emails[0].address;
+        if (email) {
+            var matches = email.match(/(.*)@.*/);
+            if (matches.length > 1) {
+                return matches[1];
+            }
+        }
+    }
+    return "Billy No-name"
 };

@@ -22,5 +22,11 @@ gameController = RouteController.extend({
     },
     create: function() {
         this.render();
+    },
+    before: function() {
+        if (_.isNull(Meteor.user())) {
+            console.warn('uauth');
+            Router.go(Router.path('index'));
+        }
     }
 });

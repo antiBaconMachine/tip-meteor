@@ -19,7 +19,7 @@ SELECTION_METHODS = {
         description: "Free choice"
     }
 };
-
+//Games = new Meteor.Collection("games");
 Games = new Meteor.Collection2("games", {
     schema: {
         name: {

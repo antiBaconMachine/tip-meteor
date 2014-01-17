@@ -12,10 +12,10 @@ Meteor.startup(function() {
     Meteor.publish("gamesPub", function(id) {
         return Games.find({
             _id: id
-        })
+        });
     });
 
-    Meteor.publish("allGames", function(userId) {
+    Meteor.publish("allGames", function() {
         return Games.find();
     });
 
@@ -65,7 +65,7 @@ Meteor.startup(function() {
                 throw "Illegal race selection";
             }
             player.race = raceId;
-            Games.update({_id : gameId, "players._id" : playerId}, {$set : {"players.$.race" : raceId}})
+            Games.update({_id : gameId, "players._id" : playerId}, {$set : {"players.$.race" : raceId}});
             return player;
         }
     });
