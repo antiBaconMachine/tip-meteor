@@ -11,10 +11,12 @@
         <ul id="players" class="">
             {{#if players.length}}
             {{#each players}}
-            <li class="c-float-list__item players__player boxout rounded10">
-                <span class="name">{{name}}</span>
-                <span class="race">{{race}}</span>
-            </li>
+                {{#with getPlayer}}
+                <li class="c-float-list__item players__player boxout rounded10">
+                    <span class="name">{{name}}</span>
+                    <span class="race">{{race}}</span>
+                </li>
+                {{/with}}
             {{/each}}
             {{else}}
                 No players 

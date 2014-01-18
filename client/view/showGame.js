@@ -51,22 +51,19 @@ Template.showGame.helpers({
             return user._id;
         }
     },
-    players: function() {
-        var players = [];
-        console.log(this.players);
-        _.each(this.players, function(player) {
-            if (player.race) {
-                var user = Meteor.users.findOne(player._id);
-                if (user) {
-                    var name = user.profile ? user.profile.name : getNameFromUser(user);
-                    players.push({
-                        name: name,
-                        race: Races.findOne(player.race).name
-                    });
-                }
-            }
-        });
-        return players;
+    getPlayer: function() {
+        var player;
+        if (this.race) {
+            var user = Meteor.users.findOne(this._id);
+           
+                var name = (user && user.profile) ? user.profile.name : getNameFromUser(user);
+                player = {
+                    name: name,
+                    race: Races.findOne(this.race).name
+                };
+            
+        }
+        return player;
     },
     isLivePlayer: function() {
         return getLivePlayer(this.players);
@@ -93,7 +90,7 @@ var getLivePlayer = function(players) {
 };
 
 var getNameFromUser = function(user) {
-    if (user.emails) {
+    if (user && user.emails) {
         var email = user.emails[0].address;
         if (email) {
             var matches = email.match(/(.*)@.*/);
