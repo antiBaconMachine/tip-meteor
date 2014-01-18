@@ -81,23 +81,13 @@ Template.showGame.helpers({
         var method = SELECTION_METHODS[this.selectionMethod];
 
         return method ? method.description.replace(/%i/, this.countRaces) : SELECTION_METHODS[this.selectionMethod];
+    },
+    playersForGame: function() {
+        return Session.get('playersForGame');
     }
-});
+ });
 var getLivePlayer = function(players) {
     return _.find(players, function(player) {
         return player._id === Meteor.user()._id && player.race;
     });
-};
-
-var getNameFromUser = function(user) {
-    if (user && user.emails) {
-        var email = user.emails[0].address;
-        if (email) {
-            var matches = email.match(/(.*)@.*/);
-            if (matches.length > 1) {
-                return matches[1];
-            }
-        }
-    }
-    return "Billy No-name"
 };

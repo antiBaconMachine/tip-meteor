@@ -17,6 +17,10 @@ gameController = RouteController.extend({
             Session.set("raceSelection", raceSelection);
             Session.set("currentGame", game);
             Session.set("currentPlayer", currentPlayer);
+            Meteor.call('getPlayersForGame', this.params._id, function(err, players) {
+                console.log("pfg",players);
+                Session.set('playersForGame', players);
+            });
             this.render();
         }
     },

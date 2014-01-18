@@ -49,24 +49,35 @@ Meteor.startup(function() {
 
             //fails validation if using collection2 for unknown reasons, using wrapped collection for now
             Games._collection.update({_id: game._id}, mod);
-            
+
             //return a player object with resolved raceSelections instead of the db object which just has race ids
             //player.raceSelection = raceSelection;
-            
+
             console.log("player: %j", player);
             return player;
         },
         selectRace: function(gameId, playerId, raceId) {
             var game = Games.findOne(gameId);
-            
+
             var player = findPlayer(game, playerId);
             if (!_.contains(player.raceSelection, raceId)) {
                 console.error("Selected race $s is not in valid set of selections %j", raceId, player.raceSelection);
                 throw "Illegal race selection";
             }
             player.race = raceId;
-            Games.update({_id : gameId, "players._id" : playerId}, {$set : {"players.$.race" : raceId}});
+            Games.update({_id: gameId, "players._id": playerId}, {$set: {"players.$.race": raceId}});
             return player;
+        },
+        getPlayersForGame: function(gameId) {
+            var game = Games.findOne(gameId);
+            var players = _.map(game.players, function(player) {
+                return {
+                    name: getNameFromUser(Meteor.users.findOne(player._id)),
+                    race: Races.findOne(player.race).name
+                };
+            });
+            console.log("SS players for game %j", players);
+            return players;
         }
     });
 });
@@ -89,4 +100,21 @@ var generateRaceSelection = function(game) {
     }
     console.log("%s available races: %j", selection.length, _.pluck(selection, "name"));
     return selection;
+};
+
+var getNameFromUser = function(user) {
+    if (user) {
+        if (user.profile && user.profile.name) {
+            return user.profile.name;
+        } else if (user.emails) {
+            var email = user.emails[0].address;
+            if (email) {
+                var matches = email.match(/(.*)@.*/);
+                if (matches.length > 1) {
+                    return matches[1];
+                }
+            }
+        }
+    }
+    return "Billy No-name"
 };
