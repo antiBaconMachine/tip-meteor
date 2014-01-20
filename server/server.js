@@ -71,9 +71,10 @@ Meteor.startup(function() {
         getPlayersForGame: function(gameId) {
             var game = Games.findOne(gameId);
             var players = _.map(game.players, function(player) {
+                var race = player.race ? Races.findOne(player.race).name : 'Pending';
                 return {
                     name: getNameFromUser(Meteor.users.findOne(player._id)),
-                    race: Races.findOne(player.race).name
+                    race: race
                 };
             });
             console.log("SS players for game %j", players);
