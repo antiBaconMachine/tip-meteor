@@ -76,11 +76,9 @@ Meteor.startup(function() {
                     raceLabel = Races.findOne(player.race).name;
                 } else if (player.raceSelection) {
                     var races = _.map(player.raceSelection, function(selection) {
-                        console.log(selection);
-                        var rce = Races.findOne(selection).name;
-                        return rce;
+                        return Races.findOne(selection).name;
                     });
-                    raceLabel += ':' + races.join(', ');
+                    raceLabel += '- ' + races.join(', ');
                 }
                 return {
                     name: getNameFromUser(Meteor.users.findOne(player._id)),
