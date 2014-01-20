@@ -168,3 +168,11 @@ c-float-list__item {
     background-color: darkolivegreen;
 }
 
+.accounts-dialog {
+    width: 230px;
+    margin-left: -30px;
+}
+
+.accounts-dialog a:hover, .accounts-dialog a:focus {
+    color: #005080;
+}
