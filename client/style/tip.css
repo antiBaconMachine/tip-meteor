@@ -172,7 +172,9 @@ c-float-list__item {
     width: 230px;
     margin-left: -30px;
 }
-
 .accounts-dialog a:hover, .accounts-dialog a:focus {
     color: #005080;
+}
+.login-link-text {
+   font-size: large;
 }
