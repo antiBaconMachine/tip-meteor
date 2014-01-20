@@ -72,6 +72,11 @@ Games = new Meteor.Collection2("games", {
         }
     }
 });
+Games.allow({
+   insert: function() {
+       return true;
+   } 
+});
 Games.beforeInsert = function(game) {
     game.players = [];
     //TODO this is bullshit, why do we have to do it?
