@@ -88,8 +88,24 @@ c-float-list__item {
     margin: 0;
     padding: 0;
 }
+#players {
+    margin-bottom: 20px;
+}
 .players__player {
-    
+    font-size: large;
+    font-weight: bold;
+    overflow: auto;
+}
+.players__player span {
+    display: block;
+    float: left;
+}
+.players__player__name {
+    width: 38%;
+    margin-right: 2%;
+}
+.players__player__race {
+    width: 60%;
 }
 .racePoolCheckbox .checkbox {
     width: 200px;
@@ -177,4 +193,10 @@ c-float-list__item {
 }
 .login-link-text {
    font-size: large;
+}
+#hoverRace {
+    display: none;
+}
+#description {
+    margin-bottom: 20px;
 }

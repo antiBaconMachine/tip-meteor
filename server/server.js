@@ -70,10 +70,12 @@ Meteor.startup(function() {
         },
         getPlayersForGame: function(gameId) {
             var game = Games.findOne(gameId);
+            var raceId = null;
             var players = _.map(game.players, function(player) {
                 var raceLabel = 'Pending ';  
                 if (player.race) {
-                    raceLabel = Races.findOne(player.race).name;
+                    raceId = player.race;
+                    raceLabel = Races.findOne(raceId).name;
                 } else if (player.raceSelection) {
                     var races = _.map(player.raceSelection, function(selection) {
                         return Races.findOne(selection).name;
@@ -82,7 +84,8 @@ Meteor.startup(function() {
                 }
                 return {
                     name: getNameFromUser(Meteor.users.findOne(player._id)),
-                    race: raceLabel
+                    race: raceLabel,
+                    raceId: raceId
                 };
             });
             console.log("SS players for game %j", players);

@@ -1,3 +1,5 @@
+var hoverTimeout;
+
 Template.showGame.events({
     'click #btnJoinGame': function() {
         var gameId = Session.get("currentGame")._id;
@@ -12,7 +14,7 @@ Template.showGame.events({
     'click a.selectRace': function(event, template) {
         event.preventDefault();
         var userId = Meteor.user()._id;
-        var raceId = $(event.target).data("raceid")
+        var raceId = $(event.target).data("raceid");
         var gameId = Session.get("currentGame")._id;
         console.log("selecting race for player %s: %s", name, raceId);
         if (confirm(_.template('Select <%=race%>?', {
@@ -27,6 +29,17 @@ Template.showGame.events({
                 console.error("supply user, race and game IDs buttmunch");
             }
         }
+    },
+    'mouseenter #players>li': function(event) {
+        var raceId = $(event.target).data('raceid');
+        console.info('Mousenter id: %s args: %o', raceId, arguments);
+        if (raceId) {
+            Session.set('hoverRace', Races.findOne(raceId));
+            $('#hoverRace').show();
+        }
+    },
+    'mouseleave #players>li': function(event) {
+        Session.set('hoverRace', null);
     }
 });
 Template.showGame.helpers({
@@ -55,13 +68,13 @@ Template.showGame.helpers({
         var player;
         if (this.race) {
             var user = Meteor.users.findOne(this._id);
-           
-                var name = (user && user.profile) ? user.profile.name : getNameFromUser(user);
-                player = {
-                    name: name,
-                    race: Races.findOne(this.race).name
-                };
-            
+
+            var name = (user && user.profile) ? user.profile.name : getNameFromUser(user);
+            player = {
+                name: name,
+                race: Races.findOne(this.race).name
+            };
+
         }
         return player;
     },
@@ -84,8 +97,11 @@ Template.showGame.helpers({
     },
     playersForGame: function() {
         return Session.get('playersForGame');
+    },
+    hoverRace: function() {
+        return Session.get('hoverRace');
     }
- });
+});
 var getLivePlayer = function(players) {
     return _.find(players, function(player) {
         return player._id === Meteor.user()._id && player.race;
