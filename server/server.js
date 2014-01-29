@@ -1,11 +1,15 @@
 Meteor.startup(function() {
     // code to run on server at startup
     JSON.parse(Assets.getText("import/races.json")).forEach(function(race) {
-        if (!Races.findOne({
+        var r = Races.findOne({
             name: race.name
-        })) {
+        });
+        if (!race) {
             console.info("Importing race definition %s", race.name);
             Races.insert(race);
+        } else {
+            console.info("Updating race definition %s", race.name);
+            Races.update(r._id, race);
         }
     });
 

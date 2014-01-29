@@ -492,10 +492,10 @@
         ],
         "racialTechnologies": [
             {
-                "description": "When your opponent activates a system that you control, he immediately loses 1 Command Counter from the Fleet Supply area of his race sheet."
+                "description": "At the start of the Status Phase, you may choose a system that does not contain any enemy ships. Your Ground Forces in the chosen system may move to any friendly planet in the same or adjacent system (that does not contain any enemy ships)."
             },
             {
-                "description": "Your Carriers and unsupported Advanced Fighterss each only count as 0.5 of a ship (rounded up) towards the Fleet Supply."
+                "description": "When looking at your opponent's hand of Action Cards using your racial ability, you may steal 1 card of your choice and add it to your hand."
             }
         ],
         "tradePacts" : [2,1],
