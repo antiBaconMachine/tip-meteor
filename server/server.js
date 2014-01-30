@@ -74,8 +74,8 @@ Meteor.startup(function() {
         },
         getPlayersForGame: function(gameId) {
             var game = Games.findOne(gameId);
-            var raceId = null;
             var players = _.map(game.players, function(player) {
+                var raceId = null;
                 var raceLabel = 'Pending ';  
                 if (player.race) {
                     raceId = player.race;

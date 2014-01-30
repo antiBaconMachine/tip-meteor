@@ -20,8 +20,16 @@ Handlebars.registerHelper('prettyDate', function(date) {
         return pad(date.getDate()) + "/" + pad(date.getMonth() + 1) + "/" + (date.getYear() + 1900);
     }
 });
+
+Handlebars.registerHelper('guid', function() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : r & 3 | 8;
+        return v.toString(16);
+    });
+});
+
 var pad = function(n) {
-    return ("0"+n).slice(("" + n).length - 1);
+    return ("0" + n).slice(("" + n).length - 1);
 };
 
 Router.configure({
@@ -43,5 +51,13 @@ Router.map(function() {
     });
     this.route('races', {
         path: '/races'
+    });
+});
+
+$(function() {
+    $('body').on('click', 'a', function(event) {
+        event.preventDefault();
+        Router.go(event.target.href);
+        return false;
     });
 });

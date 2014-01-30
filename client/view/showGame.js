@@ -35,7 +35,6 @@ Template.showGame.events({
         console.info('Mousenter id: %s args: %o', raceId, arguments);
         if (raceId) {
             Session.set('hoverRace', Races.findOne(raceId));
-            $('#hoverRace').show();
         }
     },
     'mouseleave #players>li': function(event) {
@@ -83,8 +82,8 @@ Template.showGame.helpers({
     },
     myRace: function() {
         var player = getLivePlayer(this.players);
-        if (player) {
-            return Races.findOne(player.race);
+        if (player && player.race) {
+            return _(Races.findOne(player.race)).extend({id : 'myRace'});
         }
     },
     getRace: function(id) {
@@ -103,7 +102,7 @@ Template.showGame.helpers({
     }
 });
 var getLivePlayer = function(players) {
-    return _.find(players, function(player) {
+    return _(players).find(function(player) {
         return player._id === Meteor.user()._id && player.race;
     });
 };

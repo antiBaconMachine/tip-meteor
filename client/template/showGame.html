@@ -19,7 +19,7 @@
             <ul id="players" class="">
                 {{#if playersForGame.length}}
                     {{#each playersForGame}}
-                        <li class="c-float-list__item players__player " data-raceid="{{raceId}}">
+                        <li class="c-float-list__item players__player" data-raceid="{{raceId}}">
                             <span class="players__player__name boxout rounded10">{{name}}</span>
                             <span class="players__player__race boxout rounded10 green">{{race}}</span>
                         </li>
@@ -36,14 +36,14 @@
                     {{>listRaces raceSelection}}
                 </div>
                 {{else}}
-                {{#if isLivePlayer}}
-                You have entered this game. Your race selection:
-                <div>
-                    {{>raceCard myRace}}
-                </div>
-                {{else}}
-                <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
-                {{/if}}
+                    {{#if isLivePlayer}}
+                    You have entered this game. Your race selection:
+                    <div>
+                        {{>raceCard myRace}}
+                    </div>
+                    {{else}}
+                    <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
+                    {{/if}}
                 {{/if}}
             </form>
         </div>
