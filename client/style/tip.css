@@ -95,10 +95,12 @@ table.startingUnits td {
     font-size: large;
     font-weight: bold;
     overflow: auto;
+    width: 100%;
 }
 .players__player span {
     display: block;
     float: left;
+    clear: right;
 }
 .players__player__name {
     width: 38%;
