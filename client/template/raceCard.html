@@ -1,5 +1,5 @@
 <template name="raceCard">
-    <div id="{{id}}" class="raceCard purple {{color}} rounded10">
+    <div id="{{id}}" class="raceCard purple {{color}} rounded10 {{#if fade}}animated fadeIn{{/if}}">
         <a href="#" class="selectRace" data-raceId="{{_id}}" >Select</a>
         <div clas="row">
         <h3 class="raceCard__title">{{name}}</h3>

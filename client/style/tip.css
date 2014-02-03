@@ -27,7 +27,7 @@ ul {
 }
 
 header, footer {
-    background-image: url(/images/header.png);
+    background-image: url(/images/header2.png);
 }
 
 header {
@@ -77,13 +77,13 @@ table.startingUnits td {
 .login-button {
     width: 160px;
 }
-u-float-left {
+.u-float-left {
     float: left;
 }
-u-overflow-auto {
+.u-overflow-auto {
     overflow: auto;
 }
-c-float-list__item {
+.c-float-list__item {
     float: left;
     margin: 0;
     padding: 0;
@@ -123,7 +123,7 @@ c-float-list__item {
     border-radius: 10px;
 }
 .raceCard {
-    width: 375px;
+    width: 372px;
     font-size: small;
     padding: 15px;
     margin: 0 5px 20px 0;
@@ -195,7 +195,9 @@ c-float-list__item {
    font-size: large;
 }
 #hoverRace {
-    
+    position: absolute;
+    top: 400px;
+    right: 100px;
 }
 #description {
     margin-bottom: 20px;
