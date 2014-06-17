@@ -103,10 +103,12 @@ var generateRaceSelection = function(game) {
     var notList = _.flatten(_.collect(game.players, function(player) {
         return player.race || player.raceSelection;
     }));
+    var inList = game.racePool;
     console.log("disalowed races %j", notList);
     var selection = Races.find({
         _id: {
-            $nin: notList
+            $nin: notList,
+            $in: inList
         }
     }).fetch();
     console.info(game.selectionMethod);
