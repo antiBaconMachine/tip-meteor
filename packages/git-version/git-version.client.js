@@ -9,3 +9,7 @@ Template.gitVersion.helpers({
         return Session.get("gitVersion");
     }
 });
+
+getVersion = function() {
+    return "version";
+}
