@@ -80,6 +80,7 @@ Games.allow({
     }
 });
 Games.beforeInsert = function (game) {
+    console.log("about to insert game %o", game);
     game.players = [];
     //TODO this is bullshit, why do we have to do it?
     game.maxPlayers = 1 * game.maxPlayers;
