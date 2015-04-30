@@ -51,7 +51,8 @@ Router.map(function () {
     });
 });
 
-$(function () {
+Meteor.startup(function() {
+
     $('body').on('click', 'a', function (event) {
         event.preventDefault();
         var route = event.target.href;
@@ -60,6 +61,7 @@ $(function () {
         }
         return false;
     });
+
 });
 
-SimpleSchema.debug = true;
+//SimpleSchema.debug = true;
