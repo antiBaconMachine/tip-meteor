@@ -12,7 +12,9 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
-  api.addFiles('git-version.js');
+  api.use(['templating'], 'client');
+  api.addFiles('git-version.server.js', 'server');
+  api.addFiles(["git-version.html", 'git-version.client.js'], 'client');
 });
 
 Package.onTest(function(api) {
