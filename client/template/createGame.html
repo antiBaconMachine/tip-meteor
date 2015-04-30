@@ -1,5 +1,5 @@
 <template name="createGame">
-    {{#autoForm collection="Games" id="insertGameForm" class="row"}}
+    {{#autoForm collection="Games" id="insertGameForm" class="row" type="insert"}}
 
     <fieldset id="details" class='col-md-6'>
         <legend>Game details</legend>
@@ -18,7 +18,7 @@
         {{/if}}
         {{>afQuickField name='maxPlayers' options=maxPlayers id='maxPlayers'}}
         <span class="racePoolCheckbox u-overflow-auto">
-            {{>afQuickField name='racePool' options=racePool noselect=true checked='checked' class='racePool'}}
+            {{>afQuickField checked=true name='racePool' options=racePool noselect=true class='racePool'}}
         </span>
     </fieldset>
     <div class="row">

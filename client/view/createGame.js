@@ -50,13 +50,11 @@ Template.createGame.helpers({
     },
 });
 
-var hooksObject = {
-    // Called when form does not have a `type` attribute
-    before: {
-        players:function() {
-            console.log("before insert players");
-            return [];
+
+AutoForm.hooks({
+    insertGameForm : {
+        onSuccess: function(formType, id) {
+            Router.go("showGame", {_id: id});
         }
     }
-};
-AutoForm.addHooks('insertGameForm', hooksObject, true);
+});
