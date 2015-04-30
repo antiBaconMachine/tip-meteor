@@ -1,6 +1,14 @@
+var VERSION = "XXX";
+
+if (Meteor.isServer) {
+    var package = Package['abm:git-version'];
+    stubs.create('getVersion', package, 'getVersion');
+    stubs.getVersion.returns("XXX");
+}
+
 if (Meteor.isClient) {
     Tinytest.add('Version is set as session var', function (test) {
-        test.isNotNull(Session.get("gitVersion"));
+        test.equal(Session.get("gitVersion"), VERSION);
     });
 }
 

@@ -21,5 +21,6 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('abm:git-version');
+  api.use("practicalmeteor:sinon");
   api.addFiles('git-version-tests.js');
 });
