@@ -8,11 +8,10 @@ standard-app-packages
 iron-router
 accounts-facebook
 
-collection2
-simple-schema
-autoform
 accounts-twitter
 accounts-ui
 accounts-password
 accounts-ui-unstyled
-preserve-inputs
+aldeed:autoform
+aldeed:simple-schema
+aldeed:collection2
