@@ -54,7 +54,10 @@ Router.map(function () {
 $(function () {
     $('body').on('click', 'a', function (event) {
         event.preventDefault();
-        Router.go(event.target.href);
+        var route = event.target.href;
+        if (route) {
+            Router.go(event.target.href);
+        }
         return false;
     });
 });
