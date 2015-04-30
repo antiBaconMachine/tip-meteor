@@ -1,23 +1,25 @@
 <template name="createGame">
-    {{#autoForm schema="Games" id="insertGameForm" class="row"}}
+    {{#autoForm collection="Games" id="insertGameForm" class="row"}}
 
     <fieldset id="details" class='col-md-6'>
         <legend>Game details</legend>
-        {{afQuickField 'name' id='name'}}
-        {{afQuickField 'date' id='date'}}
-        {{afQuickField 'location' id='location'}}
-        {{afQuickField 'description' rows='5' id='description'}}
+        {{>afQuickField name='name' id='name'}}
+        {{>afQuickField name='date' id='date'}}
+        {{>afQuickField name='location' id='location'}}
+        {{>afQuickField name='description' rows='5' id='description'}}
     </fieldset>
     <fieldset id="options" class='col-md-6'>
         <legend>
             Game options
         </legend>
-        {{afQuickField 'selectionMethod' options=selectionMethod noselect="true" title=description class='selectionMethod'}}
+        {{>afQuickField name='selectionMethod' options=selectionMethod noselect="true" title=description class='selectionMethod'}}
         {{#if isCountRaces}}
-        {{afQuickField 'countRaces' options=countRaces id='countRaces'}}
+        {{>afQuickField name='countRaces' options=countRaces id='countRaces'}}
         {{/if}}
-        {{afQuickField 'maxPlayers' options=maxPlayers id='maxPlayers'}}
-        <span class="racePoolCheckbox u-overflow-auto">{{afQuickField 'racePool' options=racePool noselect="true" checked='checked' class='racePool'}}</span>
+        {{>afQuickField name='maxPlayers' options=maxPlayers id='maxPlayers'}}
+        <span class="racePoolCheckbox u-overflow-auto">
+            {{>afQuickField name='racePool' options=racePool noselect="true" checked='checked' class='racePool'}}
+        </span>
     </fieldset>
     <div class="row">
         <div class="col-md6"></div>
