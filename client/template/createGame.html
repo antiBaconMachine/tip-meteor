@@ -1,5 +1,5 @@
 <template name="createGame">
-    {{#autoForm collection="Games" id="insertGameForm" class="row" type="insert"}}
+    {{#autoForm collection="Games" id="insertGameForm" class="row"}}
 
     <fieldset id="details" class='col-md-6'>
         <legend>Game details</legend>
@@ -25,7 +25,7 @@
         <div class="col-md6"></div>
         <div class="col-md6">
             <a href="/" class="btn cancel">Cancel</a>
-            <button type="submit" class="btn btn-primary insert">Add game</button>
+            <button type="submit" class="btn btn-primary">Insert</button>
         </div>
     </div>
     {{/autoForm}}

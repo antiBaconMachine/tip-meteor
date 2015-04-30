@@ -55,7 +55,8 @@ gameSchema = new SimpleSchema({
     },
     players: {
         type: [Object],
-        minCount: 0
+        minCount: 0,
+        defaultValue: []
     },
     "players.$.race": {
         type: String,
@@ -79,13 +80,13 @@ Games.allow({
         return true;
     }
 });
-Games.beforeInsert = function (game) {
-    console.log("about to insert game %o", game);
-    game.players = [];
-    //TODO this is bullshit, why do we have to do it?
-    game.maxPlayers = 1 * game.maxPlayers;
-    return game;
-};
+//Games.beforeInsert = function (game) {
+//    console.log("about to insert game %o", game);
+//    game.players = [];
+//    //TODO this is bullshit, why do we have to do it?
+//    game.maxPlayers = 1 * game.maxPlayers;
+//    return game;
+//};
 //Games.afterInsert(function (error, gameId) {
 //    console.log(gameId);
 //    if (!error) {

@@ -58,3 +58,5 @@ $(function () {
         return false;
     });
 });
+
+SimpleSchema.debug = true;
