@@ -1,20 +1,6 @@
 Meteor.subscribe("allGames", this.userId);
 Meteor.subscribe("races");
 
-UI.registerHelper('eachMapEntries', function (context, options) {
-    var ret = "";
-    if (context) {
-        $.each(context, function (key, value) {
-            var entry = {
-                "key": key,
-                "value": value
-            };
-            ret = ret + options.fn(entry);
-        });
-    }
-    return ret;
-});
-
 UI.registerHelper('prettyDate', function (date) {
     if (date) {
         return pad(date.getDate()) + "/" + pad(date.getMonth() + 1) + "/" + (date.getYear() + 1900);
