@@ -4,7 +4,7 @@ Meteor.startup(function() {
         var r = Races.findOne({
             name: race.name
         });
-        if (!race) {
+        if (!r) {
             console.info("Importing race definition %s", race.name);
             Races.insert(race);
         } else {
