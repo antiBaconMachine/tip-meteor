@@ -9,13 +9,14 @@
             <div class="col-md-5">
                 <h4 class="raceCard__subtitle">Starting Units</h4>
                 <table class="startingUnits">
-
-                    {{#eachMapEntries startingUnits}}
-                    <tr>
-                        <td>{{this.key}}</td>
-                        <td>{{this.value}}</td>
-                    </tr>
-                    {{/eachMapEntries}}
+                    {{#with startingUnits}}
+                        {{#each mapToArray}}
+                        <tr>
+                            <td>{{key}}</td>
+                            <td>{{value}}</td>
+                        </tr>
+                        {{/each}}
+                    {{/with}}
                 </table>
             </div>
 

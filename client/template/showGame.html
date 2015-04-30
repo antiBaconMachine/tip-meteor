@@ -52,6 +52,8 @@
         </div>
     </div>
     <div class="" id="hoverRace">
-        {{>raceCard hoverRace}}
+        {{#if hoverRace}}
+            {{>raceCard hoverRace}}
+        {{/if}}
     </div>
 </template>

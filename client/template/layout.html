@@ -7,15 +7,13 @@
                         <a href="/" id="appTitle" class="header__title__a">Twilight Imperium Race Picker</a>
                     </h1>
                     <h4>(Massively broken alpha)</h4>
-                    <div class="bottom-right">    
-                        
-                            {{loginButtons}}
-                        
+                    <div class="bottom-right">
+                        {{> loginButtons}}
                     </div>
                 </div>
             </header>
             <section id="main" class="breathe container animated fadeIn">
-                {{yield}}
+                {{> yield}}
             </section>
             <div class="push"></div>
         </div>
