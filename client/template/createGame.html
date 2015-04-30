@@ -12,13 +12,13 @@
         <legend>
             Game options
         </legend>
-        {{>afQuickField name='selectionMethod' options=selectionMethod noselect="true" title=description class='selectionMethod'}}
+        {{>afQuickField name='selectionMethod' options=selectionMethod noselect=true title=description class='selectionMethod'}}
         {{#if isCountRaces}}
         {{>afQuickField name='countRaces' options=countRaces id='countRaces'}}
         {{/if}}
         {{>afQuickField name='maxPlayers' options=maxPlayers id='maxPlayers'}}
         <span class="racePoolCheckbox u-overflow-auto">
-            {{>afQuickField name='racePool' options=racePool noselect="true" checked='checked' class='racePool'}}
+            {{>afQuickField name='racePool' options=racePool noselect=true checked='checked' class='racePool'}}
         </span>
     </fieldset>
     <div class="row">
