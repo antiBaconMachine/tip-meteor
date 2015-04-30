@@ -1,4 +1,4 @@
-version = "DEV";
+var version = "DEV";
 Meteor.startup(function() {
     try {
         Npm.require("child_process").exec("git describe", function(error, sout, serr) {
