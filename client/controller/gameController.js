@@ -5,7 +5,7 @@ gameController = RouteController.extend({
     waitOn: function() {
         return Meteor.subscribe("gamesPub", this.params._id);
     },
-    show: function() {
+    showGame: function() {
         var game = Games.findOne(this.params._id);
         if (game) {
             var user = Meteor.user();
@@ -25,7 +25,7 @@ gameController = RouteController.extend({
             this.render();
         }
     },
-    create: function() {
+    createGame: function() {
         this.render();
     },
     before: function() {
@@ -33,5 +33,6 @@ gameController = RouteController.extend({
             console.warn('uauth');
             Router.go(Router.path('index'));
         }
+        this.next();
     }
 });

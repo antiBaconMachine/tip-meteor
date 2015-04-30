@@ -39,12 +39,12 @@ Router.map(function () {
     this.route('showGame', {
         path: '/game/show/:_id',
         controller: 'gameController',
-        action: 'show'
+        action: 'showGame'
     });
     this.route('createGame', {
         path: '/game/create',
         controller: 'gameController',
-        action: 'create'
+        action: 'createGame'
     });
     this.route('races', {
         path: '/races'
