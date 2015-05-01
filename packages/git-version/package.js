@@ -15,10 +15,12 @@ Package.onUse(function(api) {
   api.use(['templating'], 'client');
   api.addFiles('git-version.server.js', 'server');
   api.addFiles(["git-version.html", 'git-version.client.js'], 'client');
+  api.export("gitVersion");
 });
 
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('abm:git-version');
+  api.use("practicalmeteor:sinon");
   api.addFiles('git-version-tests.js');
 });
