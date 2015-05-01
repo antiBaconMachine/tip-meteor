@@ -1,4 +1,4 @@
-Template.createGame.events({
+Template.gameForm.events({
     "change input[name='selectionMethod']": function (event, template) {
         console.info("Cheanged selection method to %s, compare to %s, %o", event.target.value, SELECTION_METHODS.PICK_FROM_SELECTION.key, event);
         if (event.target.value ===
@@ -10,7 +10,7 @@ Template.createGame.events({
         }
     }
 });
-Template.createGame.helpers({
+Template.gameForm.helpers({
     selectionMethod: function () {
         return _.collect(SELECTION_METHODS, function (v, k) {
             return {
