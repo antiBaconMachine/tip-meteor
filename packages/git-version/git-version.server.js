@@ -9,7 +9,8 @@ getVersion = function(cb) {
             } else {
                 console.warn(error);
             }
-            console.log("VERSION: %s", version);
+            console.log(arguments);
+            console.log("VERSION: %s", v);
         });
     } catch(e) {
         console.log("could not get version no: %o", e);
