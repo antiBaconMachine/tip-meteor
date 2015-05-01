@@ -15,7 +15,7 @@ Package.onUse(function(api) {
   api.use(['templating'], 'client');
   api.addFiles('git-version.server.js', 'server');
   api.addFiles(["git-version.html", 'git-version.client.js'], 'client');
-  api.export("getVersion");
+  api.export("gitVersion");
 });
 
 Package.onTest(function(api) {

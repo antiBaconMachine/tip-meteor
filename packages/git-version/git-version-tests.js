@@ -1,10 +1,9 @@
 var VERSION = "XXX";
-
-if (Meteor.isServer) {
-    var package = Package['abm:git-version'];
-    stubs.create('getVersion', package, 'getVersion');
-    stubs.getVersion.returns("XXX");
-}
+Meteor.startup(function() {
+    gitVersion(function(cb) {
+        cb(VERSION);
+    });
+});
 
 if (Meteor.isClient) {
     Tinytest.add('Version is set as session var', function (test) {
@@ -14,7 +13,7 @@ if (Meteor.isClient) {
 
 Tinytest.addAsync("meteor method returns version", function (test, next) {
     Meteor.call("gitVersion", function (err, version) {
-        test.isNotNull(version);
+        test.equal(version, VERSION);
         next();
     });
 });

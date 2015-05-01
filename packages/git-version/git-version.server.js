@@ -15,12 +15,16 @@ getVersion = function(cb) {
         console.log("could not get version no: %o", e);
     }
     cb(v);
-}
+};
+
+gitVersion = function(versioner) {
+    versioner(function(v) {
+        version = v;
+    });
+};
 
 Meteor.startup(function() {
-    Package["abm:git-version"]["getVersion"](function(v) {
-       version = v;
-    });
+    gitVersion(getVersion);
     Meteor.methods({
         "gitVersion" : function() {
             return version;
