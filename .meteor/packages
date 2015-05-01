@@ -15,4 +15,4 @@ aldeed:autoform
 aldeed:simple-schema
 aldeed:collection2
 iron:router
-abm:git-version
+rzymek:app-version
