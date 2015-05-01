@@ -1,6 +1,7 @@
 <template name="createGame">
-    {{#autoForm collection="Games" id="insertGameForm" class="row" type="insert"}}
 
+    {{#autoForm collection="Games" id="insertGameForm" class="row" type="insert"}}
+    {{> afFieldInput name="owner" value=currentUser._id type="hidden"}}
     <fieldset id="details" class='col-md-6'>
         <legend>Game details</legend>
         {{>afQuickField name='name' id='name'}}

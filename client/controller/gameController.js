@@ -28,6 +28,9 @@ gameController = RouteController.extend({
     createGame: function() {
         this.render();
     },
+    editGame: function() {
+        this.render();
+    },
     before: function() {
         if (_.isNull(Meteor.user())) {
             console.warn('uauth');

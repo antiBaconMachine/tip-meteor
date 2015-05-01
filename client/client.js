@@ -46,6 +46,11 @@ Router.map(function () {
         controller: 'gameController',
         action: 'createGame'
     });
+    this.route('editGame', {
+        path: '/game/edit/:_id',
+        controller: 'gameController',
+        action: 'editGame'
+    }),
     this.route('races', {
         path: '/races'
     });
@@ -64,4 +69,4 @@ Meteor.startup(function() {
 
 });
 
-//SimpleSchema.debug = true;
+SimpleSchema.debug = true;

@@ -22,7 +22,6 @@ SELECTION_METHODS = {
 //Games = new Meteor.Collection("games");
 Games = new Meteor.Collection("games");
 gameSchema = new SimpleSchema({
-
     name: {
         type: String
     },
@@ -71,6 +70,9 @@ gameSchema = new SimpleSchema({
     _id: {
         type: String,
         optional: true
+    },
+    owner: {
+        type: String
     }
 });
 Games.attachSchema(gameSchema);
@@ -80,19 +82,7 @@ Games.allow({
         return true;
     }
 });
-//Games.beforeInsert = function (game) {
-//    console.log("about to insert game %o", game);
-//    game.players = [];
-//    //TODO this is bullshit, why do we have to do it?
-//    game.maxPlayers = 1 * game.maxPlayers;
-//    return game;
-//};
-//Games.afterInsert(function (error, gameId) {
-//    console.log(gameId);
-//    if (!error) {
-//        Router.go(Router.path("showGame", {_id: gameId}));
-//    }
-//});
+
 
 //TODO something more efficient for player retrieval. We used to store 
 //players under id key bt this caused issues with simple schema. 
