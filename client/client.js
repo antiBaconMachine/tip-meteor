@@ -47,6 +47,7 @@ Router.map(function () {
         action: 'createGame'
     });
     this.route('editGame', {
+        name: 'editGame',
         path: '/game/edit/:_id',
         controller: 'gameController',
         action: 'editGame'

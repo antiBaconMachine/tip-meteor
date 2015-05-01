@@ -29,7 +29,19 @@ gameController = RouteController.extend({
         this.render();
     },
     editGame: function() {
-        this.render();
+        var game = Games.findOne(this.params._id);
+        if (game) {
+            var user = Meteor.user();
+            if (game.owner === user._id) {
+                this.render('editGame', {
+                    data : {
+                        game: game
+                    }
+                });
+            } else {
+                Router.go('index');
+            }
+        }
     },
     before: function() {
         if (_.isNull(Meteor.user())) {
