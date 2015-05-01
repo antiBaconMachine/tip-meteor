@@ -78,8 +78,12 @@ gameSchema = new SimpleSchema({
 Games.attachSchema(gameSchema);
 
 Games.allow({
-    insert: function () {
-        return true;
+    insert: function (userId) {
+        return userId;
+    },
+    update: function (userId, doc) {
+        console.log(arguments);
+        return userId === doc.owner;
     }
 });
 

@@ -48,13 +48,16 @@ Template.gameForm.helpers({
             };
         });
     },
+    isNew: function() {
+        return this.type === "insert";
+    }
 });
 
 
 AutoForm.hooks({
     insertGameForm : {
-        onSuccess: function(formType, id) {
-            Router.go("showGame", {_id: id});
+        onSuccess: function(formType) {
+            Router.go("showGame", {_id: this.docId});
         }
     }
 });

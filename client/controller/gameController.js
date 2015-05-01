@@ -33,7 +33,11 @@ gameController = RouteController.extend({
         if (game) {
             var user = Meteor.user();
             if (game.owner === user._id) {
-                this.render();
+                this.render('editGame', {
+                    data : {
+                        game: game
+                    }
+                });
             } else {
                 Router.go('index');
             }
