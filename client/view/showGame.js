@@ -30,6 +30,13 @@ Template.showGame.events({
             }
         }
     },
+    //'click a.editGame': function(event, template) {
+    //    console.log("edit");
+    //    Router.go("editGame", {_id: this._id});
+    //},
+    //'click a.deleteGame': function(event, template) {
+    //
+    //},
     'mouseenter #players>li': function(event) {
         var raceId = $(event.target).data('raceid');
         console.info('click id: %s args: %o', raceId, arguments);
@@ -99,6 +106,9 @@ Template.showGame.helpers({
     },
     hoverRace: function() {
         return Session.get('hoverRace');
+    },
+    isEditable: function() {
+        return Meteor.user()._id === this.owner
     }
 });
 
