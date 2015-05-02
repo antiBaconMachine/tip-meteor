@@ -30,13 +30,13 @@ Template.showGame.events({
             }
         }
     },
-    //'click a.editGame': function(event, template) {
-    //    console.log("edit");
-    //    Router.go("editGame", {_id: this._id});
-    //},
-    //'click a.deleteGame': function(event, template) {
-    //
-    //},
+    'click #showRaces' : function() {
+        var gameId = Session.get("currentGame")._id;
+        Games.update({_id: gameId}, {$set: {hideRaces: false}});
+    },
+    'click a.deleteGame': function(event, template) {
+
+    },
     'mouseenter #players>li': function(event) {
         var raceId = $(event.target).data('raceid');
         console.info('click id: %s args: %o', raceId, arguments);

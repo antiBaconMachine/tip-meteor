@@ -69,19 +69,19 @@ Meteor.startup(function() {
                 throw "Illegal race selection";
             }
             player.race = raceId;
-            Games.update({_id: gameId, "players._id": playerId}, {$set: {"players.$.race": raceId}});
+            var update = {"players.$.race": raceId};
+            if (game.hideRaces && pickingComplete(gameId, -1)) {
+                update['hideRaces'] = false;
+            }
+            Games.update({_id: gameId, "players._id": playerId}, {$set: update});
             return player;
         },
         getPlayersForGame: function(gameId) {
             var game = Games.findOne(gameId);
             var players = _.map(game.players, function(player) {
                 var raceId = null,
-                    raceLabel = 'Pending ',
-                    pickedPlayers = _.reduce(game.players, function(i, player) {
-                        return i + (player.race ? 1 : 0)
-                    }, 0);
-                console.log("Getting players for game. Players %s Picked %s max: %s", game.players.length, pickedPlayers, game.maxPlayers);
-                if (game.hideRaces && pickedPlayers < game.maxPlayers) {
+                    raceLabel = 'Pending ';
+                if (game.hideRaces) {
                     if (player.race) {
                         raceLabel = "Picked";
                     }
@@ -146,3 +146,12 @@ var getNameFromUser = function(user) {
     }
     return "Billy No-name"
 };
+
+var pickingComplete = function(gameId, offset) {
+    offset = offset || 0;
+    var game = Games.findOne(gameId);
+    var pickedPlayers = _.reduce(game.players, function(i, player) {
+        return i + (player.race ? 1 : 0)
+    }, 0);
+    return pickedPlayers >= (game.maxPlayers + offset);
+}
