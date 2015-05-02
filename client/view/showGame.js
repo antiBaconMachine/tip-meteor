@@ -31,8 +31,10 @@ Template.showGame.events({
         }
     },
     'click #showRaces' : function() {
-        var gameId = Session.get("currentGame")._id;
-        Games.update({_id: gameId}, {$set: {hideRaces: false}});
+        if (confirm("Show picked races to all players? This can not be undone.")) {
+            var gameId = Session.get("currentGame")._id;
+            Games.update({_id: gameId}, {$set: {hideRaces: false}});
+        }
     },
     'click a.deleteGame': function(event, template) {
 

@@ -154,4 +154,4 @@ var pickingComplete = function(gameId, offset) {
         return i + (player.race ? 1 : 0)
     }, 0);
     return pickedPlayers >= (game.maxPlayers + offset);
-}
+};
