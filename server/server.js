@@ -75,10 +75,13 @@ Meteor.startup(function() {
         getPlayersForGame: function(gameId) {
             var game = Games.findOne(gameId);
             var players = _.map(game.players, function(player) {
-                var raceId = null;
-                var raceLabel = 'Pending ';
-                console.log("Getting players for game. Players %i max: %i", game.players.length, game.maxPlayers);
-                if (game.hideRaces && game.players.length < game.maxPlayers) {
+                var raceId = null,
+                    raceLabel = 'Pending ',
+                    pickedPlayers = _.reduce(game.players, function(i, player) {
+                        return i + (player.race ? 1 : 0)
+                    }, 0);
+                console.log("Getting players for game. Players %s Picked %s max: %s", game.players.length, pickedPlayers, game.maxPlayers);
+                if (game.hideRaces && pickedPlayers < game.maxPlayers) {
                     if (player.race) {
                         raceLabel = "Picked";
                     }
