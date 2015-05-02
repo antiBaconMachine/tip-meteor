@@ -1,3 +1,5 @@
+var PLAYER_EXCLUSION = {fields : {players:0}};
+
 Meteor.startup(function() {
     // code to run on server at startup
     JSON.parse(Assets.getText("import/races.json")).forEach(function(race) {
@@ -16,11 +18,11 @@ Meteor.startup(function() {
     Meteor.publish("gamesPub", function(id) {
         return Games.find({
             _id: id
-        });
+        }, PLAYER_EXCLUSION);
     });
 
     Meteor.publish("allGames", function() {
-        return Games.find();
+        return Games.find({},PLAYER_EXCLUSION);
     });
 
     Meteor.publish("races", function() {
@@ -77,14 +79,18 @@ Meteor.startup(function() {
             return player;
         },
         getPlayersForGame: function(gameId) {
-            var game = Games.findOne(gameId);
+            var game = Games.findOne(gameId),
+                userId = Meteor.userId();
+
             var players = _.map(game.players, function(player) {
                 var raceId = null,
                     raceLabel = 'Pending ';
-                if (game.hideRaces) {
+
+                if ((userId !== player._id) && game.hideRaces) {
                     if (player.race) {
                         raceLabel = "Picked";
                     }
+
                 } else {
                     if (player.race) {
                         raceId = player.race;
@@ -96,8 +102,11 @@ Meteor.startup(function() {
                         raceLabel += '- ' + races.join(', ');
                     }
                 }
+
                 return {
                     name: getNameFromUser(Meteor.users.findOne(player._id)),
+                    _id: player._id,
+                    picked: (player.race ? true : false),
                     race: raceLabel,
                     raceId: raceId
                 };

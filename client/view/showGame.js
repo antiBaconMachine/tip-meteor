@@ -87,7 +87,7 @@ Template.showGame.helpers({
         return player;
     },
     isLivePlayer: function() {
-        return getLivePlayer(this.players);
+        return getLivePlayer(Session.get("playersForGame"));
     },
     myRace: function() {
         var player = getLivePlayer(this.players);
@@ -116,6 +116,6 @@ Template.showGame.helpers({
 
 var getLivePlayer = function(players) {
     return _(players).find(function(player) {
-        return player._id === Meteor.user()._id && player.race;
+        return player._id === Meteor.user()._id && player.picked;
     });
 };
