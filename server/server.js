@@ -77,7 +77,8 @@ Meteor.startup(function() {
             var players = _.map(game.players, function(player) {
                 var raceId = null;
                 var raceLabel = 'Pending ';
-                if (game.hideRaces) {
+                console.log("Getting players for game. Players %i max: %i", game.players.length, game.maxPlayers);
+                if (game.hideRaces && game.players.length < game.maxPlayers) {
                     if (player.race) {
                         raceLabel = "Picked";
                     }
