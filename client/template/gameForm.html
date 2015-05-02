@@ -1,8 +1,6 @@
 <template name="gameForm">
     {{#autoForm collection="Games" id="insertGameForm" class="row" type=type doc=game }}
-    {{#if isNew}}
-        {{> afFieldInput name="owner" value=currentUser._id type="hidden"}}
-    {{/if}}
+
     <fieldset id="details" class='col-md-6'>
         <legend>Game details</legend>
         {{>afQuickField name='name' id='name'}}
@@ -19,6 +17,10 @@
         {{>afQuickField name='countRaces' options=countRaces id='countRaces'}}
         {{/if}}
         {{>afQuickField name='maxPlayers' options=maxPlayers id='maxPlayers'}}
+        {{#if isNew}}
+            {{> afQuickField name='hideRaces' options=hideRaces id='hideRaces' noselect=true}}
+            {{> afFieldInput name="owner" value=currentUser._id type="hidden"}}
+        {{/if}}
         <span class="racePoolCheckbox u-overflow-auto">
             {{>afQuickField checked=true name='racePool' options=racePool noselect=true class='racePool'}}
         </span>
