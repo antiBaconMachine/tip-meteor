@@ -76,15 +76,21 @@ Meteor.startup(function() {
             var game = Games.findOne(gameId);
             var players = _.map(game.players, function(player) {
                 var raceId = null;
-                var raceLabel = 'Pending ';  
-                if (player.race) {
-                    raceId = player.race;
-                    raceLabel = Races.findOne(raceId).name;
-                } else if (player.raceSelection) {
-                    var races = _.map(player.raceSelection, function(selection) {
-                        return Races.findOne(selection).name;
-                    });
-                    raceLabel += '- ' + races.join(', ');
+                var raceLabel = 'Pending ';
+                if (game.hideRaces) {
+                    if (player.race) {
+                        raceLabel = "Picked";
+                    }
+                } else {
+                    if (player.race) {
+                        raceId = player.race;
+                        raceLabel = Races.findOne(raceId).name;
+                    } else if (player.raceSelection) {
+                        var races = _.map(player.raceSelection, function (selection) {
+                            return Races.findOne(selection).name;
+                        });
+                        raceLabel += '- ' + races.join(', ');
+                    }
                 }
                 return {
                     name: getNameFromUser(Meteor.users.findOne(player._id)),

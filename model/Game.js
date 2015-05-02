@@ -73,6 +73,10 @@ gameSchema = new SimpleSchema({
     },
     owner: {
         type: String
+    },
+    hideRaces: {
+        type: Boolean,
+        optional: true
     }
 });
 Games.attachSchema(gameSchema);
