@@ -87,12 +87,13 @@ Template.showGame.helpers({
         return player;
     },
     isLivePlayer: function() {
-        return getLivePlayer(Session.get("playersForGame"));
+        return getLivePlayer(this.players);
     },
     myRace: function() {
         var player = getLivePlayer(this.players);
-        if (player && player.race) {
-            return _(Races.findOne(player.race)).extend({id: 'myRace', noFade: true});
+        console.log("live player ", player);
+        if (player && player.picked) {
+            return _(Races.findOne(player.raceId)).extend({id: 'myRace', noFade: true});
         }
     },
     getRace: function(id) {
@@ -104,7 +105,7 @@ Template.showGame.helpers({
         return method ? method.description.replace(/%i/, this.countRaces) : SELECTION_METHODS[this.selectionMethod];
     },
     playersForGame: function() {
-        return Session.get('playersForGame');
+        return this.players;
     },
     hoverRace: function() {
         return Session.get('hoverRace');

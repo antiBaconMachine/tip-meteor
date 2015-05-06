@@ -3,7 +3,7 @@ gameController = RouteController.extend({
         return Session.get("currentGame");
     },
     waitOn: function() {
-        return Meteor.subscribe("gamesPub", this.params._id);
+        return Meteor.subscribe("singleGame", this.params._id);
     },
     showGame: function() {
         var game = Games.findOne(this.params._id);
@@ -11,17 +11,13 @@ gameController = RouteController.extend({
             var user = Meteor.user();
             var currentPlayer = findPlayer(game, user._id);
             var raceSelection = null;
-            if (currentPlayer && !currentPlayer.race && currentPlayer.raceSelection) {
+            if (currentPlayer && !currentPlayer.picked && currentPlayer.raceSelection) {
                 raceSelection = currentPlayer.raceSelection;
             }
             Session.set('hoverRace', null);
             Session.set("raceSelection", raceSelection);
             Session.set("currentGame", game);
             Session.set("currentPlayer", currentPlayer);
-            Meteor.call('getPlayersForGame', this.params._id, function(err, players) {
-                console.log("pfg",players);
-                Session.set('playersForGame', players);
-            });
             this.render();
         }
     },
