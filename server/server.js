@@ -13,19 +13,77 @@ Meteor.startup(function() {
         }
     });
 
-    Meteor.publish("gamesPub", function(id) {
-        return Games.find({
-            _id: id
+    //publish a single game with the players collection transformed to hide races and provide nice UI labels. This prevents people sneaking a peak using the client side minimongo collection
+    Meteor.publish("singleGame", function(id) {
+        //console.log("publishing single game %s", id);
+        var self = this;
+        //Transform function
+        var transform = function(doc) {
+            //console.log("transforming doc %j", doc);
+            doc.players = _.map(doc.players, function(player) {
+                var raceLabel = "Pending ", raceId, raceSelection = [];
+                if ((self.userId !== player._id) && doc.hideRaces) {
+                    if (player.race) {
+                        raceLabel = "Picked";
+                    }
+                } else {
+                    if (player.race) {
+                        raceId = player.race;
+                        raceLabel = Races.findOne(raceId).name;
+                    } else if (player.raceSelection) {
+                        raceSelection = player.raceSelection;
+                        var races = _.map(player.raceSelection, function (selection) {
+                            return Races.findOne(selection).name;
+                        });
+                        raceLabel += '- ' + races.join(', ');
+                    }
+                }
+
+               return {
+                   name: getNameFromUser(Meteor.users.findOne(player._id)),
+                   _id: player._id,
+                   picked: (player.race ? true : false),
+                   race: raceLabel,
+                   raceId: raceId,
+                   raceSelection: raceSelection
+               }
+            });
+            //console.log("transformed doc %j", doc);
+            return doc;
+        };
+
+        var observer = Games.find({_id: id}).observe({
+            added: function (document) {
+                //console.log("added ", document);
+                self.added('games', document._id, transform(document));
+            },
+            changed: function (newDocument, oldDocument) {
+                var transformed = transform(newDocument);
+                console.log("changing game players from %j to %j via transform %j", oldDocument.players, newDocument.players, transformed.players);
+                self.changed('games', oldDocument._id, transformed);
+            },
+            removed: function (oldDocument) {
+                self.removed('games', oldDocument._id);
+            }
         });
+
+        self.onStop(function () {
+            observer.stop();
+        });
+
+        self.ready();
+
     });
 
+    var PLAYER_EXCLUSION = {fields : {players:0}};
     Meteor.publish("allGames", function() {
-        return Games.find();
+        return Games.find({}, PLAYER_EXCLUSION);
     });
 
     Meteor.publish("races", function() {
         return Races.find();
     });
+
     Meteor.methods({
         addPlayer: function(gameId, playerId) {
             console.info("Add player");
@@ -75,35 +133,6 @@ Meteor.startup(function() {
             }
             Games.update({_id: gameId, "players._id": playerId}, {$set: update});
             return player;
-        },
-        getPlayersForGame: function(gameId) {
-            var game = Games.findOne(gameId);
-            var players = _.map(game.players, function(player) {
-                var raceId = null,
-                    raceLabel = 'Pending ';
-                if (game.hideRaces) {
-                    if (player.race) {
-                        raceLabel = "Picked";
-                    }
-                } else {
-                    if (player.race) {
-                        raceId = player.race;
-                        raceLabel = Races.findOne(raceId).name;
-                    } else if (player.raceSelection) {
-                        var races = _.map(player.raceSelection, function (selection) {
-                            return Races.findOne(selection).name;
-                        });
-                        raceLabel += '- ' + races.join(', ');
-                    }
-                }
-                return {
-                    name: getNameFromUser(Meteor.users.findOne(player._id)),
-                    race: raceLabel,
-                    raceId: raceId
-                };
-            });
-            console.log("SS players for game %j", players);
-            return players;
         }
     });
 });
