@@ -112,6 +112,8 @@ Meteor.startup(function() {
             if (game.selectionMethod === SELECTION_METHODS.RANDOM.key) {
                 race = selectionIds[0];
                 selectionIds = null;
+            } else if (game.selectionMethod === SELECTION_METHODS.FREE.key) {
+                selectionIds = null;
             }
 
             var player = {
@@ -145,7 +147,7 @@ Meteor.startup(function() {
             var player = findPlayer(game, playerId);
             var pool = (game.selectionMethod === SELECTION_METHODS.FREE.key) ? _.pluck(generateRaceSelection(game), "_id") : player.raceSelection;
             if (!_.contains(pool, raceId)) {
-                console.error("Selected race $s is not in valid set of selections %j", raceId, player.raceSelection);
+                console.error("Selected race %s is not in valid set of selections %j", raceId, pool);
                 throw "Illegal race selection";
             }
             player.race = raceId;
