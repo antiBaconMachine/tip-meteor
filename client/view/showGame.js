@@ -112,6 +112,9 @@ Template.showGame.helpers({
     },
     isEditable: function() {
         return Meteor.user()._id === this.owner
+    },
+    isFull: function() {
+        return this.players.length >= this.maxPlayers;
     }
 });
 

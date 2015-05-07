@@ -92,13 +92,31 @@ Meteor.startup(function() {
             if (_.has(_.pluck(game.players, "_id"), playerId)) {
                 throw "Player already in game";
             }
-            var raceSelection = generateRaceSelection(game);
-            console.log("race selection %j", raceSelection);
+            if (game.players.length >= game.maxPlayers) {
+                throw "Too many players in game";
+            }
+            var raceSelection = generateRaceSelection(game),
+                race = null,
+                selectionIds;
+
+            console.log("race selection for %s game is %j", game.selectionMethod, raceSelection);
+
+            if (!raceSelection || !raceSelection.length) {
+                throw "No valid race selection could be made";
+            }
+            selectionIds = _.pluck(raceSelection, "_id");
+
+            if (game.selectionMethod === SELECTION_METHODS.RANDOM.key) {
+                race = selectionIds[0];
+                selectionIds = null;
+            }
+
             var player = {
-                race: null,
-                raceSelection: _.pluck(raceSelection, "_id"),
+                race: race,
+                raceSelection: selectionIds,
                 _id: playerId
             };
+
             console.info("pushing player %j", player);
             var mod = {$push: {players: player}};
             game.players.push(player);
