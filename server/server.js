@@ -92,6 +92,9 @@ Meteor.startup(function() {
             if (_.has(_.pluck(game.players, "_id"), playerId)) {
                 throw "Player already in game";
             }
+            if (game.players.length >= game.maxPlayers) {
+                throw "Too many players in game";
+            }
             var raceSelection = generateRaceSelection(game),
                 race = null,
                 selectionIds;
