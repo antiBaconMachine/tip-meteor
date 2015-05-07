@@ -48,6 +48,9 @@ Meteor.startup(function() {
                    raceSelection: raceSelection
                }
             });
+            if (doc.selectionMethod == SELECTION_METHODS.FREE.key) {
+                doc.selectionPool = _.pluck(generateRaceSelection(doc), "_id");
+            }
             //console.log("transformed doc %j", doc);
             return doc;
         };
@@ -140,7 +143,8 @@ Meteor.startup(function() {
             var game = Games.findOne(gameId);
 
             var player = findPlayer(game, playerId);
-            if (!_.contains(player.raceSelection, raceId)) {
+            var pool = (game.selectionMethod === SELECTION_METHODS.FREE.key) ? _.pluck(generateRaceSelection(game), "_id") : player.raceSelection;
+            if (!_.contains(pool, raceId)) {
                 console.error("Selected race $s is not in valid set of selections %j", raceId, player.raceSelection);
                 throw "Illegal race selection";
             }
