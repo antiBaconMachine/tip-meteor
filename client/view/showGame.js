@@ -38,16 +38,6 @@ Template.showGame.events({
     },
     'click a.deleteGame': function(event, template) {
 
-    },
-    'mouseenter #players>li': function(event) {
-        var raceId = $(event.target).data('raceid');
-        console.info('click id: %s args: %o', raceId, arguments);
-        if (raceId) {
-            Session.set('hoverRace', Races.findOne(raceId));
-        }
-    },
-    'mouseleave #players>li': function(event) {
-        Session.set('hoverRace', null);
     }
 });
 Template.showGame.helpers({
@@ -97,7 +87,10 @@ Template.showGame.helpers({
         }
     },
     getRace: function(id) {
-        return Races.findOne(id);
+        var race = Races.findOne(id);
+        race.collapsed = true;
+        race.color = "green";
+        return race;
     },
     selectionMethod: function() {
         var method = SELECTION_METHODS[this.selectionMethod];

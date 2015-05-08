@@ -6,6 +6,6 @@ Template.raceCard.helpers({
 
 Template.raceCard.events({
    "click .raceCard__title" : function(event) {
-        $(event.target).closest('.raceCard').find('.fold').toggleClass("collapsed");
+        $(event.target).closest('.raceCard').find('.fold').toggleClass("collapsed_true");
    }
 });

@@ -97,17 +97,13 @@ table.startingUnits td {
     overflow: auto;
     width: 100%;
 }
-.players__player span {
+.playerEntry {
     display: block;
     float: left;
     clear: right;
 }
-.players__player__name {
-    width: 38%;
-    margin-right: 2%;
-}
 .players__player__race {
-    width: 60%;
+
 }
 .racePoolCheckbox .checkbox {
     width: 200px;
@@ -158,6 +154,7 @@ table.startingUnits td {
 }
 .raceCard__title {
     font-size: large;
+    margin: 0;
 }
 .raceCard__subtitle {
     font-size: medium;
@@ -182,7 +179,7 @@ table.startingUnits td {
     -webkit-transition: max-height 0.5s; /* Safari */
     transition: max-height 0.5s;
 }
-.collapsed {
+.collapsed_true {
     max-height: 0;
 }
 

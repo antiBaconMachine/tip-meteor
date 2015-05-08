@@ -17,13 +17,27 @@
         </div>
     </div>
     <div class="row-fluid u-overflow-auto">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <ul id="players" class="u-overflow-auto">
                 {{#if playersForGame.length}}
                 {{#each playersForGame}}
                 <li class="c-float-list__item players__player" data-raceid="{{raceId}}">
-                    <span class="players__player__name boxout rounded10">{{name}}</span>
-                    <span class="players__player__race boxout rounded10 green">{{race}}</span>
+                    <div class="col-md-3 players__player__name playerEntry boxout rounded10">
+                    {{name}}
+                    </div>
+                    <div class="col-md-9">
+                    <div class="players__player__race playerEntry">
+                    {{#if raceId}}
+                    {{#with getRace raceId}}
+                    {{>raceCard}}
+                    {{/with}}
+                    {{else}}
+                        <div id="{{id}}" class="raceCard green rounded10">
+                            <h3 class="raceCard__title">{{race}}</h3>
+                        </div>
+                    {{/if}}
+                    </div>
+                    </div>
                 </li>
                 {{/each}}
                 {{/if}}
@@ -41,10 +55,7 @@
                 </div>
                 {{else}}
                     {{#if isLivePlayer}}
-                    You have entered this game. Your race selection:
-                    <div>
-                        {{>raceCard myRace}}
-                    </div>
+                    You have entered this game.
                     {{else}}
                     {{#unless isFull}}
                     <a href="#" id="btnJoinGame" class="btn btn-primary">Join Game</a>
@@ -68,9 +79,4 @@
         </div>
     </div>
     {{/if}}
-    <div class="" id="hoverRace">
-        {{#if hoverRace}}
-        {{>raceCard hoverRace}}
-        {{/if}}
-    </div>
 </template>
