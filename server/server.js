@@ -48,6 +48,9 @@ Meteor.startup(function() {
                    raceSelection: raceSelection
                }
             });
+            if (doc.selectionMethod == SELECTION_METHODS.FREE.key) {
+                doc.selectionPool = _.pluck(generateRaceSelection(doc), "_id");
+            }
             //console.log("transformed doc %j", doc);
             return doc;
         };
@@ -109,6 +112,8 @@ Meteor.startup(function() {
             if (game.selectionMethod === SELECTION_METHODS.RANDOM.key) {
                 race = selectionIds[0];
                 selectionIds = null;
+            } else if (game.selectionMethod === SELECTION_METHODS.FREE.key) {
+                selectionIds = null;
             }
 
             var player = {
@@ -140,8 +145,9 @@ Meteor.startup(function() {
             var game = Games.findOne(gameId);
 
             var player = findPlayer(game, playerId);
-            if (!_.contains(player.raceSelection, raceId)) {
-                console.error("Selected race $s is not in valid set of selections %j", raceId, player.raceSelection);
+            var pool = (game.selectionMethod === SELECTION_METHODS.FREE.key) ? _.pluck(generateRaceSelection(game), "_id") : player.raceSelection;
+            if (!_.contains(pool, raceId)) {
+                console.error("Selected race %s is not in valid set of selections %j", raceId, pool);
                 throw "Illegal race selection";
             }
             player.race = raceId;
@@ -156,9 +162,9 @@ Meteor.startup(function() {
 });
 
 var generateRaceSelection = function(game) {
-    console.log("generating race selection for %j", game);
+    console.log("generating race selection for %j", game.players);
     var notList = _.flatten(_.collect(game.players, function(player) {
-        return player.race || player.raceSelection;
+        return player.raceId || player.raceSelection;
     }));
     var inList = game.racePool;
     console.log("disalowed races %j", notList);

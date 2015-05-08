@@ -11,8 +11,12 @@ gameController = RouteController.extend({
             var user = Meteor.user();
             var currentPlayer = findPlayer(game, user._id);
             var raceSelection = null;
-            if (currentPlayer && !currentPlayer.picked && currentPlayer.raceSelection) {
-                raceSelection = currentPlayer.raceSelection;
+            if (currentPlayer && !currentPlayer.picked) {
+                if (game.selectionMethod === SELECTION_METHODS.FREE.key) {
+                    raceSelection = game.selectionPool;
+                } else if (currentPlayer.raceSelection) {
+                    raceSelection = currentPlayer.raceSelection;
+                }
             }
             Session.set('hoverRace', null);
             Session.set("raceSelection", raceSelection);
