@@ -162,9 +162,9 @@ Meteor.startup(function() {
 });
 
 var generateRaceSelection = function(game) {
-    console.log("generating race selection for %j", game);
+    console.log("generating race selection for %j", game.players);
     var notList = _.flatten(_.collect(game.players, function(player) {
-        return player.race || player.raceSelection;
+        return player.raceId || player.raceSelection;
     }));
     var inList = game.racePool;
     console.log("disalowed races %j", notList);
