@@ -18,7 +18,6 @@ gameController = RouteController.extend({
                     raceSelection = currentPlayer.raceSelection;
                 }
             }
-            Session.set('hoverRace', null);
             Session.set("raceSelection", raceSelection);
             Session.set("currentGame", game);
             Session.set("currentPlayer", currentPlayer);
