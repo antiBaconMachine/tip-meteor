@@ -176,6 +176,17 @@ table.startingUnits td {
     padding: 3px 8px;
 }
 
+.collapsible {
+    overflow: hidden;
+    max-height: 1000px;
+    -webkit-transition: max-height 0.5s; /* Safari */
+    transition: max-height 0.5s;
+}
+.collapsed {
+    max-height: 0;
+}
+
+
 .purple {
     background-color: purple;
 }
