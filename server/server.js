@@ -141,6 +141,16 @@ Meteor.startup(function() {
             console.log("player: %j", player);
             return player;
         },
+        kickPlayer: function(gameId, playerId) {
+            console.log("kicking player %s from %s", playerId, gameId);
+            var game = Games.findOne(gameId);
+            var player = findPlayer(game, playerId);
+            if (this.userId === game.owner) {
+                Games.update({_id: gameId}, {$pull: {players: {_id: playerId}}});
+            } else {
+                throw "Not authorised to kick player";
+            }
+        },
         selectRace: function(gameId, playerId, raceId) {
             var game = Games.findOne(gameId);
 

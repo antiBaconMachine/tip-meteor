@@ -2,7 +2,7 @@ var hoverTimeout;
 
 Template.showGame.events({
     'click #btnJoinGame': function() {
-        var gameId = Session.get("currentGame")._id;
+        var gameId = getGame()._id;
         var playerId = Meteor.user()._id;
         console.info("joining game id %s with player %s", gameId, playerId);
 
@@ -15,7 +15,7 @@ Template.showGame.events({
         event.preventDefault();
         var userId = Meteor.user()._id;
         var raceId = $(event.target).data("raceid");
-        var gameId = Session.get("currentGame")._id;
+        var gameId = getGame()._id;
         console.log("selecting race for player %s: %s", name, raceId);
         if (confirm(_.template('Select <%=race%>?', {
             race: Races.findOne(raceId).name
@@ -32,15 +32,22 @@ Template.showGame.events({
     },
     'click #showRaces' : function() {
         if (confirm("Show picked races to all players? This can not be undone.")) {
-            var gameId = Session.get("currentGame")._id;
+            var gameId = getGame()._id;
             Games.update({_id: gameId}, {$set: {hideRaces: false}});
         }
     },
     'click #deleteGame': function(event, template) {
         if (confirm("Delete this game? This can not be undone.")) {
-            var gameId = Session.get("currentGame")._id;
+            var gameId = getGame()._id;
             Games.remove({_id: gameId});
             Router.go('index');
+        }
+    },
+    'click .kickPlayer': function(event) {
+        if (confirm("Kick this player? This can not be undone.")) {
+            var gameId = getGame()._id;
+            var playerId = $(event.target).closest('a').data("playerid");
+            Meteor.call("kickPlayer", gameId, playerId);
         }
     }
 });
@@ -108,7 +115,7 @@ Template.showGame.helpers({
         return Session.get('hoverRace');
     },
     isEditable: function() {
-        return Meteor.user()._id === this.owner
+        return Meteor.user()._id === (getGame().owner);
     },
     isFull: function() {
         return this.players.length >= this.maxPlayers;
@@ -120,3 +127,7 @@ var getLivePlayer = function(players) {
         return player._id === Meteor.user()._id && player.picked;
     });
 };
+
+var getGame = function() {
+    return Session.get("currentGame") || {};
+}
