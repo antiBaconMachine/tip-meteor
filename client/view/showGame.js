@@ -36,8 +36,12 @@ Template.showGame.events({
             Games.update({_id: gameId}, {$set: {hideRaces: false}});
         }
     },
-    'click a.deleteGame': function(event, template) {
-
+    'click #deleteGame': function(event, template) {
+        if (confirm("Delete this game? This can not be undone.")) {
+            var gameId = Session.get("currentGame")._id;
+            Games.remove({_id: gameId});
+            Router.go('index');
+        }
     }
 });
 Template.showGame.helpers({

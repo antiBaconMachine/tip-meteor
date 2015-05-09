@@ -86,7 +86,9 @@ Games.allow({
         return userId;
     },
     update: function (userId, doc) {
-        console.log(arguments);
+        return userId === doc.owner;
+    },
+    remove: function (userId, doc) {
         return userId === doc.owner;
     }
 });

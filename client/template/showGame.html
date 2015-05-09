@@ -36,7 +36,7 @@
                             <h3 class="raceCard__title">{{race}}</h3>
                         </div>
                     {{/if}}
-                   
+
                     </div>
                 </li>
                 {{/each}}
@@ -70,7 +70,8 @@
     {{#if isEditable}}
     <div class="row-fluid">
         <div class="col-md-12">
-            {{#linkTo route="editGame" class="btn editGame"}}
+            <button class="btn btn-danger" id="deleteGame">Delete</button>
+            {{#linkTo route="editGame" class="btn btn-primary editGame"}}
                 Edit
             {{/linkTo}}
             {{#if hideRaces}}
