@@ -16,7 +16,7 @@
             <h4>Players {{players.length}}/{{maxPlayers}}</h4>
         </div>
     </div>
-    <div class="row-fluid u-overflow-auto">
+    <div class="row-fluid">
         <div class="col-md-12">
             <ul id="players" class="u-overflow-auto">
                 {{#if playersForGame.length}}
@@ -24,7 +24,9 @@
                 <li class="c-float-list__item players__player" data-raceid="{{raceId}}">
                     <div class="col-md-3 players__player__name playerEntry boxout rounded10">
                         {{#if isEditable}}
+                        <a href="#" class="kickPlayer" data-playerid="{{_id}}">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
                         {{/if}}
                         <span>
                             {{name}}
