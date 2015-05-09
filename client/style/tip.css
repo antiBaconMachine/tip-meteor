@@ -13,6 +13,9 @@ ul {
     margin: 0;
     padding:0;
 }
+legend {
+    color: inherit;
+}
 .fullWidth {
     width : 100%;
 }
