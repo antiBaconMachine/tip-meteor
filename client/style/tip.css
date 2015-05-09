@@ -2,6 +2,11 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #272b30;
+    color: #C8C8C8;
+}
+a, a:hover {
+    color: inherit;
 }
 ul {
     list-style: none;
@@ -66,6 +71,8 @@ table.startingUnits td {
     background-color:  purple;
     padding: 10px;
     margin-bottom: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .u-margin {
