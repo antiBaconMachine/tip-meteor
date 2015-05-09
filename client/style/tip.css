@@ -101,6 +101,7 @@ table.startingUnits td {
     display: block;
     float: left;
     clear: right;
+    overflow: hidden;
 }
 .players__player__race {
 

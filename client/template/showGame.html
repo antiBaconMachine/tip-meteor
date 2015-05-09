@@ -25,8 +25,8 @@
                     <div class="col-md-3 players__player__name playerEntry boxout rounded10">
                     {{name}}
                     </div>
-                    <div class="col-md-9">
-                    <div class="players__player__race playerEntry">
+                    <div class="col-md-9 players__player__race playerEntry">
+
                     {{#if raceId}}
                     {{#with getRace raceId}}
                     {{>raceCard}}
@@ -36,7 +36,7 @@
                             <h3 class="raceCard__title">{{race}}</h3>
                         </div>
                     {{/if}}
-                    </div>
+                   
                     </div>
                 </li>
                 {{/each}}
