@@ -108,7 +108,7 @@ Template.showGame.helpers({
         return Session.get('hoverRace');
     },
     isEditable: function() {
-        return Meteor.user()._id === this.owner
+        return Meteor.user()._id === (Session.get("currentGame").owner);
     },
     isFull: function() {
         return this.players.length >= this.maxPlayers;
