@@ -55,17 +55,9 @@ Router.map(function () {
     this.route('races', {
         path: '/races'
     });
-    //this.route('signin', {
-    //    path: '/signin'
-    //});
 });
 
-AccountsTemplates.configureRoute('signIn', {
-    name: 'signin',
-    path: '/login',
-    template: 'signin',
-    redirect: '/'
-});
+
 
 Meteor.startup(function() {
 
