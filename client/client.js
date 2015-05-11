@@ -52,12 +52,8 @@ Router.map(function () {
         controller: 'gameController',
         action: 'editGame'
     });
-    this.route('races', {
-        path: '/races'
-    });
+    this.route('races');
 });
-
-
 
 Meteor.startup(function() {
 
