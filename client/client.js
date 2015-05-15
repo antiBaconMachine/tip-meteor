@@ -68,9 +68,9 @@ Meteor.startup(function() {
 
     $('body').on('click', 'a', function (event) {
         event.preventDefault();
-        var route = event.target.href;
+        var route = this.href;
         if (route) {
-            Router.go(event.target.href);
+            Router.go(route);
         }
         return false;
     });
