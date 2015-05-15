@@ -195,8 +195,11 @@ var generateRaceSelection = function(game) {
 
 var getNameFromUser = function(user) {
     if (user) {
-        if (user.profile && user.profile.name) {
-            return user.profile.name;
+        if (user.profile) {
+            var name = user.profile.displayName || user.profile.name;
+            if (name) {
+                return name;
+            }
         } else if (user.emails) {
             var email = user.emails[0].address;
             if (email) {

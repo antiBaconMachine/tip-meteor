@@ -1,3 +1,13 @@
 <template name="user">
-    <h1>userId: {{_id}}</h1>
+    {{#autoForm collection="Users" id="userProfileForm" class="row" type="update" doc=this }}
+    <fieldset id="details" class='col-md-6'>
+        <legend>Profile</legend>
+        {{>afQuickField name='profile.displayName' id='displayName'}}
+        <a href="/" class="btn cancel">Cancel</a>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </fieldset>
+    <fieldset id="password" class='col-md-6'>
+        <a href="/change-password">Change password</a>
+    </fieldset>
+    {{/autoForm}}
 </template>
