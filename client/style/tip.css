@@ -194,6 +194,16 @@ table.startingUnits td {
     max-height: 0;
 }
 
+.four04 {
+    background-image: url(/images/404.png);
+    background-repeat: no-repeat;
+    height: 785px;
+    text-align: center;
+    color: #fa9e00;
+    font-size: 5em;
+    margin: auto 0;
+    font-family: monospace;
+}
 
 .purple {
     background-color: purple;
