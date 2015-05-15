@@ -29,6 +29,7 @@ var pad = function (n) {
     return ("0" + n).slice(("" + n).length - 1);
 };
 
+//Router.plugin('dataNotFound', {notFoundTemplate: '404'});
 Router.configure({
     layoutTemplate: 'layout'
 });
@@ -43,16 +44,24 @@ Router.map(function () {
     });
     this.route('createGame', {
         path: '/game/create',
-        controller: 'gameController',
-        action: 'createGame'
+        controller: 'gameController'
     });
     this.route('editGame', {
-        name: 'editGame',
         path: '/game/edit/:_id',
         controller: 'gameController',
         action: 'editGame'
     });
+    this.route('user', {
+        path: '/user/:_id',
+        controller: 'userController'
+    });
     this.route('races');
+});
+
+userController = RouteController.extend({
+   data: function() {
+       return Meteor.users.findOne({_id: this.params._id});
+   }
 });
 
 Meteor.startup(function() {

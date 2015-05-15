@@ -24,9 +24,6 @@ gameController = RouteController.extend({
             this.render();
         }
     },
-    createGame: function() {
-        this.render();
-    },
     editGame: function() {
         var game = Games.findOne(this.params._id);
         if (game) {
