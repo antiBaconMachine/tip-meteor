@@ -29,7 +29,7 @@ var pad = function (n) {
     return ("0" + n).slice(("" + n).length - 1);
 };
 
-//Router.plugin('dataNotFound', {notFoundTemplate: '404'});
+Router.plugin('dataNotFound', {notFoundTemplate: '404'});
 Router.configure({
     layoutTemplate: 'layout'
 });
