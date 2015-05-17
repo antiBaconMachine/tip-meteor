@@ -17,7 +17,7 @@ aldeed:collection2
 iron:router
 abm:git-version
 natestrauser:animate-css
-nemo64:bootstrap
 less
 useraccounts:bootstrap
 natestrauser:x-editable-bootstrap
+nemo64:bootstrap
