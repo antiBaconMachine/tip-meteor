@@ -193,23 +193,6 @@ var generateRaceSelection = function(game) {
     return selection;
 };
 
-var getNameFromUser = function(user) {
-    if (user) {
-        if (user.profile && user.profile.name) {
-            return user.profile.name;
-        } else if (user.emails) {
-            var email = user.emails[0].address;
-            if (email) {
-                var matches = email.match(/(.*)@.*/);
-                if (matches.length > 1) {
-                    return matches[1];
-                }
-            }
-        }
-    }
-    return "Billy No-name"
-};
-
 var pickingComplete = function(gameId, offset) {
     offset = offset || 0;
     var game = Games.findOne(gameId);

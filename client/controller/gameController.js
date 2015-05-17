@@ -1,7 +1,4 @@
 gameController = RouteController.extend({
-    data: function() {
-        return Session.get("currentGame");
-    },
     waitOn: function() {
         return Meteor.subscribe("singleGame", this.params._id);
     },
@@ -21,11 +18,12 @@ gameController = RouteController.extend({
             Session.set("raceSelection", raceSelection);
             Session.set("currentGame", game);
             Session.set("currentPlayer", currentPlayer);
-            this.render();
         }
-    },
-    createGame: function() {
-        this.render();
+        this.render("showGame", {
+            data: function() {
+                return game;
+            }
+        });
     },
     editGame: function() {
         var game = Games.findOne(this.params._id);
@@ -43,6 +41,7 @@ gameController = RouteController.extend({
         }
     },
     before: function() {
+        //Session.set("currentGame", null);
         if (_.isNull(Meteor.user())) {
             console.warn('uauth');
             Router.go('index');
