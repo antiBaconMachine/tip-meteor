@@ -19,7 +19,7 @@
         <div class="col-md-4">
         {{#if currentUser}}
             <div class="boxout rounded10">
-                <h3>My games</h3>
+                <h3><a href="/user/{{userId}}">{{displayName}}</a>'s games</h3>
                 <ul class="">
                     {{#if myGames.count}}
                         {{#each myGames}}

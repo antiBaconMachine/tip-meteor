@@ -36,8 +36,8 @@
     "close"                : false,
 
     "modals"               : false,
-    "tooltip"              : false,
-    "popovers"             : false,
+    "tooltip"              : true,
+    "popovers"             : true,
     "carousel"             : false,
 
     "affix"                : false,

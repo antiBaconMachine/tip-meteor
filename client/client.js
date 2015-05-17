@@ -58,12 +58,6 @@ Router.map(function () {
     this.route('races');
 });
 
-userController = RouteController.extend({
-   data: function() {
-       return Meteor.users.findOne({_id: this.params._id});
-   }
-});
-
 Meteor.startup(function() {
 
     $('body').on('click', 'a', function (event) {

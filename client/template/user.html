@@ -1,13 +1,14 @@
 <template name="user">
-    {{#autoForm collection="Users" id="userProfileForm" class="row" type="update" doc=this }}
+
     <fieldset id="details" class='col-md-6'>
         <legend>Profile</legend>
-        {{>afQuickField name='profile.displayName' id='displayName'}}
-        <a href="/" class="btn cancel">Cancel</a>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <div class="form-group">
+            <label for="displayName" class="control-label">Display name</label>
+            <p id="displayName" class="editable" data-type="textarea" data-placeholder="Enter text" data-emptytext="Click to enter text" data-rows="1">{{profile.displayName}}</p>
+        </div>
     </fieldset>
     <fieldset id="password" class='col-md-6'>
         <a href="/change-password">Change password</a>
     </fieldset>
-    {{/autoForm}}
+
 </template>
