@@ -1,23 +1,31 @@
 <template name="layout">
-        <div id="container" class="wrapper">
-            <header class="row-fluid">
-                <div class="content">
+    <div id="container" class="container-fluid">
+        <header class="row">
 
-                    <h1 class="col-md12 header__title">
-                        <a href="/" id="appTitle" class="header__title__a">Twilight Imperium Race Picker</a>
-                    </h1>
-                    <h4>(Massively broken alpha {{> gitVersion}})</h4>
-                    <div class="bottom-right">
-                        {{> atNavButton}}
-                    </div>
+            <h1 class="col-md-4 header__title">
+                <a href="/" id="appTitle" class="header__title__a">TIP</a>
+            </h1>
+
+            <div class="col-md-8">
+                <div class="row">
+                    <h2 class="col-md-12">Race Picker for</h2>
+
+                    <h2 class="col-md-12">Twilight Imperium</h2>
                 </div>
-            </header>
-            <section id="main" class="breathe container animated fadeIn">
-                {{> yield}}
-            </section>
-            <div class="push"></div>
-        </div>
-        <footer class="">
-            
-        </footer>
+            </div>
+            <div class="row">
+                <p class="col-md-4 about">
+                    Beta {{> gitVersion}}
+                </p>
+            </div>
+
+            <div class="bottom-right">
+                {{> atNavButton}}
+            </div>
+
+        </header>
+        <section id="main" class="breathe animated fadeIn">
+            {{> yield}}
+        </section>
+    </div>
 </template>
