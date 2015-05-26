@@ -17,16 +17,16 @@
             <div class="col-md-8">
                 <h2 class="col-md-12">Twilight Imperium Race Picker</h2>
             </div>
+            <div class="col-md-1">
+                <div class="bottom-right">
+                {{> atNavButton}}
+                </div>
+            </div>
         </div>
-
-        <!--<div class="bottom-right">-->
-        <!--{{> atNavButton}}-->
-        <!--</div>-->
-
     </header>
-    <div id="container" class="container-fluid">
-        <section id="main" class="breathe animated fadeIn">
-            {{> yield}}
-        </section>
-    </div>
+
+    <section class="breathe animated fadeIn container-fluid" id="main">
+        {{> yield}}
+    </section>
+
 </template>
