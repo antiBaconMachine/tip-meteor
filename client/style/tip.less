@@ -5,7 +5,12 @@
 @sandy: #F2A664;
 @brown: #5B402F;
 @peach: #F28A63;
-@grey: #333333;
+@grey: #272b30;
+@white: #FEFAFC;
+
+html {
+  background-color: @white;
+}
 
 header {
   background-color: @green;
@@ -13,6 +18,7 @@ header {
   overflow: auto;
   padding: 60px 0;
   position: relative;
+  margin-bottom: 10px;
 }
 
 h1 {
@@ -27,6 +33,12 @@ h2 {
   bottom: 60px;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding:0;
+}
+
 #appTitle {
   font-family: Audiowide;
   color: inherit;
@@ -34,4 +46,15 @@ h2 {
 
 #appTitle:hover {
   text-decoration: none;
+}
+
+.boxout {
+  width: 100%;
+  background-color: @blue;
+  overflow: auto;
+  padding: 10px;
+}
+
+.userGames {
+  background-color: @peach;
 }

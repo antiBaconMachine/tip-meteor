@@ -1,6 +1,5 @@
 <template name="index">
     <div class="row">
-
         <div class="col-md-4">
             <div class="boxout rounded10">
                 <h3>Upcoming public games</h3>
@@ -18,7 +17,7 @@
         </div>
         <div class="col-md-4">
         {{#if currentUser}}
-            <div class="boxout rounded10">
+            <div class="boxout rounded10 userGames">
                 <h3><a href="/user/{{userId}}">{{displayName}}</a>'s games</h3>
                 <ul class="">
                     {{#if myGames.count}}
