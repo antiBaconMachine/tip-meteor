@@ -1,29 +1,30 @@
 <template name="layout">
-    <div id="container" class="container-fluid">
-        <header class="row">
-
-            <h1 class="col-md-4 header__title">
-                <a href="/" id="appTitle" class="header__title__a">TIP</a>
-            </h1>
-
-            <div class="col-md-8">
-                <div class="row">
-                    <h2 class="col-md-12">Race Picker for</h2>
-
-                    <h2 class="col-md-12">Twilight Imperium</h2>
-                </div>
+    <header class="header container-fluid">
+        <div class="row">
+            <div class="col-md-11 col-md-offset-1 header__title">
+                <h1>
+                    <a href="/" id="appTitle" class="header__title__a">TIP</a>
+                </h1>
             </div>
-            <div class="row">
-                <p class="col-md-4 about">
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1 header__title">
+                <p class="about">
                     Beta {{> gitVersion}}
                 </p>
             </div>
 
-            <div class="bottom-right">
-                {{> atNavButton}}
+            <div class="col-md-8">
+                <h2 class="col-md-12">Twilight Imperium Race Picker</h2>
             </div>
+        </div>
 
-        </header>
+        <!--<div class="bottom-right">-->
+        <!--{{> atNavButton}}-->
+        <!--</div>-->
+
+    </header>
+    <div id="container" class="container-fluid">
         <section id="main" class="breathe animated fadeIn">
             {{> yield}}
         </section>
