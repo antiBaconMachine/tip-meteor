@@ -1,5 +1,5 @@
 .raceCard {
-  width: 100%;
+  max-width: 100%;
   font-size: small;
   padding: 15px;
   margin: 0 5px 20px 0;
@@ -37,4 +37,10 @@
 }
 .raceCard  table td {
   padding: 3px 8px;
+}
+
+@media screen and (min-width: 1200px) {
+  .listRaces .raceCard {
+    max-width: 32%;
+  }
 }
