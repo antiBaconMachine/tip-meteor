@@ -3,11 +3,11 @@
     <fieldset id="details" class='col-md-6'>
         <legend>Profile</legend>
         {{>afQuickField name='profile.displayName' id='displayName'}}
-        <a href="/" class="btn cancel">Cancel</a>
+        <a href="/" class="btn btn-warning cancel">Cancel</a>
         <button type="submit" class="btn btn-primary">Update</button>
     </fieldset>
     <fieldset id="password" class='col-md-6'>
-        <a href="/change-password">Change password</a>
+        <a href="/change-password" class="btn btn-primary">Change password</a>
     </fieldset>
     {{/autoForm}}
 </template>

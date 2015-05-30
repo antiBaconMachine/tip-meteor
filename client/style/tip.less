@@ -12,6 +12,7 @@
   border-radius: 0;
   border: 0;
 }
+
 .btn:active {
   background-color: inherit;
 }
@@ -23,11 +24,17 @@
 .purple {
   background-color: @green;
 }
+
 .brown {
   background-color: @brown;
 }
+
 .green {
   background-color: @sandy;
+}
+
+.sandyLinks a {
+  color: @sandy;
 }
 
 body {
@@ -70,7 +77,7 @@ h2 {
 ul {
   list-style: none;
   margin: 0;
-  padding:0;
+  padding: 0;
 }
 
 #appTitle {
@@ -112,6 +119,44 @@ ul {
   margin: 0;
   padding: 0 0 0 15px;
 }
+
 .racePoolCheckbox label {
   display: block;
+}
+
+legend {
+  color: inherit;
+}
+
+.title {
+  font-size: 4rem;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+
+.players {
+  margin-bottom: 10px;
+  overflow: auto;
+}
+
+.players .row {
+  overflow: auto;
+}
+
+.player {
+  background-color: @green;
+  padding: 15px;
+  margin-bottom: 5px;
+  color: white;
+  width: 100%;
+}
+.description {
+  margin-bottom: 16px;
+}
+.right {
+  text-align: right;
 }
