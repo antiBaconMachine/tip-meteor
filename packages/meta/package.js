@@ -13,9 +13,9 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
   api.use("udondan:yml");
-  api.addFiles('changelog.yaml', ['client', 'server'], {isAsset: true});
-  api.addFiles('meta.js');
-  api.export('changelog');
+  api.addFiles('changelog.yaml', ['server', 'client'], {isAsset: true});
+  api.addFiles('meta.js', 'server');
+  api.addFiles('client.js', 'client');
 });
 
 Package.onTest(function(api) {

@@ -1,0 +1,38 @@
+<template name="about">
+    <div class="row">
+        <div class="col-md-6">
+            <legend>About</legend>
+            <p>
+                This is a tool to help you cut down on setup time when playing the excellent Fantasy Flight Games' Twilight Imperium,
+                by allowing players to select their races well in advance of gameday. The available races for each game can be configured.
+                There's also a few different methods of race selection to pick from:
+            </p>
+            <ol>
+                <li>Full Random - One click assigns a random available race</li>
+                <li>Pick From Selection - A small (2-5) sub selection is generated for the player to pick from</li>
+                <li>Free Choice - Anything goes, the player can select any available race</li>
+            </ol>
+            <p>
+                You can also choose to hide the races from other players until everyone has finished picking.
+            </p>
+            <p>
+                If you have any suggestions please log a ticket at <a href="https://github.com/antiBaconMachine/tip-meteor/issues">github</a>.
+                You can also check out the full source for this app, it's WTF licensed.
+            </p>
+
+
+        </div>
+        <div class="col-md-6">
+            <legend>Changelog</legend>
+            <ul>
+                {{#each changelog}}
+                {{#with mapToArray}}
+                {{#each this}}
+                <li>{{key}} : {{value.msg}}</li>
+                {{/each}}
+                {{/with}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>

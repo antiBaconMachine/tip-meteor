@@ -15,7 +15,6 @@ aldeed:autoform
 aldeed:simple-schema
 aldeed:collection2
 iron:router
-abm:git-version
 natestrauser:animate-css
 less
 useraccounts:bootstrap

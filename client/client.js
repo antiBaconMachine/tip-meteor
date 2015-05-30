@@ -62,17 +62,18 @@ Router.map(function () {
         }
     });
     this.route('races');
+    this.route('about');
 });
 
 Meteor.startup(function () {
 
     $('body').on('click', 'a', function (event) {
-        event.preventDefault();
         var route = this.href;
-        if (route) {
+        if (route && (route.substr("http") === -1)) {
+            event.preventDefault();
             Router.go(route);
+            return false;
         }
-        return false;
     });
 
 });
