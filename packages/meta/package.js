@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'abm:git-version',
+  name: 'abm:meta',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -12,13 +12,14 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
-  api.use(['templating'], 'client');
-  api.addFiles('git-version.server.js', 'server');
-  api.addFiles(["git-version.html", 'git-version.client.js'], 'client');
+  api.use("udondan:yml");
+  api.addFiles('changelog.yaml', ['server', 'client'], {isAsset: true});
+  api.addFiles('meta.js', 'server');
+  api.addFiles('client.js', 'client');
 });
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('abm:git-version');
-  api.addFiles('git-version-tests.js');
+  api.use('abm:meta');
+  api.addFiles('meta-tests.js');
 });
