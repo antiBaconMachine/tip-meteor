@@ -8,6 +8,18 @@
 @grey: #272b30;
 @white: #FEFAFC;
 
+.btn {
+  border-radius: 0;
+  border: 0;
+}
+.btn:active {
+  background-color: inherit;
+}
+
+.btn-primary {
+  background-color: @blue;
+}
+
 .purple {
   background-color: @green;
 }
@@ -23,12 +35,22 @@ body {
   color: @white;
 }
 
+.navBar {
+  text-align: right;
+  background-color: @green;
+  overflow: auto;
+}
+
+.navBar li {
+  float: right;
+  margin-left: 2px;
+}
+
 header {
   background-color: @green;
   color: @sandy;
-  overflow: auto;
+  overflow-y: auto;
   padding: 60px 0;
-  position: relative;
   margin-bottom: 10px;
   background-image: url(/images/header2.png);
 }

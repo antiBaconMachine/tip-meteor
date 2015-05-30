@@ -1,4 +1,11 @@
 <template name="layout">
+    <section class="navBar container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {{> navBar }}
+            </div>
+        </div>
+    </section>
     <header class="header container-fluid">
         <div class="row">
             <div class="col-md-11 col-md-offset-1 header__title">
@@ -16,11 +23,6 @@
 
             <div class="col-md-8">
                 <h2 class="col-md-12">Twilight Imperium Race Picker</h2>
-            </div>
-            <div class="col-md-1">
-                <div class="bottom-right">
-                {{> atNavButton}}
-                </div>
             </div>
         </div>
     </header>

@@ -1,0 +1,26 @@
+<template name="navBar">
+    <ul>
+
+        {{#if currentUser}}
+        <li>
+            {{#linkTo route="logout" class="btn btn-primary logout"}}
+            Sign Out
+            {{/linkTo}}
+        </li>
+        <li>
+            {{#linkTo route="user" data=currentUser class="btn btn-primary profile"}}
+            Profile
+            {{/linkTo}}
+        </li>
+        {{else}}
+        <li>
+            <a href="/sign-in" class="btn-primary btn login">
+                Sign In
+            </a>
+        </li>
+        {{/if}}
+        <li>
+            <a href="/races" class="btn btn-primary races">Races</a>
+        </li>
+    </ul>
+</template>
