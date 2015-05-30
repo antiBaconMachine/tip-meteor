@@ -1,37 +1,52 @@
 gameController = RouteController.extend({
-    data: function() {
-        return Session.get("currentGame");
-    },
     waitOn: function() {
-        return Meteor.subscribe("gamesPub", this.params._id);
+        return Meteor.subscribe("singleGame", this.params._id);
     },
-    show: function() {
+    showGame: function() {
         var game = Games.findOne(this.params._id);
         if (game) {
             var user = Meteor.user();
             var currentPlayer = findPlayer(game, user._id);
             var raceSelection = null;
-            if (currentPlayer && !currentPlayer.race && currentPlayer.raceSelection) {
-                raceSelection = currentPlayer.raceSelection;
+            if (currentPlayer && !currentPlayer.picked) {
+                if (game.selectionMethod === SELECTION_METHODS.FREE.key) {
+                    raceSelection = game.selectionPool;
+                } else if (currentPlayer.raceSelection) {
+                    raceSelection = currentPlayer.raceSelection;
+                }
             }
-            Session.set('hoverRace', null);
             Session.set("raceSelection", raceSelection);
             Session.set("currentGame", game);
             Session.set("currentPlayer", currentPlayer);
-            Meteor.call('getPlayersForGame', this.params._id, function(err, players) {
-                console.log("pfg",players);
-                Session.set('playersForGame', players);
-            });
-            this.render();
+        }
+        this.render("showGame", {
+            data: function() {
+                return game;
+            }
+        });
+    },
+    editGame: function() {
+        var game = Games.findOne(this.params._id);
+        if (game) {
+            var user = Meteor.user();
+            if (game.owner === user._id) {
+                this.render('editGame', {
+                    data : {
+                        game: game
+                    }
+                });
+            } else {
+                Router.go('index');
+            }
         }
     },
-    create: function() {
-        this.render();
-    },
     before: function() {
+        //Session.set("currentGame", null);
         if (_.isNull(Meteor.user())) {
             console.warn('uauth');
-            Router.go(Router.path('index'));
+            Router.go('index');
+        } else {
+            this.next();
         }
     }
 });

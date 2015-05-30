@@ -2,7 +2,7 @@ var hoverTimeout;
 
 Template.showGame.events({
     'click #btnJoinGame': function() {
-        var gameId = Session.get("currentGame")._id;
+        var gameId = getGame()._id;
         var playerId = Meteor.user()._id;
         console.info("joining game id %s with player %s", gameId, playerId);
 
@@ -15,7 +15,7 @@ Template.showGame.events({
         event.preventDefault();
         var userId = Meteor.user()._id;
         var raceId = $(event.target).data("raceid");
-        var gameId = Session.get("currentGame")._id;
+        var gameId = getGame()._id;
         console.log("selecting race for player %s: %s", name, raceId);
         if (confirm(_.template('Select <%=race%>?', {
             race: Races.findOne(raceId).name
@@ -30,15 +30,25 @@ Template.showGame.events({
             }
         }
     },
-    'mouseenter #players>li': function(event) {
-        var raceId = $(event.target).data('raceid');
-        console.info('click id: %s args: %o', raceId, arguments);
-        if (raceId) {
-            Session.set('hoverRace', Races.findOne(raceId));
+    'click #showRaces' : function() {
+        if (confirm("Show picked races to all players? This can not be undone.")) {
+            var gameId = getGame()._id;
+            Games.update({_id: gameId}, {$set: {hideRaces: false}});
         }
     },
-    'mouseleave #players>li': function(event) {
-        Session.set('hoverRace', null);
+    'click #deleteGame': function(event, template) {
+        if (confirm("Delete this game? This can not be undone.")) {
+            var gameId = getGame()._id;
+            Games.remove({_id: gameId});
+            Router.go('index');
+        }
+    },
+    'click .kickPlayer': function(event) {
+        if (confirm("Kick this player? This can not be undone.")) {
+            var gameId = getGame()._id;
+            var playerId = $(event.target).closest('a').data("playerid");
+            Meteor.call("kickPlayer", gameId, playerId);
+        }
     }
 });
 Template.showGame.helpers({
@@ -82,12 +92,16 @@ Template.showGame.helpers({
     },
     myRace: function() {
         var player = getLivePlayer(this.players);
-        if (player && player.race) {
-            return _(Races.findOne(player.race)).extend({id: 'myRace', noFade: true});
+        console.log("live player ", player);
+        if (player && player.picked) {
+            return _(Races.findOne(player.raceId)).extend({id: 'myRace', noFade: true});
         }
     },
     getRace: function(id) {
-        return Races.findOne(id);
+        var race = Races.findOne(id);
+        race.collapsed = true;
+        race.color = "green";
+        return race;
     },
     selectionMethod: function() {
         var method = SELECTION_METHODS[this.selectionMethod];
@@ -95,15 +109,25 @@ Template.showGame.helpers({
         return method ? method.description.replace(/%i/, this.countRaces) : SELECTION_METHODS[this.selectionMethod];
     },
     playersForGame: function() {
-        return Session.get('playersForGame');
+        return this.players;
     },
     hoverRace: function() {
         return Session.get('hoverRace');
+    },
+    isEditable: function() {
+        return Meteor.user()._id === (getGame().owner);
+    },
+    isFull: function() {
+        return this.players.length >= this.maxPlayers;
     }
 });
 
 var getLivePlayer = function(players) {
     return _(players).find(function(player) {
-        return player._id === Meteor.user()._id && player.race;
+        return player._id === Meteor.user()._id && player.picked;
     });
 };
+
+var getGame = function() {
+    return Session.get("currentGame") || {};
+}

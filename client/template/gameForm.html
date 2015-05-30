@@ -1,0 +1,36 @@
+<template name="gameForm">
+    {{#autoForm collection="Games" id="insertGameForm" type=type doc=game }}
+    <div class="row">
+        <fieldset id="details" class='col-md-6'>
+            <legend>Game details</legend>
+            {{>afQuickField name='name' id='name'}}
+            {{>afQuickField name='date' id='date'}}
+            {{>afQuickField name='location' id='location'}}
+            {{>afQuickField name='description' rows=5 id='description'}}
+        </fieldset>
+        <fieldset id="options" class='col-md-6'>
+            <legend>
+                Game options
+            </legend>
+            {{>afQuickField name='selectionMethod' options=selectionMethod noselect=true title=description class='selectionMethod'}}
+            {{#if isCountRaces}}
+            {{>afQuickField name='countRaces' options=countRaces id='countRaces'}}
+            {{/if}}
+            {{>afQuickField name='maxPlayers' options=maxPlayers id='maxPlayers'}}
+            {{#if isNew}}
+                {{> afQuickField name='hideRaces' options=hideRaces id='hideRaces' noselect=true}}
+                {{> afFieldInput name="owner" value=currentUser._id type="hidden"}}
+            {{/if}}
+            <span class="racePoolCheckbox u-overflow-auto">
+                {{>afQuickField checked=true name='racePool' options=racePool noselect=true class='racePool'}}
+            </span>
+        </fieldset>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+            <a href="/" class="btn btn-warning cancel">Cancel</a>
+            <button type="submit" class="btn btn-primary">Insert</button>
+        </div>
+    </div>
+    {{/autoForm}}
+</template>

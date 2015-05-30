@@ -1,13 +1,12 @@
 <template name="index">
     <div class="row">
-
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="boxout rounded10">
                 <h3>Upcoming public games</h3>
                  <ul class="">
                     {{#if allUpcomingGames.count}}
                         {{#each allUpcomingGames}}
-                            {{>game this}}
+                            {{> game this}}
                         {{/each}}
                     {{else}}
                         <li class="t-small">No games</li>
@@ -16,10 +15,11 @@
                  </ul>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
         {{#if currentUser}}
-            <div class="boxout rounded10">
-                <h3>My games</h3>
+            <div class="boxout rounded10 userGames">
+                <h3><a href="/user/{{userId}}">{{displayName}}</a>'s games</h3>
+                <a href="/game/create" id="btnCreateGame" class="btn btn-primary">Create Game</a>
                 <ul class="">
                     {{#if myGames.count}}
                         {{#each myGames}}
@@ -31,17 +31,8 @@
                 </ul>
             </div>
         {{else}}
-            Please sign in above to view or create games
+            Please <a href="/sign-in" class="btn-primary btn login">Sign In</a> to view and create games.
         {{/if}}
-        </div>
-        
-        <div class="col-md-4">
-            <ul>
-                {{#if currentUser}}
-                    <li><a href="/game/create" id="btnCreateGame" class="btn btn-primary">Create Game</a></li>
-                {{/if}}
-                 <li><a href="/races" id="races">View all races</a></li>
-            </ul>
         </div>
         
     </div>
