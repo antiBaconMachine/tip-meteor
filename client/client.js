@@ -16,7 +16,7 @@ UI.registerHelper('guid', function () {
 
 UI.registerHelper("mapToArray", function () {
     var arr = [];
-    _.each(this, function(v, k) {
+    _.each(this, function (v, k) {
         arr.push({
             key: k,
             value: v
@@ -55,10 +55,16 @@ Router.map(function () {
         path: '/user/:_id',
         controller: 'userController'
     });
+    this.route('logout', {
+        action: function () {
+            Meteor.logout();
+            Router.go('index');
+        }
+    });
     this.route('races');
 });
 
-Meteor.startup(function() {
+Meteor.startup(function () {
 
     $('body').on('click', 'a', function (event) {
         event.preventDefault();
