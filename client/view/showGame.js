@@ -54,7 +54,6 @@ Template.showGame.events({
 Template.showGame.helpers({
     raceSelection: function() {
         var rs = Session.get("raceSelection");
-        console.info("raceSelection: %o", rs);
         return rs;
     },
     raceSelections: function() {

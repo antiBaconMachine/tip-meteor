@@ -85,9 +85,9 @@ Meteor.startup(function() {
 
     Meteor.methods({
         addPlayer: function(gameId, playerId) {
-            console.info("Add player");
+            //console.info("Add player");
             var game = Games.findOne(gameId);
-            console.info("Updating game %j with player %s", game, playerId);
+            //console.info("Updating game %j with player %s", game, playerId);
             if (_.has(_.pluck(game.players, "_id"), playerId)) {
                 throw "Player already in game";
             }
@@ -98,7 +98,7 @@ Meteor.startup(function() {
                 race = null,
                 selectionIds;
 
-            console.log("race selection for %s game is %j", game.selectionMethod, raceSelection);
+            //console.log("race selection for %s game is %j", game.selectionMethod, raceSelection);
 
             if (!raceSelection || !raceSelection.length) {
                 throw "No valid race selection could be made";
@@ -118,7 +118,7 @@ Meteor.startup(function() {
                 _id: playerId
             };
 
-            console.info("pushing player %j", player);
+            //console.info("pushing player %j", player);
             var mod = {$push: {players: player}};
             game.players.push(player);
 
@@ -173,19 +173,19 @@ var generateRaceSelection = function(game) {
         return player.raceId || player.raceSelection;
     }));
     var inList = game.racePool;
-    console.log("disalowed races %j", notList);
+    //console.log("disalowed races %j", notList);
     var selection = Races.find({
         _id: {
             $nin: notList,
             $in: inList
         }
     }).fetch();
-    console.info(game.selectionMethod);
+    //console.info(game.selectionMethod);
     if (game.selectionMethod === SELECTION_METHODS.PICK_FROM_SELECTION.key || game.selectionMethod === SELECTION_METHODS.RANDOM.key) {
         //TODO: when underscore smart package is updated to use 1.5.2 we can use _.sample()
         selection = _.shuffle(selection).slice(0, (game.countRaces || 1));
     }
-    console.log("%s available races: %j", selection.length, _.pluck(selection, "name"));
+    //console.log("%s available races: %j", selection.length, _.pluck(selection, "name"));
     return selection;
 };
 
