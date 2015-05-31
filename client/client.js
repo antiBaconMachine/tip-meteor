@@ -1,4 +1,4 @@
-Meteor.subscribe("allGames", this.userId);
+Meteor.subscribe("allGames");
 Meteor.subscribe("races");
 
 UI.registerHelper('prettyDate', function (date) {

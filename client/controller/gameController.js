@@ -1,7 +1,4 @@
 gameController = RouteController.extend({
-    waitOn: function() {
-        return Meteor.subscribe("singleGame", this.params._id);
-    },
     showGame: function() {
         var game = Games.findOne(this.params._id);
         if (game) {
@@ -43,7 +40,6 @@ gameController = RouteController.extend({
     before: function() {
         //Session.set("currentGame", null);
         if (_.isNull(Meteor.user())) {
-            console.warn('uauth');
             Router.go('index');
         } else {
             this.next();

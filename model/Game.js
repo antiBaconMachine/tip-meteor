@@ -19,7 +19,6 @@ SELECTION_METHODS = {
         description: "Free choice"
     }
 };
-//Games = new Meteor.Collection("games");
 Games = new Meteor.Collection("games");
 gameSchema = new SimpleSchema({
     name: {
@@ -93,7 +92,6 @@ Games.allow({
     }
 });
 
-
 //TODO something more efficient for player retrieval. We used to store 
 //players under id key bt this caused issues with simple schema. 
 //We need to rework the schema if we continue using simple schema 
@@ -103,4 +101,4 @@ findPlayer = function (game, playerId) {
     return _.find(game.players, function (player) {
         return player._id === playerId;
     });
-}
+};

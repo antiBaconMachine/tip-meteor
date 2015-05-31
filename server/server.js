@@ -13,8 +13,8 @@ Meteor.startup(function() {
         }
     });
 
-    //publish a single game with the players collection transformed to hide races and provide nice UI labels. This prevents people sneaking a peak using the client side minimongo collection
-    Meteor.publish("singleGame", function(id) {
+    //publish games with the players collection transformed to hide races and provide nice UI labels. This prevents people sneaking a peak using the client side minimongo collection
+    Meteor.publish("allGames", function() {
         //console.log("publishing single game %s", id);
         var self = this;
         //Transform function
@@ -55,7 +55,7 @@ Meteor.startup(function() {
             return doc;
         };
 
-        var observer = Games.find({_id: id}).observe({
+        var observer = Games.find().observe({
             added: function (document) {
                 //console.log("added ", document);
                 self.added('games', document._id, transform(document));
@@ -76,11 +76,6 @@ Meteor.startup(function() {
 
         self.ready();
 
-    });
-
-    var PLAYER_EXCLUSION = {fields : {players:0}};
-    Meteor.publish("allGames", function() {
-        return Games.find({}, PLAYER_EXCLUSION);
     });
 
     Meteor.publish("races", function() {
