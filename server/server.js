@@ -13,6 +13,7 @@ Meteor.startup(function() {
         }
     });
 
+    var EXPIRED_EXCLUSION = {date: {$gte: new Date()}};
     //publish games with the players collection transformed to hide races and provide nice UI labels. This prevents people sneaking a peak using the client side minimongo collection
     Meteor.publish("allGames", function() {
         //console.log("publishing single game %s", id);
@@ -55,7 +56,7 @@ Meteor.startup(function() {
             return doc;
         };
 
-        var observer = Games.find().observe({
+        var observer = Games.find(EXPIRED_EXCLUSION).observe({
             added: function (document) {
                 //console.log("added ", document);
                 self.added('games', document._id, transform(document));
