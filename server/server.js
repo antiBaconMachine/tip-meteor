@@ -128,8 +128,7 @@ Meteor.startup(function() {
 //          console.info("Invalid keys : %j", context.invalidKeys());
 //          console.info(Games.validate(mod, {modifier : true}));
 
-            //fails validation if using collection2 for unknown reasons, using wrapped collection for now
-            Games._collection.update({_id: game._id}, mod);
+            Games.update({_id: game._id}, mod);
 
             //return a player object with resolved raceSelections instead of the db object which just has race ids
             //player.raceSelection = raceSelection;
