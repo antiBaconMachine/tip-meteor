@@ -1,5 +1,8 @@
 gameController = RouteController.extend({
-    showGame: function() {
+    waitOn: function () {
+        return Meteor.subscribe("allGames");
+    },
+    showGame: function () {
         var game = Games.findOne(this.params._id);
         if (game) {
             var user = Meteor.user();
@@ -17,18 +20,18 @@ gameController = RouteController.extend({
             Session.set("currentPlayer", currentPlayer);
         }
         this.render("showGame", {
-            data: function() {
+            data: function () {
                 return game;
             }
         });
     },
-    editGame: function() {
+    editGame: function () {
         var game = Games.findOne(this.params._id);
         if (game) {
             var user = Meteor.user();
             if (game.owner === user._id) {
                 this.render('editGame', {
-                    data : {
+                    data: {
                         game: game
                     }
                 });
@@ -37,7 +40,7 @@ gameController = RouteController.extend({
             }
         }
     },
-    before: function() {
+    before: function () {
         //Session.set("currentGame", null);
         if (_.isNull(Meteor.user())) {
             Router.go('index');

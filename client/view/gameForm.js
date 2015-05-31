@@ -1,9 +1,8 @@
 Template.gameForm.events({
     "change input[name='selectionMethod']": function (event, template) {
-        console.info("Changed selection method to %s, compare to %s, %o", event.target.value, SELECTION_METHODS.PICK_FROM_SELECTION.key, event);
+        //console.info("Changed selection method to %s, compare to %s, %o", event.target.value, SELECTION_METHODS.PICK_FROM_SELECTION.key, event);
         if (event.target.value ===
             SELECTION_METHODS.PICK_FROM_SELECTION.key) {
-            console.info("true");
             Session.set("isCountRaces", true);
         } else {
             Session.set("isCountRaces", false);
