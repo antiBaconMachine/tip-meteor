@@ -4,10 +4,10 @@ Template.showGame.events({
     'click #btnJoinGame': function() {
         var gameId = getGame()._id;
         var playerId = Meteor.user()._id;
-        console.info("joining game id %s with player %s", gameId, playerId);
+        //console.info("joining game id %s with player %s", gameId, playerId);
 
         Meteor.call("addPlayer", gameId, playerId, function(err, player) {
-            console.info("add player cb %o", player, err);
+            //console.info("add player cb %o", player, err);
             Session.set("raceSelection", player.raceSelection);
         });
     },
@@ -16,7 +16,7 @@ Template.showGame.events({
         var userId = Meteor.user()._id;
         var raceId = $(event.target).data("raceid");
         var gameId = getGame()._id;
-        console.log("selecting race for player %s: %s", name, raceId);
+        //console.log("selecting race for player %s: %s", name, raceId);
         if (confirm(_.template('Select <%=race%>?', {
             race: Races.findOne(raceId).name
         }))) {
@@ -91,7 +91,7 @@ Template.showGame.helpers({
     },
     myRace: function() {
         var player = getLivePlayer(this.players);
-        console.log("live player ", player);
+        //console.log("live player ", player);
         if (player && player.picked) {
             return _(Races.findOne(player.raceId)).extend({id: 'myRace', noFade: true});
         }
