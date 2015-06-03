@@ -2,6 +2,7 @@ var log;
 Meteor.startup(function() {
     try {
         var data = YAML.safeLoad(Assets.getText('changelog.yaml'));
+        console.log(data);
         if (data.length) {
             log = data.reverse();
         }
