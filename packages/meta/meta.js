@@ -16,7 +16,7 @@ Meteor.startup(function() {
         },
         clogVersion: function() {
             if (meta && meta.changelog && meta.changelog.length) {
-                return Object.keys(meta.changelog)[0];
+                return Object.keys(meta.changelog[0])[0];
             }
         }
     });
