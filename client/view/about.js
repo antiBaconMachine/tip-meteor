@@ -1,10 +1,16 @@
+Meteor.startup(function () {
+    if (!Session.get("meta")) {
+        Meteor.call("meta", function (err, log) {
+            Session.set("meta", log);
+        });
+    }
+});
+
 Template.about.helpers({
-    changelog: function() {
-        if (!Session.get("changelog")) {
-            Meteor.call("changelog", function(err, log) {
-                Session.set("changelog", log);
-            });
-        }
-        return Session.get("changelog");
+    changelog: function () {
+        return (Session.get("meta") || {})["changelog"];
+    },
+    lastPublished: function () {
+        return (Session.get("meta") || {})["published"];
     }
 });

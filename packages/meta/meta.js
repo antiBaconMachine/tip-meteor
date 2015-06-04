@@ -1,21 +1,22 @@
-var log;
+var meta;
 Meteor.startup(function() {
     try {
-        var data = YAML.safeLoad(Assets.getText('changelog.yaml'));
-        if (data.length) {
-            log = data.reverse();
+        var data = YAML.safeLoad(Assets.getText('meta.yaml'));
+        if (data.changelog) {
+            data.changelog = data.changelog.reverse();
         }
+        meta = data;
     } catch (e) {
         console.log(e);
     }
 
     Meteor.methods({
-        changelog: function() {
-            return log;
+        meta: function() {
+            return meta;
         },
         clogVersion: function() {
-            if (log && log.length) {
-                return Object.keys(log[0])[0];
+            if (meta && meta.changelog && meta.changelog.length) {
+                return Object.keys(meta.changelog)[0];
             }
         }
     });
