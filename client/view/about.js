@@ -12,5 +12,8 @@ Template.about.helpers({
     },
     lastPublished: function () {
         return (Session.get("meta") || {})["published"];
+    },
+    commitDate: function() {
+        return new Date(this.value.date).toLocaleDateString();
     }
 });

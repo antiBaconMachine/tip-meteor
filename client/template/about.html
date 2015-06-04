@@ -29,7 +29,7 @@
                 {{#each changelog}}
                 {{#with mapToArray}}
                 {{#each this}}
-                <li>{{key}} : {{value.msg}}</li>
+                <li><span class="version">{{key}}</span> <span class="commitDate">{{commitDate}}</span>: {{value.msg}}</li>
                 {{/each}}
                 {{/with}}
                 {{/each}}
