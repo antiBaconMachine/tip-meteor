@@ -83,6 +83,10 @@ Meteor.startup(function() {
         return Races.find();
     });
 
+    Meteor.publish("players", function(ids) {
+        return Users.find({_id: {$in: (ids || [])}});
+    });
+
     Meteor.methods({
         addPlayer: function(gameId, playerId) {
             //console.info("Add player");
