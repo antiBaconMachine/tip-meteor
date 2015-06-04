@@ -1,3 +1,3 @@
 #!/bin/sh
-(cd packages/meta && ./changelog.sh > changelog.yaml)
+(cd packages/meta && ./meta.sh)
 meteor deploy tip.meteor.com
