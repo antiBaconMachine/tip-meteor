@@ -1,6 +1,8 @@
 testUsers = [
     {name: "q", email: "q@q", password: "qqqqqq"},
-    {name: "1", email: "1@1", password: "111111"}
+    {name: "1", email: "1@1", password: "111111"},
+    {name: "2", email: "2@2", password: "222222"},
+    {name: "3", email: "3@3", password: "333333"}
 ];
 
 Meteor.startup(function () {
