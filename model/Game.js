@@ -61,7 +61,8 @@ gameSchema = new SimpleSchema({
         optional: true
     },
     "players.$.raceSelection": {
-        type: [String]
+        type: [String],
+        optional: true
     },
     "players.$._id": {
         type: String
