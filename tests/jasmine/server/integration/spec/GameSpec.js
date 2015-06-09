@@ -66,6 +66,13 @@ describe("Game", function () {
             });
         });
 
+        it("errors when a user attempts to select a race not in their selection", function() {
+            Meteor.call("addPlayer", gameId, user1._id);
+            expect(function() {
+                Meteor.call("selectRace", gameId, user1._id, Template.racePool[10]);
+            }).toThrow();
+        });
+
         afterAll(function (done) {
             Games.remove(gameId);
         });
