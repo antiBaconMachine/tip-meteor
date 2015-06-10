@@ -21,6 +21,9 @@ Meteor.startup(function() {
         //Transform function
         var transform = function(doc) {
             //console.log("transforming doc %j", doc);
+            if (doc.selectionMethod == SELECTION_METHODS.FREE.key) {
+                doc.selectionPool = _.pluck(generateRaceSelection(doc), "_id");
+            }
             doc.players = _.map(doc.players, function(player) {
                 var raceLabel = "Pending ", raceId, raceSelection = [];
                 if ((self.userId !== player._id) && doc.hideRaces) {
@@ -50,9 +53,6 @@ Meteor.startup(function() {
                    raceSelection: raceSelection
                }
             });
-            if (doc.selectionMethod == SELECTION_METHODS.FREE.key) {
-                doc.selectionPool = _.pluck(generateRaceSelection(doc), "_id");
-            }
             //console.log("transformed doc %j", doc);
             return doc;
         };
@@ -169,9 +169,9 @@ Meteor.startup(function() {
 
 var generateRaceSelection = function(game) {
     console.log("generating race selection for %j", game.players);
-    var notList = _.flatten(_.collect(game.players, function(player) {
+    var notList = _.chain(game.players).collect(function(player) {
         return player.race || player.raceSelection;
-    }));
+    }).flatten().compact().value();
     var inList = game.racePool;
     //console.log("disalowed races %j", notList);
     var selection = Races.find({

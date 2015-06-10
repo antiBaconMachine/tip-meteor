@@ -7,8 +7,10 @@ Template.showGame.events({
         //console.info("joining game id %s with player %s", gameId, playerId);
 
         Meteor.call("addPlayer", gameId, playerId, function(err, player) {
-            //console.info("add player cb %o", player, err);
-            Session.set("raceSelection", player.raceSelection);
+            console.info("add player cb %o", player, err);
+            var game = Games.findOne(gameId);
+            var selection = (game.selectionMethod === SELECTION_METHODS.FREE.key) ? game.selectionPool : player.raceSelection;
+            Session.set("raceSelection", selection);
         });
     },
     'click a.selectRace': function(event, template) {
@@ -22,8 +24,12 @@ Template.showGame.events({
         }))) {
             if (userId && raceId) {
                 Meteor.call("selectRace", gameId, userId, raceId, function(err, player) {
-                    Session.set("currentPlayer", player);
-                    Session.set("raceSelection");
+                    if (!err) {
+                        Session.set("currentPlayer", player);
+                        Session.set("raceSelection");
+                    } else {
+                        console.warn(err);
+                    }
                 });
             } else {
                 console.error("supply user, race and game IDs buttmunch");
@@ -55,9 +61,6 @@ Template.showGame.helpers({
     raceSelection: function() {
         var rs = Session.get("raceSelection");
         return rs;
-    },
-    raceSelections: function() {
-
     },
     screenName: function(id) {
         //TODO fix this
@@ -117,7 +120,8 @@ Template.showGame.helpers({
         return this.players.length >= this.maxPlayers;
     },
     rejected: function() {
-        return getGame().rejected(this).join(", ");
+        var rejected = getGame().rejected(this);
+        return rejected? rejected.join(", ") : null;
     }
 });
 
