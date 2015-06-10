@@ -96,8 +96,8 @@ Games.allow({
 Games.helpers({
     rejected: function(player) {
         console.log("rejected races for player ", player);
-        if (player.raceSelection && player.race) {
-            return null;
+        if (player && player.raceSelection && player.race) {
+            return _.without(player.raceSelection, player.race);
         } else {
             return null;
         }

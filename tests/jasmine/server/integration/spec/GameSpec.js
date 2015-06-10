@@ -153,11 +153,14 @@ describe("Game", function () {
     });
 
     describe("with races shown", function () {
+        var pool = TEMPLATE.racePool.slice(0, 3);
         beforeAll(function (done) {
-            insertGame(_.extend({}, TEMPLATE), done);
+            insertGame(_.extend({}, TEMPLATE, {
+                racePool: pool
+            }), done);
         });
 
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             Meteor.call("addPlayer", gameId, user1._id, done);
         });
 
@@ -165,6 +168,18 @@ describe("Game", function () {
             var game = getGame();
             var player = game.players[0];
             expect(game.rejected(player)).toBeNull();
+        });
+
+        it("provides a list of rejected races once the user has picked", function () {
+            Meteor.call("selectRace", gameId, user1._id, pool[0]);
+            var game = getGame();
+            var player = game.players[0];
+            var rejected = game.rejected(player);
+            expect(rejected).not.toBeNull();
+            expect(rejected.length).toBe(2);
+            expect(_.contains(rejected, pool[0])).toBeFalsy();
+            expect(_.contains(rejected, pool[1])).toBeTruthy();
+            expect(_.contains(rejected, pool[2])).toBeTruthy();
         });
     });
 
