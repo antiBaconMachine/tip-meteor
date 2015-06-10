@@ -31,7 +31,8 @@ Meteor.startup(function() {
                     if (player.race) {
                         raceId = player.race;
                         raceLabel = Races.findOne(raceId).name;
-                    } else if (player.raceSelection) {
+                    }
+                    if (player.raceSelection) {
                         raceSelection = player.raceSelection;
                         var races = _.map(player.raceSelection, function (selection) {
                             return Races.findOne(selection).name;
@@ -44,8 +45,8 @@ Meteor.startup(function() {
                    name: getNameFromUser(Meteor.users.findOne(player._id)),
                    _id: player._id,
                    picked: (player.race ? true : false),
-                   race: raceLabel,
-                   raceId: raceId,
+                   raceLabel: raceLabel,
+                   race: raceId,
                    raceSelection: raceSelection
                }
             });

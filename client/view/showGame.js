@@ -118,6 +118,9 @@ Template.showGame.helpers({
     },
     isFull: function() {
         return this.players.length >= this.maxPlayers;
+    },
+    rejected: function() {
+        return getGame().rejected(this);
     }
 });
 
@@ -128,5 +131,5 @@ var getLivePlayer = function(players) {
 };
 
 var getGame = function() {
-    return Session.get("currentGame") || {};
+    return Games._transform(Session.get("currentGame")) || {};
 }
