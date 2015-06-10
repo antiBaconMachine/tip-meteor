@@ -1,7 +1,7 @@
 describe("Game", function () {
 
     var ALL_RACES = _.pluck(Races.find().fetch(), "_id");
-    var TEMPLATE = {
+    var GAME_TEMPLATE = {
         name: "Test Game",
         date: new Date(),
         location: "A place",
@@ -9,11 +9,16 @@ describe("Game", function () {
         selectionMethod: SELECTION_METHODS.PICK_FROM_SELECTION.key,
         countRaces: 3,
         maxPlayers: 3,
-        racePool: ALL_RACES,
+        racePool: ["foo","bar","spam","eggs"],
+        owner: "user1",
         players: [],
         owner: testUsers[0]["_id"],
         hideRaces: false
     };
+    var TEMPLATE = _.extend({}, GAME_TEMPLATE, {
+        racePool: ALL_RACES,
+        owner: testUsers[0]["_id"],
+    });
     var gameId;
     var user1 = testUsers[0];
     var user2 = testUsers[1];

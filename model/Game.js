@@ -93,6 +93,16 @@ Games.allow({
     }
 });
 
+Games.helpers({
+    rejected: function(player) {
+        if (player.raceSelection && player.race) {
+            return null;
+        } else {
+            return null;
+        }
+    }
+});
+
 //TODO something more efficient for player retrieval. We used to store 
 //players under id key bt this caused issues with simple schema. 
 //We need to rework the schema if we continue using simple schema 
