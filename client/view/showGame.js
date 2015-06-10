@@ -110,9 +110,6 @@ Template.showGame.helpers({
     playersForGame: function() {
         return this.players;
     },
-    hoverRace: function() {
-        return Session.get('hoverRace');
-    },
     isEditable: function() {
         return Meteor.user()._id === (getGame().owner);
     },
@@ -120,7 +117,7 @@ Template.showGame.helpers({
         return this.players.length >= this.maxPlayers;
     },
     rejected: function() {
-        return getGame().rejected(this);
+        return getGame().rejected(this).join(", ");
     }
 });
 
@@ -131,5 +128,6 @@ var getLivePlayer = function(players) {
 };
 
 var getGame = function() {
-    return Games._transform(Session.get("currentGame")) || {};
-}
+    var id = Session.get("currentGame");
+    return id ? Games.findOne(id) : {};
+};

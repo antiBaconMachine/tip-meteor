@@ -177,9 +177,9 @@ describe("Game", function () {
             var rejected = game.rejected(player);
             expect(rejected).not.toBeNull();
             expect(rejected.length).toBe(2);
-            expect(_.contains(rejected, pool[0])).toBeFalsy();
-            expect(_.contains(rejected, pool[1])).toBeTruthy();
-            expect(_.contains(rejected, pool[2])).toBeTruthy();
+            expect(_.contains(rejected, Races.findOne(pool[0]).name)).toBeFalsy();
+            expect(_.contains(rejected, Races.findOne(pool[1]).name)).toBeTruthy();
+            expect(_.contains(rejected, Races.findOne(pool[2]).name)).toBeTruthy();
         });
     });
 
@@ -192,7 +192,7 @@ describe("Game", function () {
             }), done);
         });
 
-        //TODO this should really be a client side test
+        //TODO this would be more appropriate client side as that's where it's used. Haven't got client side tests working yet, but should be straightforward to move once they are
         it("does not provide rejected races until races are shown", function() {
             Meteor.call("addPlayer", gameId, user1._id);
             Meteor.call("selectRace", gameId, user1._id, pool[0]);
@@ -206,7 +206,6 @@ describe("Game", function () {
             expect(rejected.length).toBe(2);
         })
     });
-
 
     afterAll(function (done) {
         Games.remove(gameId);

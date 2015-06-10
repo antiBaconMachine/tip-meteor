@@ -19,7 +19,7 @@ SELECTION_METHODS = {
         description: "Free choice"
     }
 };
-Games = new Meteor.Collection("games");
+Games = new Mongo.Collection("games");
 gameSchema = new SimpleSchema({
     name: {
         type: String
@@ -97,7 +97,9 @@ Games.helpers({
     rejected: function(player) {
         console.log("rejected races for player ", player);
         if (!this.hideRaces && player && player.raceSelection && player.race) {
-            return _.without(player.raceSelection, player.race);
+            return _.chain(player.raceSelection).without(player.race).map(function(id) {
+                return Races.findOne(id).name;
+            }).value();
         } else {
             return null;
         }
