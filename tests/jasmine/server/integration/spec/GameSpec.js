@@ -183,6 +183,30 @@ describe("Game", function () {
         });
     });
 
+    describe("with races hidden", function() {
+        var pool = TEMPLATE.racePool.slice(0, 3);
+        beforeAll(function (done) {
+            insertGame(_.extend({}, TEMPLATE, {
+                racePool: pool,
+                hideRaces: true
+            }), done);
+        });
+
+        //TODO this should really be a client side test
+        it("does not provide rejected races until races are shown", function() {
+            Meteor.call("addPlayer", gameId, user1._id);
+            Meteor.call("selectRace", gameId, user1._id, pool[0]);
+            var game = getGame();
+            var rejected = game.rejected(game.players[0]);
+            expect(rejected).toBeNull();
+            Games.update({_id: gameId}, {$set: {hideRaces: false}});
+            game = getGame();
+            rejected = game.rejected(game.players[0]);
+            expect(rejected).not.toBeNull();
+            expect(rejected.length).toBe(2);
+        })
+    });
+
 
     afterAll(function (done) {
         Games.remove(gameId);
