@@ -1,5 +1,5 @@
 describe("Game", function () {
-
+    var testUsers = Package.fixtures.Fixtures.testUsers;
     var ALL_RACES = _.pluck(Races.find().fetch(), "_id");
     var GAME_TEMPLATE = {
         name: "Test Game",

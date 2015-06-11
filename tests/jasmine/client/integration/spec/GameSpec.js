@@ -2,7 +2,8 @@ describe("Game", function () {
     var TEMPLATE,
         ALL_RACES;
     var gameId,
-        pool;
+        pool,
+        user1;
 
     var insertGame = function (game, done) {
         //TODO update to use meteor method;
@@ -37,6 +38,9 @@ describe("Game", function () {
         TEMPLATE = _.extend({}, GAME_TEMPLATE, {
             racePool: ALL_RACES
         });
+        var testUsers = Package.fixtures.Fixtures.testUsers;
+        user1 = testUsers[0];
+        Meteor.loginWithPassword(user1.email, user1.password);
         done();
     });
 
@@ -54,14 +58,13 @@ describe("Game", function () {
         });
 
         it("removes picked races from race pool", function () {
-            Meteor.call("selectRace", gameId, "foo", pool[0]);
             expect(getGame().raceSelection).not.toBeNull();
-            expect(_.contains(getGame().raceSelection, pool[0])).not.toBe(true);
-            console.log("TEST RACE SELECTION ", getGame());
-            expect(_.contains(getGame().raceSelection, pool[1])).toBe(true, getGame());
-            Meteor.call("addPlayer", gameId, "bar");
-            Meteor.call("selectRace", gameId, "bar", pool[0]);
-            expect(_.contains(getGame().raceSelection, pool[1])).not.toBe(true, "races are not being removed from shared pool");
+            expect(_.contains(getGame().raceSelection, pool[0])).toBe(true);
+            expect(_.contains(getGame().raceSelection, pool[1])).toBe(true);
+            Meteor.call("addPlayer", gameId, user1._id);
+            Meteor.call("selectRace", gameId, user1._id, pool[0]);
+            expect(_.contains(getGame().raceSelection, pool[0])).not.toBe(true, "races are not being removed from shared pool");
+            expect(_.contains(getGame().raceSelection, pool[1])).toBe(true);
         });
 
     });
