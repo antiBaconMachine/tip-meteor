@@ -16,7 +16,7 @@ describe("Game", function () {
     };
 
     var getGame = function () {
-        return Games.find({_id: gameId}).fetch()[0];
+        return Games.findOne(gameId);
     };
 
     beforeAll(function (done) {
