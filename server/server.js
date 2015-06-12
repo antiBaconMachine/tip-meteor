@@ -21,6 +21,9 @@ Meteor.startup(function() {
         //Transform function
         var transform = function(doc) {
             //console.log("transforming doc %j", doc);
+            if (doc.selectionMethod == SELECTION_METHODS.FREE.key) {
+                doc.selectionPool = _.pluck(generateRaceSelection(doc), "_id");
+            }
             doc.players = _.map(doc.players, function(player) {
                 var raceLabel = "Pending ", raceId, raceSelection = [];
                 if ((self.userId !== player._id) && doc.hideRaces) {
@@ -31,7 +34,8 @@ Meteor.startup(function() {
                     if (player.race) {
                         raceId = player.race;
                         raceLabel = Races.findOne(raceId).name;
-                    } else if (player.raceSelection) {
+                    }
+                    if (player.raceSelection) {
                         raceSelection = player.raceSelection;
                         var races = _.map(player.raceSelection, function (selection) {
                             return Races.findOne(selection).name;
@@ -44,14 +48,11 @@ Meteor.startup(function() {
                    name: getNameFromUser(Meteor.users.findOne(player._id)),
                    _id: player._id,
                    picked: (player.race ? true : false),
-                   race: raceLabel,
-                   raceId: raceId,
+                   raceLabel: raceLabel,
+                   race: raceId,
                    raceSelection: raceSelection
                }
             });
-            if (doc.selectionMethod == SELECTION_METHODS.FREE.key) {
-                doc.selectionPool = _.pluck(generateRaceSelection(doc), "_id");
-            }
             //console.log("transformed doc %j", doc);
             return doc;
         };
@@ -85,7 +86,7 @@ Meteor.startup(function() {
 
     Meteor.methods({
         addPlayer: function(gameId, playerId) {
-            //console.info("Add player");
+            console.info("Add player ", arguments);
             var game = Games.findOne(gameId);
             //console.info("Updating game %j with player %s", game, playerId);
             if (_.has(_.pluck(game.players, "_id"), playerId)) {
@@ -168,9 +169,9 @@ Meteor.startup(function() {
 
 var generateRaceSelection = function(game) {
     console.log("generating race selection for %j", game.players);
-    var notList = _.flatten(_.collect(game.players, function(player) {
+    var notList = _.chain(game.players).collect(function(player) {
         return player.race || player.raceSelection;
-    }));
+    }).flatten().compact().value();
     var inList = game.racePool;
     //console.log("disalowed races %j", notList);
     var selection = Races.find({
