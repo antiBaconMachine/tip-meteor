@@ -11,6 +11,7 @@ describe("Game", function () {
             if (err) {
                 throw err;
             }
+            console.log("created test game ", doc._id);
             done();
         });
     };
@@ -20,6 +21,9 @@ describe("Game", function () {
     };
 
     beforeAll(function (done) {
+        var testUsers = Package.fixtures.Fixtures.testUsers;
+        user1 = testUsers[0];
+
         ALL_RACES = _.pluck(Races.find().fetch(), "_id");
         var GAME_TEMPLATE = {
             name: "Test Game",
@@ -30,41 +34,84 @@ describe("Game", function () {
             countRaces: 3,
             maxPlayers: 3,
             racePool: ["foo", "bar", "spam", "eggs"],
-            owner: "user1",
+            owner: user1._id,
             players: [],
-            owner: "foo",
             hideRaces: false
         };
         TEMPLATE = _.extend({}, GAME_TEMPLATE, {
-            racePool: ALL_RACES
+            racePool: ALL_RACES,
+            owner: user1._id
         });
-        var testUsers = Package.fixtures.Fixtures.testUsers;
-        user1 = testUsers[0];
         Meteor.loginWithPassword(user1.email, user1.password);
         done();
     });
 
-    describe("free choice", function () {
+    describe("in free choice mode", function () {
 
-        beforeAll(function(done) {
+        beforeAll(function (done) {
             pool = ALL_RACES.slice(0, 4);
             insertGame(_.extend({}, TEMPLATE, {
-                racePool: TEMPLATE.racePool.slice(0, 4)
+                racePool: TEMPLATE.racePool.slice(0, 4),
+                selectionMethod: SELECTION_METHODS.FREE.key
             }), done);
         });
 
         beforeEach(function (done) {
-            Games.update({_id: gameId}, {$set: {players: []}}, done);
+            Games.update({_id: gameId}, {$set: {players: []}});
+            Meteor.call("kickplayer", gameId, user1._id, done);
         });
 
-        it("removes picked races from race pool", function () {
-            expect(getGame().raceSelection).not.toBeNull();
-            expect(_.contains(getGame().raceSelection, pool[0])).toBe(true);
-            expect(_.contains(getGame().raceSelection, pool[1])).toBe(true);
-            Meteor.call("addPlayer", gameId, user1._id);
-            Meteor.call("selectRace", gameId, user1._id, pool[0]);
-            expect(_.contains(getGame().raceSelection, pool[0])).not.toBe(true, "races are not being removed from shared pool");
-            expect(_.contains(getGame().raceSelection, pool[1])).toBe(true);
+        it("allows players to join", function (done) {
+            expect(getGame().players.length).toBe(0);
+            Meteor.promise("addPlayer", gameId, user1._id)
+                .then(function () {
+                    expect(getGame().players.length).toBe(1);
+                })
+                .then(done)
+                .catch(function (err) {
+                    expect(err).not.toBeDefined();
+                    throw err;
+                    done();
+                })
+        });
+
+        it("allows players to select a race", function (done) {
+            Meteor.promise("addPlayer", gameId, user1._id)
+                .then(function () {
+                    var player = getGame().players[0];
+                    expect(player.picked).toBe(false);
+                    return Meteor.promise("selectRace", gameId, user1._id, pool[0]);
+                })
+                .then(function () {
+                    player = getGame().players[0];
+                    expect(player.picked).toBe(true);
+                    expect(player.race).toBe(pool[0]);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it("removes picked races from race pool", function (done) {
+            expect(getGame().players.length).toBe(0);
+            expect(getGame().selectionPool).toBeDefined();
+            expect(getGame().selectionPool.sort()).toEqual(pool.sort(), "selectionPool and racePool do not initially match");
+            expect(_.contains(getGame().selectionPool, pool[0])).toBe(true);
+            expect(_.contains(getGame().selectionPool, pool[1])).toBe(true);
+
+            Meteor.promise("addPlayer", gameId, user1._id)
+                .then(function () {
+                    expect(getGame().players.length).toBe(1);
+                    expect(getGame().players[0].picked).toBe(false);
+                    return Meteor.promise("selectRace", gameId, user1._id, pool[0]);
+                })
+                .then(function () {
+                    expect(getGame().players[0].picked).toBe(true);
+                    expect(getGame().players[0].race).toBe(pool[0]);
+                    expect(_.contains(getGame().selectionPool, pool[0])).not.toBe(true, "races are not being removed from shared pool");
+                    expect(_.contains(getGame().selectionPool, pool[1])).toBe(true);
+                })
+                .then(done)
+                .catch(done);
         });
 
     });

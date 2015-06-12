@@ -25,3 +25,4 @@ velocity:html-reporter
 velocity:console-reporter
 dburles:collection-helpers
 fixtures
+deanius:promise

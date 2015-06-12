@@ -65,7 +65,8 @@ gameSchema = new SimpleSchema({
         optional: true
     },
     "players.$._id": {
-        type: String
+        type: String,
+        optional: true
     },
     _id: {
         type: String,

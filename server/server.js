@@ -86,7 +86,7 @@ Meteor.startup(function() {
 
     Meteor.methods({
         addPlayer: function(gameId, playerId) {
-            //console.info("Add player");
+            console.info("Add player ", arguments);
             var game = Games.findOne(gameId);
             //console.info("Updating game %j with player %s", game, playerId);
             if (_.has(_.pluck(game.players, "_id"), playerId)) {
