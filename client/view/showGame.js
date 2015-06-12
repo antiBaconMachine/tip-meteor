@@ -127,7 +127,7 @@ Template.showGame.helpers({
 
 var getLivePlayer = function(players) {
     return _(players).find(function(player) {
-        return player._id === Meteor.user()._id && player.picked;
+        return player._id === Meteor.userId() && player.picked;
     });
 };
 
