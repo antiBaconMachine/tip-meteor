@@ -92,23 +92,21 @@ describe("Game", function () {
         });
 
         it("removes picked races from race pool", function (done) {
-            expect(getGame().players.length).toBe(0);
             expect(getGame().selectionPool).toBeDefined();
             expect(getGame().selectionPool.sort()).toEqual(pool.sort(), "selectionPool and racePool do not initially match");
-            expect(_.contains(getGame().selectionPool, pool[0])).toBe(true);
-            expect(_.contains(getGame().selectionPool, pool[1])).toBe(true);
 
             Meteor.promise("addPlayer", gameId, user1._id)
                 .then(function () {
                     expect(getGame().players.length).toBe(1);
                     expect(getGame().players[0].picked).toBe(false);
+                    expect(getGame().selectionPool.sort()).toEqual(pool.sort(), "selectionPool has been affected by a player joining but not picking");
                     return Meteor.promise("selectRace", gameId, user1._id, pool[0]);
                 })
                 .then(function () {
                     expect(getGame().players[0].picked).toBe(true);
                     expect(getGame().players[0].race).toBe(pool[0]);
                     expect(_.contains(getGame().selectionPool, pool[0])).not.toBe(true, "races are not being removed from shared pool");
-                    expect(_.contains(getGame().selectionPool, pool[1])).toBe(true);
+                    expect(getGame().selectionPool.sort()).toEqual(_.without(pool.sort(), pool[0]), "selectionPool has been updated incorrectly");
                 })
                 .then(done)
                 .catch(done);
