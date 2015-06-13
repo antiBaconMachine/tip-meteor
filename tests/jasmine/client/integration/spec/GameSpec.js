@@ -11,7 +11,6 @@ describe("Game", function () {
             if (err) {
                 throw err;
             }
-            console.log("created test game ", doc._id);
             done();
         });
     };
@@ -23,27 +22,36 @@ describe("Game", function () {
     beforeAll(function (done) {
         var testUsers = Package.fixtures.Fixtures.testUsers;
         user1 = testUsers[0];
+        Meteor.loginWithPassword(user1.email, user1.password, function(err) {
+            if (err) {
+                done();
+                throw err;
+            }
+            ALL_RACES = _.pluck(Races.find().fetch(), "_id");
+            var GAME_TEMPLATE = {
+                name: "Test Game",
+                date: new Date(),
+                location: "A place",
+                description: "A description",
+                selectionMethod: SELECTION_METHODS.PICK_FROM_SELECTION.key,
+                countRaces: 3,
+                maxPlayers: 3,
+                racePool: ["foo", "bar", "spam", "eggs"],
+                owner: "foo",
+                players: [],
+                hideRaces: false
+            };
+            TEMPLATE = _.extend({}, GAME_TEMPLATE, {
+                racePool: ALL_RACES,
+                owner: Meteor.userId()
+            });
 
-        ALL_RACES = _.pluck(Races.find().fetch(), "_id");
-        var GAME_TEMPLATE = {
-            name: "Test Game",
-            date: new Date(),
-            location: "A place",
-            description: "A description",
-            selectionMethod: SELECTION_METHODS.PICK_FROM_SELECTION.key,
-            countRaces: 3,
-            maxPlayers: 3,
-            racePool: ["foo", "bar", "spam", "eggs"],
-            owner: user1._id,
-            players: [],
-            hideRaces: false
-        };
-        TEMPLATE = _.extend({}, GAME_TEMPLATE, {
-            racePool: ALL_RACES,
-            owner: user1._id
+            done();
         });
-        Meteor.loginWithPassword(user1.email, user1.password);
-        done();
+    });
+
+    it("should be logged in before starting tests", function() {
+        expect(Meteor.userId()).toBeDefined();
     });
 
     describe("in free choice mode", function () {
@@ -116,5 +124,6 @@ describe("Game", function () {
 
     afterAll(function (done) {
         Games.remove(gameId);
+        Meteor.logout(done);
     });
 });

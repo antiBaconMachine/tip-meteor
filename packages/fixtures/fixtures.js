@@ -6,7 +6,6 @@ var testUsers = [
 ];
 
 Meteor.startup(function () {
-    console.log("Generating test users");
     testUsers.forEach(function (user) {
         var result = Meteor.users.find({"emails": {"$elemMatch": {"address": user.email}}});
         if (result.count() !== 0) {
