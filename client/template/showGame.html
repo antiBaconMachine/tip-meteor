@@ -18,16 +18,19 @@
             <li class="row" data-raceid="{{raceId}}">
                 <div class="playerEntry col-sm-2">
                     <div class="player sandyLinks">
-                    {{#if isEditable}}
-                    <a href="#" class="kickPlayer" data-playerid="{{_id}}">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </a>
-                    {{/if}}
-                    <a href="/user/{{_id}}">
+                        {{#if isEditable}}
+                        <a href="#" class="kickPlayer" data-playerid="{{_id}}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                        {{/if}}
+                        <div class="tip-avatar">
+                            {{> avatar userId=_id shape="rounded" size="small" onerror=""}}
+                        </div>
+                        <a href="/user/{{_id}}">
                         <span>
                             {{name}}
                         </span>
-                    </a>
+                        </a>
                     </div>
                 </div>
                 <div class="col-sm-10 col-sm-offset-0 col-xs-11 col-xs-offset-1">

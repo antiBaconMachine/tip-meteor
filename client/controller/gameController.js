@@ -5,6 +5,7 @@ gameController = RouteController.extend({
     showGame: function () {
         var game = Games.findOne(this.params._id);
         if (game) {
+            Meteor.subscribe("players", _.pluck(game.players, "_id"));
             var user = Meteor.user();
             var currentPlayer = findPlayer(game, user._id);
             var raceSelection = null;

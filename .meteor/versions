@@ -12,6 +12,7 @@ aldeed:simple-schema@1.3.3
 amplify@1.0.0
 autoupdate@1.2.1
 base64@1.0.3
+bengott:avatar@0.7.6
 binary-heap@1.0.3
 blaze@2.1.2
 blaze-tools@1.0.3
@@ -41,6 +42,9 @@ iron:location@1.0.7
 iron:middleware-stack@1.0.7
 iron:router@1.0.7
 iron:url@1.0.7
+jparker:crypto-core@0.1.0
+jparker:crypto-md5@0.1.1
+jparker:gravatar@0.3.1
 jquery@1.11.3_2
 json@1.0.3
 launch-screen@1.0.2
@@ -86,6 +90,7 @@ spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
 standard-app-packages@1.0.5
+stylus@1.0.7
 templating@1.1.1
 tracker@1.0.7
 twitter@1.1.4
