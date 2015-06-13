@@ -154,11 +154,23 @@ legend {
 
 .player {
   background-color: @green;
-  padding: 15px 15px 15px 25px;
   margin-bottom: 5px;
   color: white;
   width: 100%;
   position: relative;
+  display: table;
+  border-spacing: 10px;
+}
+.player>* {
+  display: table-cell;
+  vertical-align: middle;
+}
+.kickPlayer {
+  width: 15px;
+}
+.tip-avatar {
+  height: 30px;
+  width: 30px;
 }
 .description {
   margin-bottom: 16px;
@@ -182,16 +194,7 @@ legend {
 .commitDate:after {
   content: ")";
 }
-.avatar {
-  float: left;
-  margin-right: 5px;
-  font-size: 1px;
-}
-.kickPlayer {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-}
+
 .rejected {
   margin-bottom: 1rem;
   font-size: small;
