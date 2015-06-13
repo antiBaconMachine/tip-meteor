@@ -17,7 +17,7 @@ gameController = RouteController.extend({
                 }
             }
             Session.set("raceSelection", raceSelection);
-            Session.set("currentGame", game);
+            Session.set("currentGame", game._id);
             Session.set("currentPlayer", currentPlayer);
         }
         this.render("showGame", {

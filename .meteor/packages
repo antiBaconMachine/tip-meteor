@@ -6,7 +6,6 @@
 standard-app-packages
 
 accounts-facebook
-
 accounts-twitter
 accounts-ui
 accounts-password
@@ -21,3 +20,9 @@ useraccounts:bootstrap
 nemo64:bootstrap
 abm:meta
 bengott:avatar
+sanjo:jasmine
+velocity:html-reporter
+velocity:console-reporter
+dburles:collection-helpers
+fixtures
+deanius:promise

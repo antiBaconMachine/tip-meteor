@@ -7,8 +7,10 @@ Template.showGame.events({
         //console.info("joining game id %s with player %s", gameId, playerId);
 
         Meteor.call("addPlayer", gameId, playerId, function(err, player) {
-            //console.info("add player cb %o", player, err);
-            Session.set("raceSelection", player.raceSelection);
+            console.info("add player cb %o", player, err);
+            var game = Games.findOne(gameId);
+            var selection = (game.selectionMethod === SELECTION_METHODS.FREE.key) ? game.selectionPool : player.raceSelection;
+            Session.set("raceSelection", selection);
         });
     },
     'click a.selectRace': function(event, template) {
@@ -22,8 +24,12 @@ Template.showGame.events({
         }))) {
             if (userId && raceId) {
                 Meteor.call("selectRace", gameId, userId, raceId, function(err, player) {
-                    Session.set("currentPlayer", player);
-                    Session.set("raceSelection");
+                    if (!err) {
+                        Session.set("currentPlayer", player);
+                        Session.set("raceSelection");
+                    } else {
+                        console.warn(err);
+                    }
                 });
             } else {
                 console.error("supply user, race and game IDs buttmunch");
@@ -55,9 +61,6 @@ Template.showGame.helpers({
     raceSelection: function() {
         var rs = Session.get("raceSelection");
         return rs;
-    },
-    raceSelections: function() {
-
     },
     screenName: function(id) {
         //TODO fix this
@@ -110,23 +113,25 @@ Template.showGame.helpers({
     playersForGame: function() {
         return this.players;
     },
-    hoverRace: function() {
-        return Session.get('hoverRace');
-    },
     isEditable: function() {
         return Meteor.user()._id === (getGame().owner);
     },
     isFull: function() {
         return this.players.length >= this.maxPlayers;
+    },
+    rejected: function() {
+        var rejected = getGame().rejected(this);
+        return rejected? rejected.join(", ") : null;
     }
 });
 
 var getLivePlayer = function(players) {
     return _(players).find(function(player) {
-        return player._id === Meteor.user()._id && player.picked;
+        return player._id === Meteor.userId() && player.picked;
     });
 };
 
 var getGame = function() {
-    return Session.get("currentGame") || {};
-}
+    var id = Session.get("currentGame");
+    return id ? Games.findOne(id) : {};
+};
