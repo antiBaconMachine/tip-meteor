@@ -120,6 +120,52 @@ describe("Game", function () {
                 .catch(done);
         });
 
+        afterAll(function (done) {
+            Games.remove(gameId, done);
+        });
+
+    });
+
+    describe("is published", function() {
+
+        it("when in the future", function(done) {
+            var d = new Date();
+            d.setDate(d.getDate() + 1);
+            insertGame(_.extend({}, TEMPLATE, {
+                date: d
+            }), function() {
+                var games = Games.find().fetch();
+                expect(_.chain(games).pluck("_id").contains(gameId).value()).toBe(true);
+                done();
+            });
+        });
+
+        it("when today", function(done) {
+            var d = new Date();
+            insertGame(_.extend({}, TEMPLATE, {
+                date: d
+            }), function() {
+                var games = Games.find().fetch();
+                expect(_.chain(games).pluck("_id").contains(gameId).value()).toBe(true);
+                done();
+            });
+        });
+
+        it("not when in past", function(done) {
+            var d = new Date();
+            d.setDate(d.getDate() - 1);
+            insertGame(_.extend({}, TEMPLATE, {
+                date: d
+            }), function() {
+                var games = Games.find().fetch();
+                expect(_.chain(games).pluck("_id").contains(gameId).value()).toBe(false);
+                done();
+            });
+        });
+
+        afterEach(function(done) {
+            Games.remove(gameId, done);
+        });
     });
 
     afterAll(function (done) {
