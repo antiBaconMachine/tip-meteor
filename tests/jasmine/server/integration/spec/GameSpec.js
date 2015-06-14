@@ -35,7 +35,7 @@ describe("Game", function () {
     };
 
     var getGame = function () {
-        return Games.find({_id: gameId}).fetch()[0];
+        return Games.findOne(gameId);
     };
 
     beforeEach(function (done) {
@@ -123,18 +123,6 @@ describe("Game", function () {
             expect(player._id).toBe(user2._id);
         });
 
-        //test is solid but must be run on client as it relies on a pub transform
-        //it("removes picked races from race pool", function() {
-        //    Meteor.call("selectRace", gameId, user1._id, pool[0]);
-        //    expect(getGame().raceSelection).not.toBeNull();
-        //    expect(_.contains(getGame().raceSelection, pool[0])).not.toBe(true);
-        //    console.log("TEST RACE SELECTION ", getGame());
-        //    expect(_.contains(getGame().raceSelection, pool[1])).toBe(true, getGame());
-        //    Meteor.call("addPlayer", gameId, user2._id);
-        //    Meteor.call("selectRace", gameId, user2._id, pool[0]);
-        //    expect(_.contains(getGame().raceSelection, pool[1])).not.toBe(true, "races are not being removed from shared pool");
-        //});
-
     });
 
     describe("(In random mode)", function () {
@@ -160,6 +148,15 @@ describe("Game", function () {
             expect(function () {
                 Meteor.call("addPlayer", gameId, user4._id);
             }).toThrow();
+        });
+
+        it("randomly orders players when game is closed", function() {
+            Meteor.call("addPlayer", gameId, user1._id);
+            Meteor.call("addPlayer", gameId, user2._id);
+            Meteor.call("addPlayer", gameId, user3._id);
+            Meteor.call("closeGame", gameId);
+            var order = _.chain(getGame().players).pluck("order").compact().sort().value();
+            expect(order).toEqual([1,2,3]);
         });
 
     });

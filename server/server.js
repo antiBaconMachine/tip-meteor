@@ -171,6 +171,16 @@ Meteor.startup(function() {
             }
             Games.update({_id: gameId, "players._id": playerId}, {$set: update});
             return player;
+        },
+        closeGame: function(gameId) {
+            var game = Games.find(gameId);
+            var i=1;
+            var players = _.chain(game.players).map(function(player) {
+                player.order = i++;
+                return player;
+            }).value();
+            console.log(players);
+            Games.update({_id: gameId}, {$set: {players: players}});
         }
     });
 });
